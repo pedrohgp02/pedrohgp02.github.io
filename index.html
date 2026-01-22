@@ -4,447 +4,405 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Pedro Paiva — Portfolio</title>
-  <meta name="description" content="Minimal portfolio of Pedro Paiva — projects, experience, and contact." />
+  <meta name="description" content="Pedro Paiva — minimal portfolio." />
 
-  <!-- Inter font -->
+  <!-- Clean serif + modern sans combo -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg: #0b0f17;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.04);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.66);
-      --faint: rgba(255,255,255,.45);
-      --border: rgba(255,255,255,.10);
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius: 18px;
+      /* Paper + ink */
+      --bg: #fbfaf7;
+      --ink: #1f2430;
+      --muted: rgba(31,36,48,.68);
+      --faint: rgba(31,36,48,.46);
+
+      /* Pastel accents (tweak these) */
+      --peach: #ffd6c9;
+      --mint:  #cfeee3;
+      --lilac: #e4dcff;
+      --butter:#fff1b8;
+
+      /* Layout */
       --max: 980px;
-      --accent: 120, 180, 255; /* tweak accent color (RGB) */
+      --r: 18px;
+      --line: rgba(31,36,48,.10);
+      --shadow: 0 18px 40px rgba(31,36,48,.08);
     }
 
-    *{ box-sizing: border-box; }
+    *{ box-sizing:border-box; }
     html,body{ height:100%; }
     body{
       margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
       background:
-        radial-gradient(1200px 800px at 20% -10%, rgba(var(--accent), .18), transparent 60%),
-        radial-gradient(1000px 800px at 110% 10%, rgba(160, 255, 220, .10), transparent 55%),
-        radial-gradient(900px 700px at 40% 110%, rgba(255, 160, 230, .10), transparent 55%),
+        radial-gradient(900px 600px at 10% 5%, rgba(255,214,201,.55), transparent 60%),
+        radial-gradient(900px 600px at 95% 8%, rgba(207,238,227,.55), transparent 60%),
+        radial-gradient(900px 600px at 25% 105%, rgba(228,220,255,.55), transparent 60%),
         var(--bg);
-      line-height: 1.55;
+      color: var(--ink);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.6;
     }
 
     a{ color: inherit; text-decoration: none; }
     a:hover{ text-decoration: underline; text-underline-offset: 4px; }
+
     .wrap{
       max-width: var(--max);
       margin: 0 auto;
-      padding: 28px 20px 60px;
+      padding: 26px 18px 56px;
     }
 
-    /* Top nav */
-    .nav{
+    /* Top bar */
+    .top{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:16px;
-      padding: 10px 6px 18px;
+      gap:14px;
+      padding: 6px 2px 18px;
     }
-    .brand{
-      display:flex; align-items:center; gap:10px;
+
+    .name{
+      font-family: Fraunces, ui-serif, Georgia, serif;
       font-weight: 600;
-      letter-spacing: .2px;
+      letter-spacing: -0.2px;
+      font-size: 18px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      white-space: nowrap;
     }
-    .dot{
-      width: 10px; height:10px; border-radius: 999px;
-      background: rgb(var(--accent));
-      box-shadow: 0 0 0 6px rgba(var(--accent), .14);
+    .mark{
+      width: 11px; height: 11px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--peach), var(--mint));
+      border: 1px solid rgba(31,36,48,.14);
     }
-    .links{
-      display:flex; gap:14px; flex-wrap:wrap;
+
+    .nav{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
       color: var(--muted);
+      font-size: 13px;
       font-weight: 500;
-      font-size: 14px;
     }
-    .links a{ padding: 8px 10px; border-radius: 10px; }
-    .links a:hover{
-      background: rgba(255,255,255,.06);
+    .nav a{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .nav a:hover{
       text-decoration:none;
-      color: var(--text);
+      color: var(--ink);
+      border-color: rgba(31,36,48,.12);
+      background: rgba(255,255,255,.55);
     }
 
     /* Hero */
     .hero{
-      margin-top: 10px;
-      padding: 26px 22px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border: 1px solid rgba(31,36,48,.10);
+      border-radius: var(--r);
+      background: rgba(255,255,255,.62);
       box-shadow: var(--shadow);
+      padding: 22px 18px;
       position: relative;
       overflow:hidden;
     }
+
     .hero:before{
       content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(500px 200px at 15% 0%, rgba(var(--accent), .20), transparent 60%);
+      position:absolute;
+      inset:-40px -60px auto auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle at 30% 30%, var(--butter), transparent 60%);
+      opacity:.65;
+      transform: rotate(8deg);
       pointer-events:none;
-      opacity:.9;
     }
-    .hero-inner{ position: relative; display:grid; gap: 14px; }
+
     .kicker{
       color: var(--muted);
+      font-size: 13px;
       font-weight: 500;
-      font-size: 14px;
-      letter-spacing: .3px;
+      margin: 0 0 10px;
     }
+
     h1{
       margin:0;
-      font-size: clamp(28px, 5vw, 44px);
+      font-family: Fraunces, ui-serif, Georgia, serif;
+      font-weight: 600;
       letter-spacing: -0.6px;
-      line-height: 1.08;
+      line-height: 1.12;
+      font-size: clamp(28px, 4.8vw, 44px);
     }
+
     .subtitle{
-      max-width: 62ch;
+      margin: 12px 0 0;
       color: var(--muted);
-      margin: 0;
-      font-size: 16px;
+      max-width: 62ch;
+      font-size: 15px;
     }
-    .cta{
+
+    .actions{
       display:flex;
-      gap: 12px;
-      flex-wrap:wrap;
-      margin-top: 8px;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
     }
+
     .btn{
       display:inline-flex;
       align-items:center;
-      gap:10px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(31,36,48,.12);
+      background: rgba(255,255,255,.75);
+      color: var(--ink);
       font-weight: 600;
-      font-size: 14px;
-      text-decoration:none;
-    }
-    .btn:hover{
-      background: rgba(255,255,255,.10);
-      text-decoration:none;
-    }
-    .btn.primary{
-      border-color: rgba(var(--accent), .55);
-      background: rgba(var(--accent), .16);
-    }
-    .btn.primary:hover{
-      background: rgba(var(--accent), .22);
-    }
-    .meta{
-      display:flex; gap: 10px; flex-wrap:wrap;
-      margin-top: 8px;
-      color: var(--faint);
       font-size: 13px;
     }
-    .pill{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.04);
+    .btn:hover{ text-decoration:none; background: rgba(255,255,255,.95); }
+
+    .btn.primary{
+      border-color: rgba(31,36,48,.10);
+      background: linear-gradient(135deg, rgba(255,214,201,.65), rgba(207,238,227,.65));
+    }
+    .btn.primary:hover{
+      background: linear-gradient(135deg, rgba(255,214,201,.80), rgba(207,238,227,.80));
     }
 
     /* Sections */
-    section{ margin-top: 28px; }
+    section{ margin-top: 26px; }
     .section-head{
       display:flex;
-      align-items:baseline;
-      justify-content:space-between;
+      align-items: baseline;
+      justify-content: space-between;
       gap: 12px;
-      margin: 6px 4px 12px;
+      padding: 0 2px;
+      margin-bottom: 10px;
     }
     h2{
       margin:0;
-      font-size: 16px;
+      font-size: 14px;
       letter-spacing: .2px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: rgba(31,36,48,.78);
     }
     .hint{
       margin:0;
-      color: var(--faint);
       font-size: 13px;
+      color: var(--faint);
     }
 
-    /* Cards */
-    .grid{
+    /* Project list (minimal, not “cards everywhere”) */
+    .list{
+      border: 1px solid rgba(31,36,48,.10);
+      border-radius: var(--r);
+      background: rgba(255,255,255,.62);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .row{
       display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      padding: 14px 16px;
+      border-top: 1px solid rgba(31,36,48,.08);
     }
-    .card{
-      grid-column: span 12;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.05);
-      padding: 16px 16px 14px;
-      box-shadow: 0 8px 22px rgba(0,0,0,.25);
-      transition: transform .15s ease, background .15s ease;
-    }
-    .card:hover{
-      transform: translateY(-2px);
-      background: rgba(255,255,255,.07);
-    }
+    .row:first-child{ border-top: none; }
+
     @media (min-width: 760px){
-      .card.half{ grid-column: span 6; }
-      .card.third{ grid-column: span 4; }
+      .row{
+        grid-template-columns: 1.2fr 1fr;
+        align-items: start;
+        gap: 16px;
+      }
     }
-    .card-top{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 12px;
-      margin-bottom: 6px;
-    }
-    .title{
+
+    .proj-title{
       margin:0;
+      font-weight: 650;
       font-size: 15px;
-      font-weight: 700;
       letter-spacing: -0.2px;
+      display:flex;
+      align-items:center;
+      gap:10px;
     }
-    .tag{
-      color: rgba(var(--accent), .95);
-      background: rgba(var(--accent), .12);
-      border: 1px solid rgba(var(--accent), .30);
-      padding: 6px 10px;
+    .badge{
+      width: 10px; height:10px;
       border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-      white-space:nowrap;
+      border: 1px solid rgba(31,36,48,.12);
+      background: var(--lilac);
     }
-    .desc{
-      margin: 0;
+    .proj-desc{
+      margin: 6px 0 0;
       color: var(--muted);
       font-size: 14px;
       max-width: 70ch;
     }
-    .chips{
+
+    .proj-meta{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      color: var(--faint);
+      font-size: 13px;
+      padding-top: 2px;
+    }
+    .proj-meta a{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(31,36,48,.10);
+      background: rgba(255,255,255,.65);
+    }
+    .proj-meta a:hover{
+      text-decoration:none;
+      background: rgba(255,255,255,.92);
+    }
+
+    /* Soft “note” blocks for about/contact */
+    .note{
+      border: 1px solid rgba(31,36,48,.10);
+      border-radius: var(--r);
+      background: rgba(255,255,255,.62);
+      box-shadow: var(--shadow);
+      padding: 16px 16px;
+    }
+    .note p{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 72ch;
+    }
+    .tags{
       display:flex;
       flex-wrap:wrap;
       gap: 8px;
       margin-top: 12px;
-      color: var(--faint);
+      color: rgba(31,36,48,.70);
       font-size: 12px;
-    }
-    .chip{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.03);
-    }
-    .card-links{
-      display:flex;
-      gap: 12px;
-      margin-top: 12px;
-      color: var(--text);
       font-weight: 600;
-      font-size: 13px;
     }
-    .card-links a{
-      color: var(--text);
-      opacity: .9;
+    .tag{
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(31,36,48,.10);
+      background: rgba(255,255,255,.70);
     }
-    .card-links a:hover{ opacity: 1; }
 
-    /* Footer */
     footer{
-      margin-top: 34px;
-      padding: 18px 6px 0;
+      margin-top: 30px;
+      padding: 12px 4px 0;
       color: var(--faint);
       font-size: 13px;
       display:flex;
-      justify-content:space-between;
-      flex-wrap:wrap;
+      justify-content: space-between;
       gap: 10px;
+      flex-wrap: wrap;
     }
-    .sep{ opacity:.55; }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <!-- NAV -->
-    <div class="nav">
-      <div class="brand">
-        <span class="dot" aria-hidden="true"></span>
-        <span>Pedro Paiva</span>
-      </div>
-      <div class="links">
+    <!-- TOP -->
+    <div class="top">
+      <div class="name"><span class="mark" aria-hidden="true"></span> Pedro Paiva</div>
+      <nav class="nav">
         <a href="#projects">Projects</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
-        <!-- Optional: resume link -->
-        <a href="https://drive.google.com/" target="_blank" rel="noreferrer">Resume</a>
-      </div>
+        <a href="#" target="_blank" rel="noreferrer">Resume</a>
+      </nav>
     </div>
 
     <!-- HERO -->
     <header class="hero">
-      <div class="hero-inner">
-        <div class="kicker">Data / Product / CS • Buenos Aires (remote-friendly)</div>
-        <h1>Building calm, useful products — with clean data and clear thinking.</h1>
-        <p class="subtitle">
-          I’m Pedro, a CS/Data student who ships projects in analytics, ML, and product. I like practical systems,
-          careful causal reasoning, and simple interfaces that feel good to use.
-        </p>
+      <p class="kicker">CS/Data • curious builder • calm, practical work</p>
+      <h1>Hi — I’m Pedro.<br/>I build simple things that make life easier.</h1>
+      <p class="subtitle">
+        I like projects that start messy and end clear: data → decisions → a useful result.
+        Here are a few pieces of work I’m proud of.
+      </p>
 
-        <div class="cta">
-          <a class="btn primary" href="#projects">See projects →</a>
-          <a class="btn" href="mailto:you@email.com">Email</a>
-          <a class="btn" href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">GitHub</a>
-          <a class="btn" href="https://www.linkedin.com/in/yourprofile/" target="_blank" rel="noreferrer">LinkedIn</a>
-        </div>
-
-        <div class="meta">
-          <span class="pill">Currently: open to internships</span>
-          <span class="pill">Interests: Causal Inference • ML • Product</span>
-        </div>
+      <div class="actions">
+        <a class="btn primary" href="#projects">View projects</a>
+        <a class="btn" href="mailto:you@email.com">Email</a>
+        <a class="btn" href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/yourprofile/" target="_blank" rel="noreferrer">LinkedIn</a>
       </div>
     </header>
 
     <!-- PROJECTS -->
     <section id="projects">
       <div class="section-head">
-        <h2>Selected projects</h2>
-        <p class="hint">3–5 strong projects is enough. Link repo + demo.</p>
+        <h2>Projects</h2>
+        <p class="hint">Short, human explanations. Links if you want details.</p>
       </div>
 
-      <div class="grid">
-        <!-- Project 1 -->
-        <article class="card half">
-          <div class="card-top">
-            <div>
-              <h3 class="title">Disease Forecasting Dashboard</h3>
-              <p class="desc">
-                Forecast weekly case counts 1–6 weeks ahead using public epidemiology data + weather covariates,
-                with uncertainty bands and baseline comparisons.
-              </p>
-            </div>
-            <span class="tag">ML</span>
+      <div class="list">
+        <div class="row">
+          <div>
+            <p class="proj-title"><span class="badge" style="background: var(--peach)"></span> Disease Forecasting</p>
+            <p class="proj-desc">
+              Predicts weekly case counts 1–6 weeks ahead using public data + weather.
+              Includes uncertainty and compares models to simple baselines.
+            </p>
           </div>
-
-          <div class="chips">
-            <span class="chip">Python</span>
-            <span class="chip">Time Series</span>
-            <span class="chip">Uncertainty</span>
-            <span class="chip">Dashboard</span>
-          </div>
-
-          <div class="card-links">
+          <div class="proj-meta">
             <a href="https://github.com/yourusername/yourrepo" target="_blank" rel="noreferrer">Repo</a>
-            <span class="sep">•</span>
-            <a href="https://your-demo-link.com" target="_blank" rel="noreferrer">Live demo</a>
-          </div>
-        </article>
-
-        <!-- Project 2 -->
-        <article class="card half">
-          <div class="card-top">
-            <div>
-              <h3 class="title">Policy Impact (DiD) Analysis</h3>
-              <p class="desc">
-                Difference-in-Differences on a state–year panel to estimate policy effects. Includes robustness checks,
-                event-study plots, and clear assumptions.
-              </p>
-            </div>
-            <span class="tag">Causal</span>
-          </div>
-
-          <div class="chips">
-            <span class="chip">Python/R</span>
-            <span class="chip">DiD</span>
-            <span class="chip">Event study</span>
-            <span class="chip">Panels</span>
-          </div>
-
-          <div class="card-links">
-            <a href="https://github.com/yourusername/yourrepo" target="_blank" rel="noreferrer">Repo</a>
-            <span class="sep">•</span>
+            <a href="https://your-demo-link.com" target="_blank" rel="noreferrer">Demo</a>
             <a href="#" target="_blank" rel="noreferrer">Write-up</a>
           </div>
-        </article>
+        </div>
 
-        <!-- Project 3 -->
-        <article class="card third">
-          <div class="card-top">
-            <div>
-              <h3 class="title">Bayesian Modeling Notebook</h3>
-              <p class="desc">
-                Posterior inference + credible intervals, diagnostics, and posterior predictive checks.
-              </p>
-            </div>
-            <span class="tag">Bayes</span>
+        <div class="row">
+          <div>
+            <p class="proj-title"><span class="badge" style="background: var(--mint)"></span> Policy Impact Study</p>
+            <p class="proj-desc">
+              Estimates the effect of a policy using a state–year panel and transparent assumptions.
+              Visualizes pre-trends and robustness checks.
+            </p>
           </div>
-
-          <div class="chips">
-            <span class="chip">PyMC</span>
-            <span class="chip">ArviZ</span>
-            <span class="chip">PPC</span>
+          <div class="proj-meta">
+            <a href="https://github.com/yourusername/yourrepo" target="_blank" rel="noreferrer">Repo</a>
+            <a href="#" target="_blank" rel="noreferrer">Report</a>
           </div>
+        </div>
 
-          <div class="card-links">
+        <div class="row">
+          <div>
+            <p class="proj-title"><span class="badge" style="background: var(--lilac)"></span> Bayesian Notebook</p>
+            <p class="proj-desc">
+              A set of notebooks showing how to reason with uncertainty using small, clear examples.
+            </p>
+          </div>
+          <div class="proj-meta">
             <a href="https://github.com/yourusername/yourrepo" target="_blank" rel="noreferrer">Repo</a>
           </div>
-        </article>
+        </div>
 
-        <!-- Project 4 -->
-        <article class="card third">
-          <div class="card-top">
-            <div>
-              <h3 class="title">Product Analytics Mini-Tool</h3>
-              <p class="desc">
-                Small analytics pipeline + clean metrics definitions (retention, funnels, cohorts).
-              </p>
-            </div>
-            <span class="tag">Product</span>
+        <div class="row">
+          <div>
+            <p class="proj-title"><span class="badge" style="background: var(--butter)"></span> Network Simulation</p>
+            <p class="proj-desc">
+              Simulates flows on a network and compares scenarios with a few simple metrics.
+            </p>
           </div>
-
-          <div class="chips">
-            <span class="chip">SQL</span>
-            <span class="chip">Metrics</span>
-            <span class="chip">Cohorts</span>
-          </div>
-
-          <div class="card-links">
+          <div class="proj-meta">
             <a href="https://github.com/yourusername/yourrepo" target="_blank" rel="noreferrer">Repo</a>
           </div>
-        </article>
-
-        <!-- Project 5 -->
-        <article class="card third">
-          <div class="card-top">
-            <div>
-              <h3 class="title">Network Simulation</h3>
-              <p class="desc">
-                Simulation on road networks with congestion metrics and scenario comparisons.
-              </p>
-            </div>
-            <span class="tag">Systems</span>
-          </div>
-
-          <div class="chips">
-            <span class="chip">NetworkX</span>
-            <span class="chip">OSMnx</span>
-            <span class="chip">Simulation</span>
-          </div>
-
-          <div class="card-links">
-            <a href="https://github.com/yourusername/yourrepo" target="_blank" rel="noreferrer">Repo</a>
-          </div>
-        </article>
+        </div>
       </div>
     </section>
 
@@ -452,46 +410,46 @@
     <section id="about">
       <div class="section-head">
         <h2>About</h2>
-        <p class="hint">Keep it short; make it specific.</p>
+        <p class="hint">A few lines is enough.</p>
       </div>
 
-      <article class="card">
-        <p class="desc" style="margin-bottom:10px;">
-          I’m a CS/Data student focused on building end-to-end projects: data collection → modeling →
-          evaluation → communication. I care about clean assumptions, simple UX, and shipping.
+      <div class="note">
+        <p>
+          I’m a CS/Data student who enjoys turning vague questions into clear outputs.
+          I care about communication as much as the analysis — the goal is something people can actually use.
         </p>
-        <div class="chips">
-          <span class="chip">Python</span>
-          <span class="chip">SQL</span>
-          <span class="chip">ML</span>
-          <span class="chip">Causal Inference</span>
-          <span class="chip">Product Thinking</span>
+
+        <div class="tags">
+          <span class="tag">Data & storytelling</span>
+          <span class="tag">Causal thinking</span>
+          <span class="tag">Small tools</span>
+          <span class="tag">Practical ML</span>
         </div>
-      </article>
+      </div>
     </section>
 
     <!-- CONTACT -->
     <section id="contact">
       <div class="section-head">
         <h2>Contact</h2>
-        <p class="hint">Best: email + LinkedIn.</p>
+        <p class="hint">Say hi.</p>
       </div>
 
-      <article class="card">
-        <p class="desc">
-          If you’re hiring for internships or want to collaborate, feel free to reach out.
+      <div class="note">
+        <p>
+          If you want to collaborate or chat about projects, feel free to reach out.
         </p>
-        <div class="cta" style="margin-top:12px;">
+        <div class="actions" style="margin-top:12px;">
           <a class="btn primary" href="mailto:you@email.com">you@email.com</a>
           <a class="btn" href="https://www.linkedin.com/in/yourprofile/" target="_blank" rel="noreferrer">LinkedIn</a>
           <a class="btn" href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">GitHub</a>
         </div>
-      </article>
+      </div>
     </section>
 
     <footer>
       <span>© <span id="year"></span> Pedro Paiva</span>
-      <span>Built with plain HTML/CSS • Hosted on GitHub Pages</span>
+      <span>Minimal HTML • GitHub Pages</span>
     </footer>
   </div>
 
