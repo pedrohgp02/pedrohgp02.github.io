@@ -1,24 +1,502 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Your Name — Portfolio</title>
-  </head>
-  <body>
-    <h1>Your Name</h1>
-    <p>Short intro: what you do + what you're looking for.</p>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pedro Paiva — Portfolio</title>
+  <meta name="description" content="Minimal portfolio of Pedro Paiva — projects, experience, and contact." />
 
-    <h2>Projects</h2>
-    <ul>
-      <li><a href="https://github.com/yourusername/project1">Project 1</a> — one-line description</li>
-      <li><a href="https://github.com/yourusername/project2">Project 2</a> — one-line description</li>
-    </ul>
+  <!-- Inter font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <h2>Contact</h2>
-    <p>
-      <a href="mailto:you@email.com">you@email.com</a> ·
-      <a href="https://www.linkedin.com/in/yourprofile/">LinkedIn</a>
-    </p>
-  </body>
+  <style>
+    :root{
+      --bg: #0b0f17;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.04);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.66);
+      --faint: rgba(255,255,255,.45);
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --max: 980px;
+      --accent: 120, 180, 255; /* tweak accent color (RGB) */
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 800px at 20% -10%, rgba(var(--accent), .18), transparent 60%),
+        radial-gradient(1000px 800px at 110% 10%, rgba(160, 255, 220, .10), transparent 55%),
+        radial-gradient(900px 700px at 40% 110%, rgba(255, 160, 230, .10), transparent 55%),
+        var(--bg);
+      line-height: 1.55;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ text-decoration: underline; text-underline-offset: 4px; }
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+    }
+
+    /* Top nav */
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding: 10px 6px 18px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 600;
+      letter-spacing: .2px;
+    }
+    .dot{
+      width: 10px; height:10px; border-radius: 999px;
+      background: rgb(var(--accent));
+      box-shadow: 0 0 0 6px rgba(var(--accent), .14);
+    }
+    .links{
+      display:flex; gap:14px; flex-wrap:wrap;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 14px;
+    }
+    .links a{ padding: 8px 10px; border-radius: 10px; }
+    .links a:hover{
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+      color: var(--text);
+    }
+
+    /* Hero */
+    .hero{
+      margin-top: 10px;
+      padding: 26px 22px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(500px 200px at 15% 0%, rgba(var(--accent), .20), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .hero-inner{ position: relative; display:grid; gap: 14px; }
+    .kicker{
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: .3px;
+    }
+    h1{
+      margin:0;
+      font-size: clamp(28px, 5vw, 44px);
+      letter-spacing: -0.6px;
+      line-height: 1.08;
+    }
+    .subtitle{
+      max-width: 62ch;
+      color: var(--muted);
+      margin: 0;
+      font-size: 16px;
+    }
+    .cta{
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin-top: 8px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration:none;
+    }
+    .btn:hover{
+      background: rgba(255,255,255,.10);
+      text-decoration:none;
+    }
+    .btn.primary{
+      border-color: rgba(var(--accent), .55);
+      background: rgba(var(--accent), .16);
+    }
+    .btn.primary:hover{
+      background: rgba(var(--accent), .22);
+    }
+    .meta{
+      display:flex; gap: 10px; flex-wrap:wrap;
+      margin-top: 8px;
+      color: var(--faint);
+      font-size: 13px;
+    }
+    .pill{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+    }
+
+    /* Sections */
+    section{ margin-top: 28px; }
+    .section-head{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap: 12px;
+      margin: 6px 4px 12px;
+    }
+    h2{
+      margin:0;
+      font-size: 16px;
+      letter-spacing: .2px;
+    }
+    .hint{
+      margin:0;
+      color: var(--faint);
+      font-size: 13px;
+    }
+
+    /* Cards */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .card{
+      grid-column: span 12;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.05);
+      padding: 16px 16px 14px;
+      box-shadow: 0 8px 22px rgba(0,0,0,.25);
+      transition: transform .15s ease, background .15s ease;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.07);
+    }
+    @media (min-width: 760px){
+      .card.half{ grid-column: span 6; }
+      .card.third{ grid-column: span 4; }
+    }
+    .card-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .title{
+      margin:0;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+    }
+    .tag{
+      color: rgba(var(--accent), .95);
+      background: rgba(var(--accent), .12);
+      border: 1px solid rgba(var(--accent), .30);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space:nowrap;
+    }
+    .desc{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 70ch;
+    }
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin-top: 12px;
+      color: var(--faint);
+      font-size: 12px;
+    }
+    .chip{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+    }
+    .card-links{
+      display:flex;
+      gap: 12px;
+      margin-top: 12px;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .card-links a{
+      color: var(--text);
+      opacity: .9;
+    }
+    .card-links a:hover{ opacity: 1; }
+
+    /* Footer */
+    footer{
+      margin-top: 34px;
+      padding: 18px 6px 0;
+      color: var(--faint);
+      font-size: 13px;
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap: 10px;
+    }
+    .sep{ opacity:.55; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- NAV -->
+    <div class="nav">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Pedro Paiva</span>
+      </div>
+      <div class="links">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <!-- Optional: resume link -->
+        <a href="https://drive.google.com/" target="_blank" rel="noreferrer">Resume</a>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="kicker">Data / Product / CS • Buenos Aires (remote-friendly)</div>
+        <h1>Building calm, useful products — with clean data and clear thinking.</h1>
+        <p class="subtitle">
+          I’m Pedro, a CS/Data student who ships projects in analytics, ML, and product. I like practical systems,
+          careful causal reasoning, and simple interfaces that feel good to use.
+        </p>
+
+        <div class="cta">
+          <a class="btn primary" href="#projects">See projects →</a>
+          <a class="btn" href="mailto:you@email.com">Email</a>
+          <a class="btn" href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn" href="https://www.linkedin.com/in/yourprofile/" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+
+        <div class="meta">
+          <span class="pill">Currently: open to internships</span>
+          <span class="pill">Interests: Causal Inference • ML • Product</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-head">
+        <h2>Selected projects</h2>
+        <p class="hint">3–5 strong projects is enough. Link repo + demo.</p>
+      </div>
+
+      <div class="grid">
+        <!-- Project 1 -->
+        <article class="card half">
+          <div class="card-top">
+            <div>
+              <h3 class="title">Disease Forecasting Dashboard</h3>
+              <p class="desc">
+                Forecast weekly case counts 1–6 weeks ahead using public epidemiology data + weather covariates,
+                with uncertainty bands and baseline comparisons.
+              </p>
+            </div>
+            <span class="tag">ML</span>
+          </div>
+
+          <div class="chips">
+            <span class="chip">Python</span>
+            <span class="chip">Time Series</span>
+            <span class="chip">Uncertainty</span>
+            <span class="chip">Dashboard</span>
+          </div>
+
+          <div class="card-links">
+            <a href="https://github.com/yourusername/yourrepo" target="_blank" rel="noreferrer">Repo</a>
+            <span class="sep">•</span>
+            <a href="https://your-demo-link.com" target="_blank" rel="noreferrer">Live demo</a>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="card half">
+          <div class="card-top">
+            <div>
+              <h3 class="title">Policy Impact (DiD) Analysis</h3>
+              <p class="desc">
+                Difference-in-Differences on a state–year panel to estimate policy effects. Includes robustness checks,
+                event-study plots, and clear assumptions.
+              </p>
+            </div>
+            <span class="tag">Causal</span>
+          </div>
+
+          <div class="chips">
+            <span class="chip">Python/R</span>
+            <span class="chip">DiD</span>
+            <span class="chip">Event study</span>
+            <span class="chip">Panels</span>
+          </div>
+
+          <div class="card-links">
+            <a href="https://github.com/yourusername/yourrepo" target="_blank" rel="noreferrer">Repo</a>
+            <span class="sep">•</span>
+            <a href="#" target="_blank" rel="noreferrer">Write-up</a>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="card third">
+          <div class="card-top">
+            <div>
+              <h3 class="title">Bayesian Modeling Notebook</h3>
+              <p class="desc">
+                Posterior inference + credible intervals, diagnostics, and posterior predictive checks.
+              </p>
+            </div>
+            <span class="tag">Bayes</span>
+          </div>
+
+          <div class="chips">
+            <span class="chip">PyMC</span>
+            <span class="chip">ArviZ</span>
+            <span class="chip">PPC</span>
+          </div>
+
+          <div class="card-links">
+            <a href="https://github.com/yourusername/yourrepo" target="_blank" rel="noreferrer">Repo</a>
+          </div>
+        </article>
+
+        <!-- Project 4 -->
+        <article class="card third">
+          <div class="card-top">
+            <div>
+              <h3 class="title">Product Analytics Mini-Tool</h3>
+              <p class="desc">
+                Small analytics pipeline + clean metrics definitions (retention, funnels, cohorts).
+              </p>
+            </div>
+            <span class="tag">Product</span>
+          </div>
+
+          <div class="chips">
+            <span class="chip">SQL</span>
+            <span class="chip">Metrics</span>
+            <span class="chip">Cohorts</span>
+          </div>
+
+          <div class="card-links">
+            <a href="https://github.com/yourusername/yourrepo" target="_blank" rel="noreferrer">Repo</a>
+          </div>
+        </article>
+
+        <!-- Project 5 -->
+        <article class="card third">
+          <div class="card-top">
+            <div>
+              <h3 class="title">Network Simulation</h3>
+              <p class="desc">
+                Simulation on road networks with congestion metrics and scenario comparisons.
+              </p>
+            </div>
+            <span class="tag">Systems</span>
+          </div>
+
+          <div class="chips">
+            <span class="chip">NetworkX</span>
+            <span class="chip">OSMnx</span>
+            <span class="chip">Simulation</span>
+          </div>
+
+          <div class="card-links">
+            <a href="https://github.com/yourusername/yourrepo" target="_blank" rel="noreferrer">Repo</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-head">
+        <h2>About</h2>
+        <p class="hint">Keep it short; make it specific.</p>
+      </div>
+
+      <article class="card">
+        <p class="desc" style="margin-bottom:10px;">
+          I’m a CS/Data student focused on building end-to-end projects: data collection → modeling →
+          evaluation → communication. I care about clean assumptions, simple UX, and shipping.
+        </p>
+        <div class="chips">
+          <span class="chip">Python</span>
+          <span class="chip">SQL</span>
+          <span class="chip">ML</span>
+          <span class="chip">Causal Inference</span>
+          <span class="chip">Product Thinking</span>
+        </div>
+      </article>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-head">
+        <h2>Contact</h2>
+        <p class="hint">Best: email + LinkedIn.</p>
+      </div>
+
+      <article class="card">
+        <p class="desc">
+          If you’re hiring for internships or want to collaborate, feel free to reach out.
+        </p>
+        <div class="cta" style="margin-top:12px;">
+          <a class="btn primary" href="mailto:you@email.com">you@email.com</a>
+          <a class="btn" href="https://www.linkedin.com/in/yourprofile/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btn" href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      <span>© <span id="year"></span> Pedro Paiva</span>
+      <span>Built with plain HTML/CSS • Hosted on GitHub Pages</span>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
