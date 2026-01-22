@@ -6,49 +6,50 @@
   <title>Pedro Paiva — Portfolio</title>
   <meta name="description" content="Pedro Paiva — minimal portfolio." />
 
-  <!-- Soft serif + clean sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      /* Paper */
-      --bg: #fbfaf7;
-      --surface: rgba(255,255,255,.78);
-
-      /* Ink */
+      /* Base */
+      --bg: #fbfbf8;          /* warm paper */
+      --surface: rgba(255,255,255,.80);
       --ink: #1f2430;
       --muted: rgba(31,36,48,.68);
       --faint: rgba(31,36,48,.48);
 
-      /* Pastels */
-      --peach: #ffd6c9;
-      --mint:  #cfeee3;
-      --lilac: #e4dcff;
-      --butter:#fff1b8;
+      /* Monochrome pastel green (tweak these only) */
+      --g-1: #e9f6ef;  /* very light wash */
+      --g-2: #d9f0e4;  /* soft */
+      --g-3: #c6e6d6;  /* mid */
+      --g-4: #a9d7c1;  /* stronger accent */
 
-      /* Lines + radius */
+      /* Lines */
       --line: rgba(31,36,48,.12);
       --line2: rgba(31,36,48,.08);
+
       --r: 18px;
       --max: 1040px;
 
-      /* Very subtle shadow only (no “flying”) */
+      /* very subtle (no “flying”) */
       --shadow: 0 6px 18px rgba(31,36,48,.06);
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
+
     body{
       margin:0;
       color: var(--ink);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       line-height: 1.65;
+
+      /* Green-only background */
       background:
-        radial-gradient(900px 600px at 10% 5%, rgba(255,214,201,.55), transparent 60%),
-        radial-gradient(900px 600px at 95% 8%, rgba(207,238,227,.55), transparent 60%),
-        radial-gradient(900px 600px at 25% 105%, rgba(228,220,255,.55), transparent 60%),
+        radial-gradient(950px 650px at 12% 8%, rgba(198,230,214,.85), transparent 62%),
+        radial-gradient(900px 650px at 95% 12%, rgba(217,240,228,.90), transparent 62%),
+        radial-gradient(900px 650px at 25% 105%, rgba(169,215,193,.55), transparent 62%),
         var(--bg);
     }
 
@@ -81,7 +82,7 @@
     }
     .mark{
       width: 11px; height: 11px; border-radius: 999px;
-      background: linear-gradient(135deg, var(--peach), var(--mint));
+      background: linear-gradient(135deg, var(--g-3), var(--g-2));
       border: 1px solid rgba(31,36,48,.14);
     }
     .nav{
@@ -102,10 +103,10 @@
       text-decoration:none;
       color: var(--ink);
       border-color: var(--line);
-      background: rgba(255,255,255,.65);
+      background: rgba(255,255,255,.70);
     }
 
-    /* Hero (flat, not floating) */
+    /* Hero */
     .hero{
       border: 1px solid var(--line);
       border-radius: var(--r);
@@ -118,11 +119,11 @@
     .hero:before{
       content:"";
       position:absolute;
-      inset:-60px -70px auto auto;
-      width: 260px;
-      height: 260px;
-      background: radial-gradient(circle at 30% 30%, var(--butter), transparent 62%);
-      opacity:.55;
+      inset:-70px -80px auto auto;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle at 30% 30%, var(--g-2), transparent 65%);
+      opacity:.9;
       transform: rotate(8deg);
       pointer-events:none;
     }
@@ -159,18 +160,19 @@
       padding: 9px 12px;
       border-radius: 999px;
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.75);
+      background: rgba(255,255,255,.78);
       color: var(--ink);
       font-weight: 600;
       font-size: 13px;
     }
-    .btn:hover{ text-decoration:none; background: rgba(255,255,255,.95); }
+    .btn:hover{ text-decoration:none; background: rgba(255,255,255,.96); }
+
     .btn.primary{
-      background: linear-gradient(135deg, rgba(255,214,201,.70), rgba(207,238,227,.70));
       border-color: rgba(31,36,48,.10);
+      background: linear-gradient(135deg, rgba(198,230,214,.95), rgba(217,240,228,.95));
     }
     .btn.primary:hover{
-      background: linear-gradient(135deg, rgba(255,214,201,.88), rgba(207,238,227,.88));
+      background: linear-gradient(135deg, rgba(169,215,193,.95), rgba(217,240,228,.98));
     }
 
     /* Sections */
@@ -197,16 +199,14 @@
       color: var(--faint);
     }
 
-    /* Projects grid like your second image (big media block) */
+    /* Projects grid */
     .projects-grid{
       display:grid;
       grid-template-columns: 1fr;
       gap: 16px;
     }
     @media (min-width: 840px){
-      .projects-grid{
-        grid-template-columns: 1fr 1fr;
-      }
+      .projects-grid{ grid-template-columns: 1fr 1fr; }
     }
 
     .project-card{
@@ -215,27 +215,29 @@
       background: var(--surface);
       overflow:hidden;
       box-shadow: var(--shadow);
-      /* NO floating / NO translate on hover */
     }
 
-    /* Large image/preview area */
+    /* Big media area: monochrome green */
     .project-media{
       aspect-ratio: 16/9;
-      background:
-        linear-gradient(135deg, rgba(255,214,201,.65), rgba(228,220,255,.60), rgba(207,238,227,.65));
+      background: linear-gradient(135deg, var(--g-2), var(--g-1));
       border-bottom: 1px solid var(--line2);
       position: relative;
     }
-
-    /* Optional: if you add <img>, make it fit nicely */
+    .project-media:after{
+      /* subtle vignette to look “designed” */
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(700px 260px at 20% 15%, rgba(255,255,255,.55), transparent 60%);
+      pointer-events:none;
+      opacity:.75;
+    }
     .project-media img{
       width:100%;
       height:100%;
       object-fit: cover;
       display:block;
     }
-
-    /* Placeholder label */
     .media-label{
       position:absolute;
       left: 14px;
@@ -243,11 +245,12 @@
       padding: 7px 10px;
       border-radius: 999px;
       border: 1px solid rgba(31,36,48,.12);
-      background: rgba(255,255,255,.75);
+      background: rgba(255,255,255,.78);
       color: rgba(31,36,48,.72);
       font-size: 12px;
       font-weight: 600;
       backdrop-filter: blur(6px);
+      z-index: 1;
     }
 
     .project-body{
@@ -255,7 +258,6 @@
       display:grid;
       gap: 10px;
     }
-
     .project-title{
       margin:0;
       font-weight: 650;
@@ -263,7 +265,6 @@
       letter-spacing: -0.2px;
       line-height: 1.25;
     }
-
     .project-sub{
       margin:0;
       color: var(--muted);
@@ -275,15 +276,15 @@
       display:flex;
       flex-wrap:wrap;
       gap: 8px;
-      color: rgba(31,36,48,.70);
       font-size: 12px;
       font-weight: 600;
+      color: rgba(31,36,48,.72);
     }
     .tag{
       padding: 7px 10px;
       border-radius: 999px;
-      border: 1px solid var(--line2);
-      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(31,36,48,.10);
+      background: rgba(217,240,228,.55); /* green-only chip */
     }
 
     .project-links{
@@ -298,8 +299,8 @@
       gap: 8px;
       padding: 8px 10px;
       border-radius: 999px;
-      border: 1px solid var(--line2);
-      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(31,36,48,.10);
+      background: rgba(255,255,255,.72);
       font-weight: 600;
       font-size: 13px;
       color: rgba(31,36,48,.88);
@@ -310,7 +311,7 @@
       border-color: var(--line);
     }
 
-    /* Notes (about/contact) */
+    /* Notes */
     .note{
       border: 1px solid var(--line);
       border-radius: var(--r);
@@ -340,7 +341,6 @@
 
 <body>
   <div class="wrap">
-    <!-- TOP -->
     <div class="top">
       <div class="name"><span class="mark" aria-hidden="true"></span> Pedro Paiva</div>
       <nav class="nav">
@@ -351,7 +351,6 @@
       </nav>
     </div>
 
-    <!-- HERO -->
     <header class="hero">
       <p class="kicker">CS/Data • curious builder • calm, practical work</p>
       <h1>Hi — I’m Pedro.<br/>I build simple things that make life easier.</h1>
@@ -368,7 +367,6 @@
       </div>
     </header>
 
-    <!-- PROJECTS -->
     <section id="projects">
       <div class="section-head">
         <h2>Projects</h2>
@@ -376,32 +374,22 @@
       </div>
 
       <div class="projects-grid">
-
-        <!-- PROJECT CARD -->
         <article class="project-card">
           <div class="project-media">
-            <!-- Option A: keep placeholder (remove img). -->
             <span class="media-label">Preview</span>
-
-            <!-- Option B: add an image (recommended)
-            <img src="assets/wildfire.png" alt="Wildfire project preview">
-            <span class="media-label">Wildfire</span>
-            -->
+            <!-- <img src="assets/wildfire.png" alt="Wildfire project preview"> -->
           </div>
-
           <div class="project-body">
             <h3 class="project-title">Wildfire Spread & Intervention Analysis</h3>
             <p class="project-sub">
               A simulation study exploring where risk concentrates and how interventions change outcomes.
               Includes clear visuals and a short report.
             </p>
-
             <div class="project-tags">
               <span class="tag">Simulation</span>
               <span class="tag">Networks</span>
               <span class="tag">Analysis</span>
             </div>
-
             <div class="project-links">
               <a class="plink" href="#" target="_blank" rel="noreferrer">Read report</a>
               <a class="plink" href="#" target="_blank" rel="noreferrer">View code</a>
@@ -409,44 +397,36 @@
           </div>
         </article>
 
-        <!-- PROJECT CARD -->
         <article class="project-card">
           <div class="project-media">
             <span class="media-label">Preview</span>
             <!-- <img src="assets/berlin-traffic.png" alt="Berlin traffic modeling preview"> -->
           </div>
-
           <div class="project-body">
             <h3 class="project-title">Berlin Traffic Modeling</h3>
             <p class="project-sub">
               Simulates congestion dynamics using open street data, then checks whether relationships hold
               on a different out-of-sample network.
             </p>
-
             <div class="project-tags">
               <span class="tag">Modeling</span>
               <span class="tag">Maps</span>
               <span class="tag">Validation</span>
             </div>
-
             <div class="project-links">
               <a class="plink" href="#" target="_blank" rel="noreferrer">Read report</a>
               <a class="plink" href="#" target="_blank" rel="noreferrer">View code</a>
             </div>
           </div>
         </article>
-
-        <!-- Add more cards by copying -->
       </div>
     </section>
 
-    <!-- ABOUT -->
     <section id="about">
       <div class="section-head">
         <h2>About</h2>
         <p class="hint">A few lines is enough.</p>
       </div>
-
       <div class="note">
         <p>
           I’m a CS/Data student who enjoys turning vague questions into clear outputs.
@@ -455,13 +435,11 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact">
       <div class="section-head">
         <h2>Contact</h2>
         <p class="hint">Say hi.</p>
       </div>
-
       <div class="note">
         <p>If you want to collaborate or chat about projects, feel free to reach out.</p>
         <div class="actions" style="margin-top:12px;">
