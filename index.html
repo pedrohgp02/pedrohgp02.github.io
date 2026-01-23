@@ -14,16 +14,16 @@
     :root{
       /* Base */
       --bg: #fbfbf8;          /* warm paper */
-      --surface: rgba(255,255,255,.80);
+      --surface: rgba(255,255,255,.84);
       --ink: #1f2430;
       --muted: rgba(31,36,48,.68);
       --faint: rgba(31,36,48,.48);
 
-      /* Monochrome pastel green (tweak these only) */
-      --g-1: #e9f6ef;  /* very light wash */
-      --g-2: #d9f0e4;  /* soft */
-      --g-3: #c6e6d6;  /* mid */
-      --g-4: #a9d7c1;  /* stronger accent */
+      /* Monochrome pastel green */
+      --g-1: #e9f6ef;
+      --g-2: #d9f0e4;
+      --g-3: #c6e6d6;
+      --g-4: #a9d7c1;
 
       /* Lines */
       --line: rgba(31,36,48,.12);
@@ -32,7 +32,7 @@
       --r: 18px;
       --max: 1040px;
 
-      /* very subtle (no “flying”) */
+      /* subtle, not “flying” */
       --shadow: 0 6px 18px rgba(31,36,48,.06);
     }
 
@@ -217,7 +217,7 @@
       box-shadow: var(--shadow);
     }
 
-    /* Big media area: monochrome green */
+    /* Big media area */
     .project-media{
       aspect-ratio: 16/9;
       background: linear-gradient(135deg, var(--g-2), var(--g-1));
@@ -225,18 +225,20 @@
       position: relative;
     }
     .project-media:after{
-      /* subtle vignette to look “designed” */
       content:"";
       position:absolute; inset:0;
       background: radial-gradient(700px 260px at 20% 15%, rgba(255,255,255,.55), transparent 60%);
       pointer-events:none;
       opacity:.75;
+      z-index: 0;
     }
     .project-media img{
       width:100%;
       height:100%;
       object-fit: cover;
       display:block;
+      position: relative;
+      z-index: 0;
     }
     .media-label{
       position:absolute;
@@ -284,7 +286,7 @@
       padding: 7px 10px;
       border-radius: 999px;
       border: 1px solid rgba(31,36,48,.10);
-      background: rgba(217,240,228,.55); /* green-only chip */
+      background: rgba(217,240,228,.55);
     }
 
     .project-links{
@@ -347,6 +349,7 @@
         <a href="#projects">Projects</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
+        <!-- If you upload a resume PDF, set href="resume.pdf" -->
         <a href="#" target="_blank" rel="noreferrer">Resume</a>
       </nav>
     </div>
@@ -361,6 +364,7 @@
 
       <div class="actions">
         <a class="btn primary" href="#projects">View projects</a>
+        <!-- Update these -->
         <a class="btn" href="mailto:you@email.com">Email</a>
         <a class="btn" href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">GitHub</a>
         <a class="btn" href="https://www.linkedin.com/in/yourprofile/" target="_blank" rel="noreferrer">LinkedIn</a>
@@ -374,56 +378,104 @@
       </div>
 
       <div class="projects-grid">
+
+        <!-- 1) Sports Attendance -->
         <article class="project-card">
           <div class="project-media">
-            <span class="media-label">Preview</span>
-            <!-- <img src="assets/wildfire.png" alt="Wildfire project preview"> -->
+            <span class="media-label">Bayesian Modeling</span>
+            <img src="assets/projects/sports-attendance.png" alt="Sports attendance project preview">
           </div>
           <div class="project-body">
-            <h3 class="project-title">Wildfire Spread & Intervention Analysis</h3>
+            <h3 class="project-title">Modeling Sports Attendance in Argentina (Bayesian Hierarchical Models)</h3>
             <p class="project-sub">
-              A simulation study exploring where risk concentrates and how interventions change outcomes.
-              Includes clear visuals and a short report.
+              Models stadium attendance using a hierarchical Negative Binomial approach to capture team and day-of-week
+              effects, quantify uncertainty, and impute missing scanner counts.
             </p>
             <div class="project-tags">
-              <span class="tag">Simulation</span>
-              <span class="tag">Networks</span>
-              <span class="tag">Analysis</span>
+              <span class="tag">PyMC</span>
+              <span class="tag">Hierarchical</span>
+              <span class="tag">Negative Binomial</span>
             </div>
             <div class="project-links">
-              <a class="plink" href="#" target="_blank" rel="noreferrer">Read report</a>
-              <a class="plink" href="#" target="_blank" rel="noreferrer">View code</a>
+              <a class="plink" href="sports_attendance.pdf" target="_blank" rel="noreferrer">Read report</a>
+              <a class="plink" href="https://github.com/pedrohgp02/modeling-sports-attendance" target="_blank" rel="noreferrer">View repo</a>
             </div>
           </div>
         </article>
 
+        <!-- 2) Cellular Automata / Wildfire -->
         <article class="project-card">
           <div class="project-media">
-            <span class="media-label">Bayesian Model</span>
-            <img src="assets/sports-attendance.png" alt="Imputed attendance by team (Bayesian hierarchical model)">
+            <span class="media-label">Simulation</span>
+            <img src="assets/projects/cellular-automata.png" alt="Cellular automata wildfire preview">
           </div>
-        
           <div class="project-body">
-            <h3 class="project-title">Modeling Sports Attendance in Argentina</h3>
-        
+            <h3 class="project-title">Wildfire Spread & Intervention Analysis (Cellular Automata)</h3>
             <p class="project-sub">
-              Bayesian hierarchical Negative Binomial model to understand how stadium attendance varies by team and day of week,
-              predict future games, and impute missing scanner counts with credible intervals.
+              A cellular automata wildfire model using canopy cover and ignition potential to explore risk concentration
+              and evaluate how simple interventions change spread patterns.
             </p>
-        
             <div class="project-tags">
-              <span class="tag">Bayesian</span>
-              <span class="tag">Hierarchical</span>
-              <span class="tag">Negative Binomial</span>
-              <span class="tag">Missing data</span>
+              <span class="tag">Cellular Automata</span>
+              <span class="tag">Monte Carlo</span>
+              <span class="tag">Complex Systems</span>
             </div>
-        
             <div class="project-links">
-              <a class="plink" href="https://pedrohgp02.github.io/sports_attendance.pdf" target="_blank" rel="noreferrer">Read report</a>
-              <a class="plink" href="https://github.com/pedrohgp02/modeling-sports-attendance" target="_blank" rel="noreferrer">View code</a>
+              <a class="plink" href="cellular-automata.pdf" target="_blank" rel="noreferrer">Read report</a>
+              <a class="plink" href="https://github.com/pedrohgp02/pedrohgp02.github.io/blob/main/cellular-automata-code.ipynb" target="_blank" rel="noreferrer">View notebook</a>
             </div>
           </div>
         </article>
+
+        <!-- 3) Traffic Simulation -->
+        <article class="project-card">
+          <div class="project-media">
+            <span class="media-label">Networks</span>
+            <img src="assets/projects/traffic-simulation.png" alt="Traffic simulation preview map">
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">Traffic Simulation with OpenStreetMap Networks</h3>
+            <p class="project-sub">
+              Simulates congestion on real street networks and visualizes where traffic accumulates. The report summarizes
+              simulation setup, outcomes, and the most congested segments.
+            </p>
+            <div class="project-tags">
+              <span class="tag">OSM</span>
+              <span class="tag">Simulation</span>
+              <span class="tag">Network Analysis</span>
+            </div>
+            <div class="project-links">
+              <a class="plink" href="traffic-simulation.pdf" target="_blank" rel="noreferrer">Read report</a>
+              <a class="plink" href="https://github.com/pedrohgp02/pedrohgp02.github.io/blob/main/traffic-simulation.ipynb" target="_blank" rel="noreferrer">View notebook</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4) Pandemic Shape -->
+        <article class="project-card">
+          <div class="project-media">
+            <span class="media-label">Time Series</span>
+            <img src="assets/projects/pandemic.png" alt="Pandemic modeling preview plot">
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">Learning the Shape of a Pandemic</h3>
+            <p class="project-sub">
+              Fits flexible regression models to epidemic case curves, compares assumptions (Normal vs. count models),
+              and evaluates uncertainty in the predicted trajectory.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Regression</span>
+              <span class="tag">Uncertainty</span>
+              <span class="tag">Model Comparison</span>
+            </div>
+            <div class="project-links">
+              <!-- If you rename this PDF to pandemic-shape.pdf, change the link here -->
+              <a class="plink" href="Learning%20the%20Shape%20of%20a%20Pandemic.pdf" target="_blank" rel="noreferrer">Read report</a>
+              <a class="plink" href="https://github.com/pedrohgp02/pedrohgp02.github.io/blob/main/Learning%20the%20Shape%20of%20a%20Pandemic.ipynb" target="_blank" rel="noreferrer">View notebook</a>
+            </div>
+          </div>
+        </article>
+
       </div>
     </section>
 
@@ -448,6 +500,7 @@
       <div class="note">
         <p>If you want to collaborate or chat about projects, feel free to reach out.</p>
         <div class="actions" style="margin-top:12px;">
+          <!-- Update these -->
           <a class="btn primary" href="mailto:you@email.com">you@email.com</a>
           <a class="btn" href="https://www.linkedin.com/in/yourprofile/" target="_blank" rel="noreferrer">LinkedIn</a>
           <a class="btn" href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">GitHub</a>
