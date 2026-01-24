@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,7 +11,7 @@
     :root{
       /* Base */
       --bg: #fbfbf8;
-      --surface: rgba(255,255,255,.92);  /* inside cards = white */
+      --surface: rgba(255,255,255,.92); /* inside cards = white */
       --ink: #1f2430;
       --muted: rgba(31,36,48,.68);
       --faint: rgba(31,36,48,.48);
@@ -28,13 +29,12 @@
       --r: 18px;
       --max: 1040px;
 
-      /* subtle */
+      /* subtle, not “flying” */
       --shadow: 0 6px 18px rgba(31,36,48,.06);
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
-    html{ scroll-behavior: smooth; }
 
     body{
       margin:0;
@@ -42,7 +42,7 @@
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
       line-height: 1.65;
 
-      /* Page background (keep) */
+      /* Page background */
       background:
         radial-gradient(950px 650px at 12% 8%, rgba(198,230,214,.85), transparent 62%),
         radial-gradient(900px 650px at 95% 12%, rgba(217,240,228,.90), transparent 62%),
@@ -94,7 +94,6 @@
       padding: 8px 10px;
       border-radius: 999px;
       border: 1px solid transparent;
-      transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
     }
     .nav a:hover{
       text-decoration:none;
@@ -107,7 +106,7 @@
     .hero{
       border: 1px solid var(--line);
       border-radius: var(--r);
-      background: var(--surface); /* white inside */
+      background: var(--surface);
       padding: 26px 18px 22px;
       box-shadow: var(--shadow);
       position: relative;
@@ -118,8 +117,7 @@
       align-items: center;
       text-align: center;
     }
-    /* removed the top-right green blob */
-    .hero:before{ content:none; }
+    .hero:before{ content:none; } /* no top-right blob */
 
     .kicker{
       margin:0 0 12px;
@@ -139,14 +137,13 @@
       max-width: 78ch;
     }
 
-    /* About text (centered) */
     .about-text{
       margin: 14px 0 0;
       color: var(--muted);
       font-size: 16px;
       width: 100%;
       max-width: 78ch;
-      text-align: center; /* ✅ centered */
+      text-align: center; /* requested */
     }
 
     .actions{
@@ -169,7 +166,6 @@
       font-size: 14px;
       transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
     }
-    /* green hover effect */
     .btn:hover{
       text-decoration:none;
       background: rgba(217,240,228,.78);
@@ -236,11 +232,8 @@
       z-index: 1;
       transition: opacity 240ms ease;
     }
-    .project-card:hover .project-media:after{
-      opacity: .25;
-    }
+    .project-card:hover .project-media:after{ opacity: .25; }
 
-    /* No blur. Hover zoom only. */
     .project-media img{
       width:100%;
       height:100%;
@@ -252,9 +245,7 @@
       position: relative;
       z-index: 0;
     }
-    .project-card:hover .project-media img{
-      transform: scale(1.06);
-    }
+    .project-card:hover .project-media img{ transform: scale(1.06); }
 
     .media-label{
       position:absolute;
@@ -331,26 +322,126 @@
       transform: translateY(-1px);
     }
 
-    /* Resume: plain white area (no border) */
-    .resume-wrap{
-      background: rgba(255,255,255,.98);
+    /* Resume (single-page, like your screenshot) */
+    .resume-paper{
+      border: 1px solid var(--line);
       border-radius: var(--r);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      padding: 18px 18px 16px;
+    }
+    .resume-inner{
+      max-width: 860px;
+      margin: 0 auto;
+      background: rgba(255,255,255,.98);
+      border: 1px solid var(--line2);
+      border-radius: calc(var(--r) - 6px);
+      padding: 18px 20px 16px;
+    }
+
+    .r-header{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      text-align:center;
+      gap: 6px;
+    }
+    .r-name{
+      margin: 0;
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: -0.4px;
+      line-height: 1.1;
+    }
+    .r-contact{
+      margin: 0;
+      font-size: 13px;
+      color: rgba(31,36,48,.70);
+      font-weight: 700;
+      display:flex;
+      flex-wrap: wrap;
+      justify-content:center;
+      gap: 10px;
+    }
+    .r-contact a{
+      color: rgba(31,36,48,.78);
+      border-bottom: 1px solid transparent;
+    }
+    .r-contact a:hover{
+      text-decoration:none;
+      color: rgba(31,36,48,.92);
+      border-bottom-color: rgba(169,215,193,.85);
+    }
+    .r-rule{
+      height: 1px;
+      background: rgba(31,36,48,.16);
+      margin: 10px 0 12px;
+    }
+
+    .r-section{
+      margin-top: 10px;
+    }
+    .r-section-title{
+      margin: 0 0 6px;
+      font-weight: 900;
+      letter-spacing: .2px;
+      text-transform: uppercase;
+      font-size: 13px;
+      color: rgba(31,36,48,.88);
+    }
+    .r-entry{
+      margin: 0 0 10px;
+    }
+    .r-row{
+      display:flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: baseline;
+    }
+    .r-left strong{
+      font-weight: 900;
+    }
+    .r-left{
+      font-size: 14px;
+      color: rgba(31,36,48,.90);
+      font-weight: 800;
+    }
+    .r-sub{
+      margin: 2px 0 0;
+      font-size: 13px;
+      color: rgba(31,36,48,.70);
+      font-weight: 700;
+    }
+    .r-right{
+      font-size: 13px;
+      color: rgba(31,36,48,.70);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .r-bullets{
+      margin: 6px 0 0 18px;
       padding: 0;
-      overflow: hidden;
-      box-shadow: var(--shadow); /* keep it consistent; remove if you want totally flat */
+      color: rgba(31,36,48,.74);
+      font-size: 13px;
     }
-    .resume-frame{
-      width: 100%;
-      height: min(980px, 78vh);
-      border: 0;
-      display:block;
-      background: #fff;
+    .r-bullets li{ margin: 3px 0; }
+
+    .r-skills{
+      margin: 0;
+      padding-left: 18px;
+      color: rgba(31,36,48,.74);
+      font-size: 13px;
     }
-    .resume-actions{
-      padding: 18px 18px 22px;
-    }
-    .resume-actions .btn{
-      margin-top: 18px; /* ✅ more space between content end and button */
+    .r-skills li{ margin: 3px 0; }
+    .r-skills b{ color: rgba(31,36,48,.90); }
+
+    .r-pdf{
+      margin-top: 10px;
+      display:flex;
+      justify-content:center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     footer{
@@ -370,31 +461,30 @@
   <div class="wrap">
     <div class="top">
       <div class="name"><span class="mark" aria-hidden="true"></span> Pedro Paiva</div>
-      <nav class="nav">
+      <nav class="nav" aria-label="Primary">
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#resume">Resume</a>
+        <a href="#contact">Contact</a>
       </nav>
     </div>
 
-    <!-- About (hero) -->
     <header class="hero" id="about">
       <p class="kicker">CS/Data • modeling • practical work</p>
-
       <h1>Hi, I’m Pedro!</h1>
 
       <p class="about-text">
         I am a Computer Science/Data Science student at Minerva University, focused on building data-driven products end to end, from modeling and experimentation to production-ready code. I have worked on forecasting and statistical modeling projects, and I enjoy turning data into insights and scalable systems.
       </p>
 
-      <div class="actions" aria-label="Quick links">
+      <!-- Contact anchor lives here -->
+      <div class="actions" id="contact" aria-label="Quick links">
         <a class="btn" href="mailto:pedro@uni.minerva.edu">Email</a>
         <a class="btn" href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">GitHub</a>
         <a class="btn" href="https://www.linkedin.com/in/pedrohgpaiva/" target="_blank" rel="noreferrer">LinkedIn</a>
       </div>
     </header>
 
-    <!-- Projects -->
     <section id="projects">
       <div class="section-head">
         <h2>Projects</h2>
@@ -499,26 +589,182 @@
       </div>
     </section>
 
-    <!-- Resume (embedded on page) -->
     <section id="resume">
       <div class="section-head">
         <h2>Resume</h2>
       </div>
 
-      <div class="resume-wrap" aria-label="Resume PDF">
-        <!-- IMPORTANT:
-             Put your PDF in the repo root and name it exactly:
-             "CV 2.pdf"  (then this link works),
-             OR rename it to "resume.pdf" and change the src/href below.
-        -->
-        <iframe
-          class="resume-frame"
-          src="CV%202.pdf#view=FitH"
-          title="Resume PDF"
-        ></iframe>
+      <div class="resume-paper">
+        <div class="resume-inner">
 
-        <div class="resume-actions">
-          <a class="btn" href="CV%202.pdf" target="_blank" rel="noreferrer">Open PDF</a>
+          <div class="r-header">
+            <p class="r-name">Pedro Henrique Goncalves de Paiva</p>
+            <p class="r-contact">
+              <span>San Francisco, CA</span>
+              <span>•</span>
+              <a href="mailto:pedro@uni.minerva.edu">pedro@uni.minerva.edu</a>
+              <span>•</span>
+              <span>415-336-4271</span>
+              <span>•</span>
+              <a href="https://www.linkedin.com/in/pedrohgpaiva/" target="_blank" rel="noreferrer">linkedin.com/in/pedrohgpaiva</a>
+              <span>•</span>
+              <a href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">github</a>
+            </p>
+          </div>
+
+          <div class="r-rule"></div>
+
+          <div class="r-section">
+            <p class="r-section-title">Education</p>
+            <div class="r-entry">
+              <div class="r-row">
+                <div class="r-left"><strong>Minerva University</strong></div>
+                <div class="r-right">San Francisco, CA</div>
+              </div>
+              <div class="r-row" style="margin-top:2px;">
+                <div class="r-left" style="font-weight:700; color: rgba(31,36,48,.78);">
+                  B.Sc. in Computational Sciences, concentration in Data Science, GPA: 3.84/4
+                </div>
+                <div class="r-right">Aug 2023 – May 2027</div>
+              </div>
+              <ul class="r-bullets">
+                <li>Relevant Coursework: Algorithms and Data Structures, Modeling Complex Systems, Single & Multivariable Calculus, Computational Methods for Bayesian Statistics, Linear Algebra</li>
+                <li>Google Developer Student Club • Goldman Sachs – Engineering Emerging Leaders Series • Residential Instructor, Yale Young Global Scholars (STEM track), Summers 2024–2025</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="r-rule"></div>
+
+          <div class="r-section">
+            <p class="r-section-title">Skills</p>
+            <ul class="r-skills">
+              <li><b>Programming Languages:</b> Python, C, R, SQL</li>
+              <li><b>Libraries and tools:</b> NumPy, pandas, SciPy, matplotlib, PyMC, Jupyter, Git</li>
+              <li><b>CS:</b> Algorithms and data structures, dynamic programming, complexity analysis, data modeling</li>
+              <li><b>Languages:</b> Portuguese (native); English (fluent); Spanish (intermediate)</li>
+            </ul>
+          </div>
+
+          <div class="r-rule"></div>
+
+          <div class="r-section">
+            <p class="r-section-title">Projects</p>
+
+            <div class="r-entry">
+              <div class="r-row">
+                <div class="r-left"><strong>Bayesian Modeling of Sports Attendance in Argentina</strong></div>
+                <div class="r-right">Nov 2025</div>
+              </div>
+              <ul class="r-bullets">
+                <li>Built a hierarchical Negative Binomial model in PyMC to forecast stadium attendance by team and weekday</li>
+                <li>Used posterior predictive checks and PSIS-LOO to compare pooling strategies and inform scheduling and capacity planning</li>
+              </ul>
+            </div>
+
+            <div class="r-entry">
+              <div class="r-row">
+                <div class="r-left"><strong>Genealogy Reconstruction from DNA Strings, CS110 Final Project</strong></div>
+                <div class="r-right">Dec 2024</div>
+              </div>
+              <ul class="r-bullets">
+                <li>Implemented dynamic programming to compute all Longest Common Subsequences between DNA strings and built an N×N similarity matrix</li>
+                <li>Designed two approaches (greedy local strategy + global dynamic programming) and compared runtime and scaling behavior</li>
+              </ul>
+            </div>
+
+            <div class="r-entry">
+              <div class="r-row">
+                <div class="r-left"><strong>RememberMe — UC Berkeley Hack for Impact Hackathon</strong></div>
+                <div class="r-right">Feb 2024</div>
+              </div>
+              <ul class="r-bullets">
+                <li>Led a 4-person team to build an AI-assisted memory support prototype in 24 hours</li>
+                <li>Integrated TwelveLabs API & Vespa for AI-powered multimedia conversion and data retrieval with database</li>
+                <li>Won two categories: Best Hack for Quality of Life and Best Use of TwelveLabs API (out of 40 teams)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="r-rule"></div>
+
+          <div class="r-section">
+            <p class="r-section-title">Experience</p>
+
+            <div class="r-entry">
+              <div class="r-row">
+                <div class="r-left"><strong>Neuroscience Lab, Universidad Torcuato Di Tella (UTDT)</strong></div>
+                <div class="r-right">Buenos Aires, AR</div>
+              </div>
+              <div class="r-row" style="margin-top:2px;">
+                <div class="r-left" style="font-weight:700; color: rgba(31,36,48,.78);">
+                  Research Assistant — MateMarote: Building the Learning & Mood Dataset
+                </div>
+                <div class="r-right">Sep 2025 – Present</div>
+              </div>
+              <ul class="r-bullets">
+                <li>Writing R and Python pipelines to digitize, clean, and link 15+ years of handwritten mood and learning forms into analysis-ready tables</li>
+                <li>Defining the data model and QA rules for the dataset, enabling future mixed-effects modeling and large-scale analysis</li>
+              </ul>
+            </div>
+
+            <div class="r-entry">
+              <div class="r-row">
+                <div class="r-left"><strong>AURA Application Mentorship</strong></div>
+                <div class="r-right">Remote, Brazil</div>
+              </div>
+              <div class="r-row" style="margin-top:2px;">
+                <div class="r-left" style="font-weight:700; color: rgba(31,36,48,.78);">
+                  Cofounder and Mentor
+                </div>
+                <div class="r-right">Jan 2023 – Present</div>
+              </div>
+              <ul class="r-bullets">
+                <li>Owned product and curriculum roadmap for mentorship programs, using student feedback and funnel metrics to prioritize features and content; launched 3 new courses and 11 cohorts</li>
+                <li>Contributed to 400+ student acceptances; led design and rollout of AURA’s online teaching platform by defining requirements, prioritizing features, and partnering with dev/design</li>
+              </ul>
+            </div>
+
+            <div class="r-entry">
+              <div class="r-row">
+                <div class="r-left"><strong>Minerva University</strong></div>
+                <div class="r-right">San Francisco, CA</div>
+              </div>
+              <div class="r-row" style="margin-top:2px;">
+                <div class="r-left" style="font-weight:700; color: rgba(31,36,48,.78);">
+                  Teaching Assistant (Introduction to CS — Formal Analysis 50 and 51)
+                </div>
+                <div class="r-right">Aug 2024 – Present</div>
+              </div>
+              <ul class="r-bullets">
+                <li>Supported 200+ students in programming, statistics, and simulations by debugging code, reviewing algorithm design, and answering questions during office hours</li>
+                <li>Analyzed performance metrics and student feedback to identify pain points and propose curriculum tweaks</li>
+              </ul>
+            </div>
+
+            <div class="r-entry">
+              <div class="r-row">
+                <div class="r-left"><strong>Code2040 Fellows Program</strong></div>
+                <div class="r-right">Remote</div>
+              </div>
+              <div class="r-row" style="margin-top:2px;">
+                <div class="r-left" style="font-weight:700; color: rgba(31,36,48,.78);">
+                  Fellow
+                </div>
+                <div class="r-right">Sep 2024 – Jun 2025</div>
+              </div>
+              <ul class="r-bullets">
+                <li>Selected as one of 40 fellows in a 10-month program focused on software engineering and equity in tech</li>
+                <li>Built knowledge in Python with industry mentors and practiced data structures, debugging, version control, and code reviews</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="r-pdf" aria-label="Resume PDF">
+            <!-- If you rename the PDF to resume.pdf, change href to "resume.pdf" -->
+            <a class="btn" href="CV%202.pdf" target="_blank" rel="noreferrer">Open PDF</a>
+          </div>
+
         </div>
       </div>
     </section>
@@ -534,3 +780,4 @@
   </script>
 </body>
 </html>
+```
