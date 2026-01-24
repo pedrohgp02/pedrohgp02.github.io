@@ -10,7 +10,7 @@
     :root{
       /* Base */
       --bg: #fbfbf8;
-      --surface: rgba(255,255,255,.92); /* inside cards = white */
+      --surface: rgba(255,255,255,.92);
       --ink: #1f2430;
       --muted: rgba(31,36,48,.68);
       --faint: rgba(31,36,48,.48);
@@ -28,12 +28,16 @@
       --r: 18px;
       --max: 1040px;
 
-      /* subtle, not “flying” */
       --shadow: 0 6px 18px rgba(31,36,48,.06);
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
+
+    /* ✅ smooth scrolling for nav anchors */
+    html{ scroll-behavior: smooth; }
+    /* ✅ nice anchor offset so the top bar doesn't feel cramped */
+    :target{ scroll-margin-top: 18px; }
 
     body{
       margin:0;
@@ -41,7 +45,6 @@
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
       line-height: 1.65;
 
-      /* Keep page background */
       background:
         radial-gradient(950px 650px at 12% 8%, rgba(198,230,214,.85), transparent 62%),
         radial-gradient(900px 650px at 95% 12%, rgba(217,240,228,.90), transparent 62%),
@@ -105,7 +108,7 @@
     .hero{
       border: 1px solid var(--line);
       border-radius: var(--r);
-      background: var(--surface); /* ✅ white inside */
+      background: var(--surface);
       padding: 26px 18px 22px;
       box-shadow: var(--shadow);
       position: relative;
@@ -116,7 +119,6 @@
       align-items: center;
       text-align: center;
     }
-    /* ✅ removed the top-right green blob */
     .hero:before{ content:none; }
 
     .kicker{
@@ -137,14 +139,16 @@
       max-width: 78ch;
     }
 
-    /* ✅ About text (no box, no "ABOUT") */
+    /* ✅ About text centered (no left-justified rag) */
     .about-text{
       margin: 14px 0 0;
       color: var(--muted);
       font-size: 16px;
       width: 100%;
       max-width: 78ch;
-      text-align: left;
+
+      text-align: center;      /* center lines */
+      text-wrap: balance;      /* modern browsers: nicer line breaks */
     }
 
     .actions{
@@ -167,7 +171,6 @@
       font-size: 14px;
       transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
     }
-    /* ✅ green hover effect */
     .btn:hover{
       text-decoration:none;
       background: rgba(217,240,228,.78);
@@ -243,13 +246,11 @@
       opacity: .25;
     }
 
-    /* ✅ No blur. Hover zoom only. */
     .project-media img{
       width:100%;
       height:100%;
       object-fit: cover;
       display:block;
-      filter: none;
       transform: scale(1.02);
       transition: transform 260ms ease;
       will-change: transform;
@@ -335,19 +336,43 @@
       transform: translateY(-1px);
     }
 
-    /* Contact note */
-    .note{
+    /* Resume embed */
+    .resume-card{
       border: 1px solid var(--line);
       border-radius: var(--r);
       background: var(--surface);
-      padding: 16px;
       box-shadow: var(--shadow);
+      overflow:hidden;
     }
-    .note p{
+    .resume-top{
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line2);
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .resume-top p{
       margin:0;
       color: var(--muted);
       font-size: 14px;
-      max-width: 76ch;
+      max-width: 70ch;
+    }
+    .resume-actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .resume-frame{
+      width: 100%;
+      height: 920px;
+      border: 0;
+      display:block;
+      background: #fff;
+    }
+    @media (max-width: 900px){
+      .resume-frame{ height: 680px; }
     }
 
     footer{
@@ -368,23 +393,22 @@
     <div class="top">
       <div class="name"><span class="mark" aria-hidden="true"></span> Pedro Paiva</div>
       <nav class="nav">
+        <!-- ✅ About now scrolls to the hero -->
+        <a href="#about">About</a>
         <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-        <!-- If you upload a resume PDF, set href="resume.pdf" -->
-        <a href="#" target="_blank" rel="noreferrer">Resume</a>
+        <a href="#resume">Resume</a>
       </nav>
     </div>
 
-    <header class="hero">
+    <header class="hero" id="about">
       <p class="kicker">CS/Data • modeling • practical work</p>
 
       <h1>Hi, I’m Pedro!</h1>
 
-      <p class="about-text" id="about">
+      <p class="about-text">
         I am a Computer Science/Data Science student at Minerva University, focused on building data-driven products end to end, from modeling and experimentation to production-ready code. I have worked on forecasting and statistical modeling projects, and I enjoy turning data into insights and scalable systems.
       </p>
 
-      <!-- ✅ removed “View projects” -->
       <div class="actions" aria-label="Quick links">
         <a class="btn" href="mailto:pedro@uni.minerva.edu">Email</a>
         <a class="btn" href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">GitHub</a>
@@ -399,7 +423,6 @@
 
       <div class="projects-grid">
 
-        <!-- 1) Sports Attendance -->
         <article class="project-card">
           <div class="project-media">
             <span class="media-label">Bayesian Modeling</span>
@@ -423,7 +446,6 @@
           </div>
         </article>
 
-        <!-- 2) Cellular Automata / Wildfire -->
         <article class="project-card">
           <div class="project-media">
             <span class="media-label">Simulation</span>
@@ -447,7 +469,6 @@
           </div>
         </article>
 
-        <!-- 3) Traffic Simulation -->
         <article class="project-card">
           <div class="project-media">
             <span class="media-label">Networks</span>
@@ -471,7 +492,6 @@
           </div>
         </article>
 
-        <!-- 4) Pandemic Shape -->
         <article class="project-card">
           <div class="project-media">
             <span class="media-label">Time Series</span>
@@ -498,19 +518,26 @@
       </div>
     </section>
 
-    <section id="contact">
+    <section id="resume">
       <div class="section-head">
-        <h2>Contact</h2>
+        <h2>Resume</h2>
+        <p class="hint">Embedded PDF.</p>
       </div>
-      <div class="note">
-        <p>If you want to collaborate or chat about projects, feel free to reach out.</p>
 
-        <!-- ✅ left-aligned buttons -->
-        <div class="actions" style="margin-top:12px; justify-content:flex-start;">
-          <a class="btn" href="mailto:pedro@uni.minerva.edu">pedro@uni.minerva.edu</a>
-          <a class="btn" href="https://www.linkedin.com/in/pedrohgpaiva/" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a class="btn" href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">GitHub</a>
+      <div class="resume-card">
+        <div class="resume-top">
+          <p>If the embed doesn’t load, use “Open PDF”.</p>
+          <div class="resume-actions">
+            <a class="btn" href="resume.pdf" target="_blank" rel="noreferrer">Open PDF</a>
+          </div>
         </div>
+
+        <iframe
+          class="resume-frame"
+          src="resume.pdf"
+          title="Pedro Paiva Resume"
+          loading="lazy">
+        </iframe>
       </div>
     </section>
 
