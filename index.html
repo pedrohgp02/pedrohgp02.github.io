@@ -9,8 +9,8 @@
   <style>
     :root{
       /* Base */
-      --bg: #fbfbf8;          /* warm paper */
-      --surface: rgba(255,255,255,.84);
+      --bg: #fbfbf8;
+      --surface: rgba(255,255,255,.92); /* inside cards = white */
       --ink: #1f2430;
       --muted: rgba(31,36,48,.68);
       --faint: rgba(31,36,48,.48);
@@ -41,7 +41,7 @@
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
       line-height: 1.65;
 
-      /* Green-only background */
+      /* Keep page background */
       background:
         radial-gradient(950px 650px at 12% 8%, rgba(198,230,214,.85), transparent 62%),
         radial-gradient(900px 650px at 95% 12%, rgba(217,240,228,.90), transparent 62%),
@@ -67,7 +67,7 @@
       padding: 6px 2px 18px;
     }
     .name{
-      font-weight: 700;
+      font-weight: 800;
       font-size: 18px;
       letter-spacing: -0.2px;
       display:flex;
@@ -86,7 +86,7 @@
       flex-wrap: wrap;
       justify-content:flex-end;
       color: var(--muted);
-      font-weight: 600;
+      font-weight: 700;
       font-size: 13px;
     }
     .nav a{
@@ -105,56 +105,54 @@
     .hero{
       border: 1px solid var(--line);
       border-radius: var(--r);
-      background: var(--surface);
-      padding: 22px 18px;
+      background: var(--surface); /* ✅ white inside */
+      padding: 26px 18px 22px;
       box-shadow: var(--shadow);
       position: relative;
       overflow:hidden;
 
-      /* ✅ Center the “middle” content */
       display:flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
     }
-    .hero:before{
-      content:"";
-      position:absolute;
-      inset:-70px -80px auto auto;
-      width: 280px;
-      height: 280px;
-      background: radial-gradient(circle at 30% 30%, var(--g-2), transparent 65%);
-      opacity:.9;
-      transform: rotate(8deg);
-      pointer-events:none;
-    }
+    /* ✅ removed the top-right green blob */
+    .hero:before{ content:none; }
+
     .kicker{
-      margin:0 0 10px;
+      margin:0 0 12px;
       color: var(--muted);
       font-size: 13px;
-      font-weight: 600;
-      z-index: 1;
+      font-weight: 700;
       width: 100%;
-      max-width: 72ch;
+      max-width: 78ch;
     }
     h1{
       margin:0;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: -1.1px;
       line-height: 1.05;
-      font-size: clamp(32px, 5.6vw, 56px);
-      z-index: 1;
+      font-size: clamp(34px, 5.6vw, 58px);
       width: 100%;
-      max-width: 72ch;
+      max-width: 78ch;
+    }
+
+    /* ✅ About text (no box, no "ABOUT") */
+    .about-text{
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      width: 100%;
+      max-width: 78ch;
+      text-align: left;
     }
 
     .actions{
       display:flex;
       gap: 10px;
       flex-wrap:wrap;
-      margin-top: 16px;
+      margin-top: 18px;
       justify-content: center;
-      z-index: 1;
     }
     .btn{
       display:inline-flex;
@@ -163,19 +161,18 @@
       padding: 10px 14px;
       border-radius: 999px;
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.78);
+      background: rgba(255,255,255,.86);
       color: var(--ink);
-      font-weight: 700;
+      font-weight: 800;
       font-size: 14px;
+      transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
     }
-    .btn:hover{ text-decoration:none; background: rgba(255,255,255,.96); }
-
-    .btn.primary{
-      border-color: rgba(31,36,48,.10);
-      background: linear-gradient(135deg, rgba(198,230,214,.95), rgba(217,240,228,.95));
-    }
-    .btn.primary:hover{
-      background: linear-gradient(135deg, rgba(169,215,193,.95), rgba(217,240,228,.98));
+    /* ✅ green hover effect */
+    .btn:hover{
+      text-decoration:none;
+      background: rgba(217,240,228,.78);
+      border-color: rgba(169,215,193,.85);
+      transform: translateY(-1px);
     }
 
     /* Sections */
@@ -192,7 +189,7 @@
       margin:0;
       font-size: 14px;
       letter-spacing: .2px;
-      font-weight: 800;
+      font-weight: 900;
       text-transform: uppercase;
       color: rgba(31,36,48,.78);
     }
@@ -218,13 +215,12 @@
       background: var(--surface);
       overflow:hidden;
       box-shadow: var(--shadow);
-      transition: border-color 200ms ease, background 200ms ease;
+      transition: border-color 200ms ease;
     }
     .project-card:hover{
       border-color: rgba(31,36,48,.16);
     }
 
-    /* Big media area */
     .project-media{
       aspect-ratio: 16/9;
       background: linear-gradient(135deg, var(--g-2), var(--g-1));
@@ -232,8 +228,6 @@
       position: relative;
       overflow: hidden;
     }
-
-    /* Soft overlay (still OK, but no blur) */
     .project-media:after{
       content:"";
       position:absolute; inset:0;
@@ -273,10 +267,10 @@
       padding: 7px 10px;
       border-radius: 999px;
       border: 1px solid rgba(31,36,48,.12);
-      background: rgba(255,255,255,.82);
+      background: rgba(255,255,255,.86);
       color: rgba(31,36,48,.72);
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
       backdrop-filter: blur(6px);
       z-index: 2;
     }
@@ -288,7 +282,7 @@
     }
     .project-title{
       margin:0;
-      font-weight: 800;
+      font-weight: 900;
       font-size: 16px;
       letter-spacing: -0.2px;
       line-height: 1.25;
@@ -305,7 +299,7 @@
       flex-wrap:wrap;
       gap: 8px;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
       color: rgba(31,36,48,.72);
     }
     .tag{
@@ -328,43 +322,20 @@
       padding: 8px 10px;
       border-radius: 999px;
       border: 1px solid rgba(31,36,48,.10);
-      background: rgba(255,255,255,.72);
-      font-weight: 800;
+      background: rgba(255,255,255,.82);
+      font-weight: 900;
       font-size: 13px;
       color: rgba(31,36,48,.88);
+      transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
     }
     .plink:hover{
       text-decoration:none;
-      background: rgba(255,255,255,.95);
-      border-color: var(--line);
+      background: rgba(217,240,228,.78);
+      border-color: rgba(169,215,193,.85);
+      transform: translateY(-1px);
     }
 
-    /* About card (inside hero area) */
-    .about-card{
-      margin-top: 18px;
-      border: 1px solid var(--line2);
-      border-radius: calc(var(--r) - 4px);
-      background: rgba(255,255,255,.66);
-      padding: 14px 14px 12px;
-      max-width: 72ch;
-      z-index: 1;
-      text-align: left; /* nicer readability */
-    }
-    .about-title{
-      margin: 0 0 6px;
-      font-size: 13px;
-      letter-spacing: .16px;
-      text-transform: uppercase;
-      font-weight: 900;
-      color: rgba(31,36,48,.70);
-    }
-    .about-text{
-      margin: 0;
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    /* Notes */
+    /* Contact note */
     .note{
       border: 1px solid var(--line);
       border-radius: var(--r);
@@ -399,6 +370,7 @@
       <nav class="nav">
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
+        <!-- If you upload a resume PDF, set href="resume.pdf" -->
         <a href="#" target="_blank" rel="noreferrer">Resume</a>
       </nav>
     </div>
@@ -406,17 +378,14 @@
     <header class="hero">
       <p class="kicker">CS/Data • curious builder • practical work</p>
 
-      <h1>Hi, I’m Pedro!</h1>
+      <h1>Hi — I’m Pedro.</h1>
 
-      <div class="about-card" id="about">
-        <p class="about-title">About</p>
-        <p class="about-text">
-          I am a Computer Science/Data Science student at Minerva University, focused on building data-driven products end to end, from modeling and experimentation to production-ready code. I have worked on forecasting and statistical modeling projects, and I enjoy turning data into insights and scalable systems.
-        </p>
-      </div>
+      <p class="about-text" id="about">
+        I am a Computer Science/Data Science student at Minerva University, focused on building data-driven products end to end, from modeling and experimentation to production-ready code. I have worked on forecasting and statistical modeling projects, and I enjoy turning data into insights and scalable systems.
+      </p>
 
-      <div class="actions">
-        <a class="btn primary" href="#projects">View projects</a>
+      <!-- ✅ removed “View projects” -->
+      <div class="actions" aria-label="Quick links">
         <a class="btn" href="mailto:pedro@uni.minerva.edu">Email</a>
         <a class="btn" href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">GitHub</a>
         <a class="btn" href="https://www.linkedin.com/in/pedrohgpaiva/" target="_blank" rel="noreferrer">LinkedIn</a>
@@ -431,6 +400,7 @@
 
       <div class="projects-grid">
 
+        <!-- 1) Sports Attendance -->
         <article class="project-card">
           <div class="project-media">
             <span class="media-label">Bayesian Modeling</span>
@@ -449,11 +419,12 @@
             </div>
             <div class="project-links">
               <a class="plink" href="sports_attendance.pdf" target="_blank" rel="noreferrer">Read report</a>
-              <a class="plink" href="https://github.com/pedrohgp02/modeling-sports-attendance" target="_blank" rel="noreferrer">View code</a>
+              <a class="plink" href="https://github.com/pedrohgp02/modeling-sports-attendance" target="_blank" rel="noreferrer">View repo</a>
             </div>
           </div>
         </article>
 
+        <!-- 2) Cellular Automata / Wildfire -->
         <article class="project-card">
           <div class="project-media">
             <span class="media-label">Simulation</span>
@@ -472,11 +443,12 @@
             </div>
             <div class="project-links">
               <a class="plink" href="cellular-automata.pdf" target="_blank" rel="noreferrer">Read report</a>
-              <a class="plink" href="cellular-automata-code.ipynb" target="_blank" rel="noreferrer">View code</a>
+              <a class="plink" href="cellular-automata-code.ipynb" target="_blank" rel="noreferrer">View notebook</a>
             </div>
           </div>
         </article>
 
+        <!-- 3) Traffic Simulation -->
         <article class="project-card">
           <div class="project-media">
             <span class="media-label">Networks</span>
@@ -486,7 +458,7 @@
             <h3 class="project-title">Traffic Simulation with OpenStreetMap Networks</h3>
             <p class="project-sub">
               Simulates congestion on real street networks and visualizes where traffic accumulates. The report summarizes
-              simulation setup, outcomes, and the most congested segments.
+              setup, outcomes, and the most congested segments.
             </p>
             <div class="project-tags">
               <span class="tag">OSM</span>
@@ -495,11 +467,12 @@
             </div>
             <div class="project-links">
               <a class="plink" href="traffic-simulation.pdf" target="_blank" rel="noreferrer">Read report</a>
-              <a class="plink" href="traffic-simulation.ipynb" target="_blank" rel="noreferrer">View code</a>
+              <a class="plink" href="traffic-simulation.ipynb" target="_blank" rel="noreferrer">View notebook</a>
             </div>
           </div>
         </article>
 
+        <!-- 4) Pandemic Shape -->
         <article class="project-card">
           <div class="project-media">
             <span class="media-label">Time Series</span>
@@ -518,7 +491,7 @@
             </div>
             <div class="project-links">
               <a class="plink" href="Learning%20the%20Shape%20of%20a%20Pandemic.pdf" target="_blank" rel="noreferrer">Read report</a>
-              <a class="plink" href="Learning%20the%20Shape%20of%20a%20Pandemic.ipynb" target="_blank" rel="noreferrer">View code</a>
+              <a class="plink" href="Learning%20the%20Shape%20of%20a%20Pandemic.ipynb" target="_blank" rel="noreferrer">View notebook</a>
             </div>
           </div>
         </article>
@@ -533,8 +506,10 @@
       </div>
       <div class="note">
         <p>If you want to collaborate or chat about projects, feel free to reach out.</p>
-        <div class="actions" style="margin-top:12px; justify-content:center;">
-          <a class="btn primary" href="mailto:pedro@uni.minerva.edu">pedro@uni.minerva.edu</a>
+
+        <!-- ✅ left-aligned buttons -->
+        <div class="actions" style="margin-top:12px; justify-content:flex-start;">
+          <a class="btn" href="mailto:pedro@uni.minerva.edu">pedro@uni.minerva.edu</a>
           <a class="btn" href="https://www.linkedin.com/in/pedrohgpaiva/" target="_blank" rel="noreferrer">LinkedIn</a>
           <a class="btn" href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">GitHub</a>
         </div>
