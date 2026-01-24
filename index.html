@@ -6,10 +6,6 @@
   <title>Pedro Paiva — Portfolio</title>
   <meta name="description" content="Pedro Paiva — minimal portfolio." />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
   <style>
     :root{
       /* Base */
@@ -42,7 +38,7 @@
     body{
       margin:0;
       color: var(--ink);
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
       line-height: 1.65;
 
       /* Green-only background */
@@ -71,8 +67,7 @@
       padding: 6px 2px 18px;
     }
     .name{
-      font-family: Fraunces, ui-serif, Georgia, serif;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 18px;
       letter-spacing: -0.2px;
       display:flex;
@@ -91,7 +86,7 @@
       flex-wrap: wrap;
       justify-content:flex-end;
       color: var(--muted);
-      font-weight: 500;
+      font-weight: 600;
       font-size: 13px;
     }
     .nav a{
@@ -131,39 +126,38 @@
       margin:0 0 10px;
       color: var(--muted);
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
     }
     h1{
       margin:0;
-      font-family: Fraunces, ui-serif, Georgia, serif;
-      font-weight: 600;
-      letter-spacing: -0.7px;
-      line-height: 1.1;
-      font-size: clamp(28px, 4.8vw, 44px);
+      font-weight: 800;
+      letter-spacing: -1.1px;
+      line-height: 1.05;
+      font-size: clamp(32px, 5.6vw, 56px);
     }
     .subtitle{
       margin: 12px 0 0;
       color: var(--muted);
-      max-width: 66ch;
-      font-size: 15px;
+      max-width: 70ch;
+      font-size: 16px;
     }
     .actions{
       display:flex;
       gap: 10px;
       flex-wrap:wrap;
-      margin-top: 14px;
+      margin-top: 16px;
     }
     .btn{
       display:inline-flex;
       align-items:center;
       gap: 10px;
-      padding: 9px 12px;
+      padding: 10px 14px;
       border-radius: 999px;
       border: 1px solid var(--line);
       background: rgba(255,255,255,.78);
       color: var(--ink);
-      font-weight: 600;
-      font-size: 13px;
+      font-weight: 700;
+      font-size: 14px;
     }
     .btn:hover{ text-decoration:none; background: rgba(255,255,255,.96); }
 
@@ -189,7 +183,7 @@
       margin:0;
       font-size: 14px;
       letter-spacing: .2px;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
       color: rgba(31,36,48,.78);
     }
@@ -215,6 +209,10 @@
       background: var(--surface);
       overflow:hidden;
       box-shadow: var(--shadow);
+      transition: border-color 200ms ease, background 200ms ease;
+    }
+    .project-card:hover{
+      border-color: rgba(31,36,48,.16);
     }
 
     /* Big media area */
@@ -223,23 +221,53 @@
       background: linear-gradient(135deg, var(--g-2), var(--g-1));
       border-bottom: 1px solid var(--line2);
       position: relative;
+      overflow: hidden;
     }
+    /* Soft overlay */
     .project-media:after{
       content:"";
       position:absolute; inset:0;
-      background: radial-gradient(700px 260px at 20% 15%, rgba(255,255,255,.55), transparent 60%);
+      background:
+        radial-gradient(700px 260px at 20% 15%, rgba(255,255,255,.55), transparent 60%),
+        linear-gradient(to bottom, rgba(255,255,255,.16), rgba(255,255,255,.02));
       pointer-events:none;
-      opacity:.75;
-      z-index: 0;
+      opacity:.85;
+      z-index: 1;
+      transition: opacity 240ms ease;
     }
+    .project-card:hover .project-media:after{
+      opacity: .25;
+    }
+
+    /* Blur + zoom by default */
     .project-media img{
       width:100%;
       height:100%;
       object-fit: cover;
       display:block;
+      filter: blur(7px);
+      transform: scale(1.06);
+      transition: filter 220ms ease, transform 260ms ease;
+      will-change: filter, transform;
       position: relative;
       z-index: 0;
     }
+    .project-card:hover .project-media img{
+      filter: blur(0px);
+      transform: scale(1.10);
+    }
+
+    /* Mobile: no hover, keep sharp */
+    @media (max-width: 900px){
+      .project-media img{
+        filter: blur(0px);
+        transform: scale(1.02);
+      }
+      .project-media:after{
+        opacity: .35;
+      }
+    }
+
     .media-label{
       position:absolute;
       left: 14px;
@@ -247,12 +275,12 @@
       padding: 7px 10px;
       border-radius: 999px;
       border: 1px solid rgba(31,36,48,.12);
-      background: rgba(255,255,255,.78);
+      background: rgba(255,255,255,.82);
       color: rgba(31,36,48,.72);
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       backdrop-filter: blur(6px);
-      z-index: 1;
+      z-index: 2;
     }
 
     .project-body{
@@ -262,7 +290,7 @@
     }
     .project-title{
       margin:0;
-      font-weight: 650;
+      font-weight: 800;
       font-size: 16px;
       letter-spacing: -0.2px;
       line-height: 1.25;
@@ -279,7 +307,7 @@
       flex-wrap:wrap;
       gap: 8px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       color: rgba(31,36,48,.72);
     }
     .tag{
@@ -303,7 +331,7 @@
       border-radius: 999px;
       border: 1px solid rgba(31,36,48,.10);
       background: rgba(255,255,255,.72);
-      font-weight: 600;
+      font-weight: 800;
       font-size: 13px;
       color: rgba(31,36,48,.88);
     }
@@ -311,6 +339,29 @@
       text-decoration:none;
       background: rgba(255,255,255,.95);
       border-color: var(--line);
+    }
+
+    /* About card (inside hero area) */
+    .about-card{
+      margin-top: 18px;
+      border: 1px solid var(--line2);
+      border-radius: calc(var(--r) - 4px);
+      background: rgba(255,255,255,.66);
+      padding: 14px 14px 12px;
+      max-width: 72ch;
+    }
+    .about-title{
+      margin: 0 0 6px;
+      font-size: 13px;
+      letter-spacing: .16px;
+      text-transform: uppercase;
+      font-weight: 900;
+      color: rgba(31,36,48,.70);
+    }
+    .about-text{
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
     }
 
     /* Notes */
@@ -347,7 +398,6 @@
       <div class="name"><span class="mark" aria-hidden="true"></span> Pedro Paiva</div>
       <nav class="nav">
         <a href="#projects">Projects</a>
-        <a href="#about">About</a>
         <a href="#contact">Contact</a>
         <!-- If you upload a resume PDF, set href="resume.pdf" -->
         <a href="#" target="_blank" rel="noreferrer">Resume</a>
@@ -355,26 +405,30 @@
     </div>
 
     <header class="hero">
-      <p class="kicker">CS/Data • curious builder • calm, practical work</p>
-      <h1>Hi — I’m Pedro.<br/>I build simple things that make life easier.</h1>
-      <p class="subtitle">
-        I like projects that start messy and end clear: data → decisions → a useful result.
-        Here are a few pieces of work I’m proud of.
-      </p>
+      <p class="kicker">CS/Data • curious builder • practical work</p>
+
+      <h1>Hi — I’m Pedro.</h1>
+
+      <div class="about-card" id="about">
+        <p class="about-title">About</p>
+        <p class="about-text">
+          I am a Computer Science/Data Science student at Minerva University, focused on building data-driven products end to end, from modeling and experimentation to production-ready code. I have worked on forecasting and statistical modeling projects, and I enjoy turning data into insights and scalable systems.
+        </p>
+      </div>
 
       <div class="actions">
         <a class="btn primary" href="#projects">View projects</a>
         <!-- Update these -->
-        <a class="btn" href="mailto:you@email.com">Email</a>
+        <a class="btn" href="mailto:pedro@uni.minerva.edu">Email</a>
         <a class="btn" href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">GitHub</a>
-        <a class="btn" href="https://www.linkedin.com/in/yourprofile/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="btn" href="https://www.linkedin.com/in/pedrohgpaiva/" target="_blank" rel="noreferrer">LinkedIn</a>
       </div>
     </header>
 
     <section id="projects">
       <div class="section-head">
         <h2>Projects</h2>
-        <p class="hint">Big preview + short description + links.</p>
+        <p class="hint">Hover to reveal a closer look.</p>
       </div>
 
       <div class="projects-grid">
@@ -422,7 +476,7 @@
             </div>
             <div class="project-links">
               <a class="plink" href="cellular-automata.pdf" target="_blank" rel="noreferrer">Read report</a>
-              <a class="plink" href="https://github.com/pedrohgp02/pedrohgp02.github.io/blob/main/cellular-automata-code.ipynb" target="_blank" rel="noreferrer">View notebook</a>
+              <a class="plink" href="cellular-automata-code.ipynb" target="_blank" rel="noreferrer">View notebook</a>
             </div>
           </div>
         </article>
@@ -446,7 +500,7 @@
             </div>
             <div class="project-links">
               <a class="plink" href="traffic-simulation.pdf" target="_blank" rel="noreferrer">Read report</a>
-              <a class="plink" href="https://github.com/pedrohgp02/pedrohgp02.github.io/blob/main/traffic-simulation.ipynb" target="_blank" rel="noreferrer">View notebook</a>
+              <a class="plink" href="traffic-simulation.ipynb" target="_blank" rel="noreferrer">View notebook</a>
             </div>
           </div>
         </article>
@@ -469,26 +523,12 @@
               <span class="tag">Model Comparison</span>
             </div>
             <div class="project-links">
-              <!-- If you rename this PDF to pandemic-shape.pdf, change the link here -->
               <a class="plink" href="Learning%20the%20Shape%20of%20a%20Pandemic.pdf" target="_blank" rel="noreferrer">Read report</a>
-              <a class="plink" href="https://github.com/pedrohgp02/pedrohgp02.github.io/blob/main/Learning%20the%20Shape%20of%20a%20Pandemic.ipynb" target="_blank" rel="noreferrer">View notebook</a>
+              <a class="plink" href="Learning%20the%20Shape%20of%20a%20Pandemic.ipynb" target="_blank" rel="noreferrer">View notebook</a>
             </div>
           </div>
         </article>
 
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="section-head">
-        <h2>About</h2>
-        <p class="hint">A few lines is enough.</p>
-      </div>
-      <div class="note">
-        <p>
-          I’m a CS/Data student who enjoys turning vague questions into clear outputs.
-          I care about communication as much as the analysis — the goal is something people can actually use.
-        </p>
       </div>
     </section>
 
