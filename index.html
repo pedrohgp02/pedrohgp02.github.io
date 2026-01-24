@@ -323,19 +323,20 @@
 
     /* Resume (single-page, like your screenshot) */
     .resume-paper{
-      border: 1px solid var(--line);
-      border-radius: var(--r);
-      background: var(--surface);
-      box-shadow: var(--shadow);
-      padding: 18px 18px 16px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
     }
+    
     .resume-inner{
       max-width: 860px;
       margin: 0 auto;
-      background: rgba(255,255,255,.98);
-      border: 1px solid var(--line2);
-      border-radius: calc(var(--r) - 6px);
-      padding: 18px 20px 16px;
+      background: #fff;     /* ✅ plain white */
+      border: 0;            /* ✅ no inner border */
+      border-radius: 0;
+      padding: 18px 20px 0; /* ✅ remove bottom padding so button spacing is controlled below */
     }
 
     .r-header{
@@ -436,7 +437,8 @@
     .r-skills b{ color: rgba(31,36,48,.90); }
 
     .r-pdf{
-      margin-top: 10px;
+      margin-top: 22px;   /* ✅ increased spacing */
+      padding-bottom: 18px;
       display:flex;
       justify-content:center;
       gap: 10px;
