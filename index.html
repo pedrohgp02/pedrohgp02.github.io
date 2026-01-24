@@ -142,7 +142,7 @@
       font-size: 16px;
       width: 100%;
       max-width: 78ch;
-      text-align: center; /* requested */
+      text-align: center;
     }
 
     .actions{
@@ -323,20 +323,19 @@
 
     /* Resume (single-page, like your screenshot) */
     .resume-paper{
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      padding: 18px 18px 16px;
     }
-    
     .resume-inner{
       max-width: 860px;
       margin: 0 auto;
-      background: #fff;     /* ✅ plain white */
-      border: 0;            /* ✅ no inner border */
-      border-radius: 0;
-      padding: 18px 20px 0; /* ✅ remove bottom padding so button spacing is controlled below */
+      background: rgba(255,255,255,.98);
+      border: 1px solid var(--line2);
+      border-radius: calc(var(--r) - 6px);
+      padding: 18px 20px 16px;
     }
 
     .r-header{
@@ -407,12 +406,6 @@
       color: rgba(31,36,48,.90);
       font-weight: 800;
     }
-    .r-sub{
-      margin: 2px 0 0;
-      font-size: 13px;
-      color: rgba(31,36,48,.70);
-      font-weight: 700;
-    }
     .r-right{
       font-size: 13px;
       color: rgba(31,36,48,.70);
@@ -437,8 +430,7 @@
     .r-skills b{ color: rgba(31,36,48,.90); }
 
     .r-pdf{
-      margin-top: 22px;   /* ✅ increased spacing */
-      padding-bottom: 18px;
+      margin-top: 10px;
       display:flex;
       justify-content:center;
       gap: 10px;
@@ -477,7 +469,6 @@
         I am a Computer Science/Data Science student at Minerva University, focused on building data-driven products end to end, from modeling and experimentation to production-ready code. I have worked on forecasting and statistical modeling projects, and I enjoy turning data into insights and scalable systems.
       </p>
 
-      <!-- Contact anchor lives here -->
       <div class="actions" id="contact" aria-label="Quick links">
         <a class="btn" href="mailto:pedro@uni.minerva.edu">Email</a>
         <a class="btn" href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">GitHub</a>
@@ -491,7 +482,6 @@
       </div>
 
       <div class="projects-grid">
-        <!-- 1) Sports Attendance -->
         <article class="project-card">
           <div class="project-media">
             <span class="media-label">Bayesian Modeling</span>
@@ -515,7 +505,6 @@
           </div>
         </article>
 
-        <!-- 2) Cellular Automata / Wildfire -->
         <article class="project-card">
           <div class="project-media">
             <span class="media-label">Simulation</span>
@@ -539,7 +528,6 @@
           </div>
         </article>
 
-        <!-- 3) Traffic Simulation -->
         <article class="project-card">
           <div class="project-media">
             <span class="media-label">Networks</span>
@@ -563,7 +551,6 @@
           </div>
         </article>
 
-        <!-- 4) Pandemic Shape -->
         <article class="project-card">
           <div class="project-media">
             <span class="media-label">Time Series</span>
@@ -761,7 +748,6 @@
           </div>
 
           <div class="r-pdf" aria-label="Resume PDF">
-            <!-- If you rename the PDF to resume.pdf, change href to "resume.pdf" -->
             <a class="btn" href="CV%202.pdf" target="_blank" rel="noreferrer">Open PDF</a>
           </div>
 
