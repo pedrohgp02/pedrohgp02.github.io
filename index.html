@@ -387,6 +387,13 @@
       font-size: 13px;
       color: rgba(31,36,48,.88);
     }
+
+    .r-summary{
+      margin: 0;
+      color: rgba(31,36,48,.76);
+      font-size: 13px;
+      line-height: 1.55;
+    }
     .r-entry{
       margin: 0 0 10px;
     }
@@ -483,6 +490,28 @@
       <div class="projects-grid">
         <article class="project-card">
           <div class="project-media">
+            <span class="media-label">Audio ML</span>
+            <img src="assets/spotify.jpg" alt="Spotify skip prediction project pipeline">
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">Predicting Spotify Skips from Song Intros</h3>
+            <p class="project-sub">
+              Uses 92,445 personal Spotify play events and matched 10-second audio previews to compare handcrafted
+              features, CNNs, Audio Spectrogram Transformers, and listening-context fusion for personalized skip prediction.
+            </p>
+            <div class="project-tags">
+              <span class="tag">PyTorch</span>
+              <span class="tag">Audio Transformers</span>
+              <span class="tag">Multimodal ML</span>
+            </div>
+            <div class="project-links">
+              <a class="plink" href="predicting-spotify-skips.pdf" target="_blank" rel="noreferrer">Read report</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-media">
             <span class="media-label">Bayesian Modeling</span>
             <img src="assets/sports-attendance.png" alt="Sports attendance project preview">
           </div>
@@ -566,202 +595,3 @@
               <span class="tag">Uncertainty</span>
               <span class="tag">Model Comparison</span>
             </div>
-            <div class="project-links">
-              <a class="plink" href="Learning%20the%20Shape%20of%20a%20Pandemic.pdf" target="_blank" rel="noreferrer">Read report</a>
-              <a class="plink" href="https://github.com/pedrohgp02/pedrohgp02.github.io/blob/main/shape_pandemic.ipynb" target="_blank" rel="noreferrer">View code</a>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section id="resume">
-      <div class="section-head">
-        <h2>Resume</h2>
-      </div>
-
-      <div class="resume-paper">
-        <div class="resume-inner">
-
-          <div class="r-header">
-            <p class="r-name">Pedro Henrique Goncalves de Paiva</p>
-            <p class="r-contact">
-              <span>San Francisco, CA</span>
-              <span>•</span>
-              <a href="mailto:pedro@uni.minerva.edu">pedro@uni.minerva.edu</a>
-              <span>•</span>
-              <span>415-336-4271</span>
-              <span>•</span>
-              <a href="https://www.linkedin.com/in/pedrohgpaiva/" target="_blank" rel="noreferrer">linkedin.com/in/pedrohgpaiva</a>
-              <span>•</span>
-              <a href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">github</a>
-            </p>
-          </div>
-
-          <div class="r-rule"></div>
-
-          <div class="r-section">
-            <p class="r-section-title">Education</p>
-            <div class="r-entry">
-              <div class="r-row">
-                <div class="r-left"><strong>Minerva University</strong></div>
-                <div class="r-right">San Francisco, CA</div>
-              </div>
-              <div class="r-row" style="margin-top:2px;">
-                <div class="r-left" style="font-weight:700; color: rgba(31,36,48,.78);">
-                  B.Sc. in Computational Sciences, concentration in Data Science, GPA: 3.84/4
-                </div>
-                <div class="r-right">Aug 2023 – May 2027</div>
-              </div>
-              <ul class="r-bullets">
-                <li>Relevant Coursework: Algorithms and Data Structures, Modeling Complex Systems, Single & Multivariable Calculus, Computational Methods for Bayesian Statistics, Linear Algebra</li>
-                <li>Google Developer Student Club • Goldman Sachs – Engineering Emerging Leaders Series • Residential Instructor, Yale Young Global Scholars (STEM track), Summers 2024–2025</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="r-rule"></div>
-
-          <div class="r-section">
-            <p class="r-section-title">Skills</p>
-            <ul class="r-skills">
-              <li><b>Programming Languages:</b> Python, C, R, SQL</li>
-              <li><b>Libraries and tools:</b> NumPy, pandas, SciPy, matplotlib, PyMC, Jupyter, Git</li>
-              <li><b>CS:</b> Algorithms and data structures, dynamic programming, complexity analysis, data modeling</li>
-              <li><b>Languages:</b> Portuguese (native); English (fluent); Spanish (intermediate)</li>
-            </ul>
-          </div>
-
-          <div class="r-rule"></div>
-
-          <div class="r-section">
-            <p class="r-section-title">Projects</p>
-
-            <div class="r-entry">
-              <div class="r-row">
-                <div class="r-left"><strong>Bayesian Modeling of Sports Attendance in Argentina</strong></div>
-                <div class="r-right">Nov 2025</div>
-              </div>
-              <ul class="r-bullets">
-                <li>Built a hierarchical Negative Binomial model in PyMC to forecast stadium attendance by team and weekday</li>
-                <li>Used posterior predictive checks and PSIS-LOO to compare pooling strategies and inform scheduling and capacity planning</li>
-              </ul>
-            </div>
-
-            <div class="r-entry">
-              <div class="r-row">
-                <div class="r-left"><strong>Learning the Shape of a Pandemic (Time-Series Modeling)</strong></div>
-                <div class="r-right">Nov 2025</div>
-              </div>
-              <ul class="r-bullets">
-                <li>Modeled epidemic case curves using flexible regression and compared distributional assumptions (Normal vs. count-based models) to capture different growth/decay dynamics</li>
-                <li>Evaluated model fit and generalization with held-out checks, and quantified forecast uncertainty with prediction bands to communicate confidence in the trajectory</li>
-                <li>Delivered a reproducible Python notebook and report with clear visualizations summarizing assumptions, results, and takeaways</li>
-              </ul>
-            </div>
-
-            <div class="r-entry">
-              <div class="r-row">
-                <div class="r-left"><strong>RememberMe — UC Berkeley Hack for Impact Hackathon</strong></div>
-                <div class="r-right">Feb 2024</div>
-              </div>
-              <ul class="r-bullets">
-                <li>Led a 4-person team to build an AI-assisted memory support prototype in 24 hours</li>
-                <li>Integrated TwelveLabs API & Vespa for AI-powered multimedia conversion and data retrieval with database</li>
-                <li>Won two categories: Best Hack for Quality of Life and Best Use of TwelveLabs API (out of 40 teams)</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="r-rule"></div>
-
-          <div class="r-section">
-            <p class="r-section-title">Experience</p>
-
-            <div class="r-entry">
-              <div class="r-row">
-                <div class="r-left"><strong>Neuroscience Lab, Universidad Torcuato Di Tella (UTDT)</strong></div>
-                <div class="r-right">Buenos Aires, AR</div>
-              </div>
-              <div class="r-row" style="margin-top:2px;">
-                <div class="r-left" style="font-weight:700; color: rgba(31,36,48,.78);">
-                  Research Assistant — MateMarote: Building the Learning & Mood Dataset
-                </div>
-                <div class="r-right">Sep 2025 – Present</div>
-              </div>
-              <ul class="r-bullets">
-                <li>Writing R and Python pipelines to digitize, clean, and link 15+ years of handwritten mood and learning forms into analysis-ready tables</li>
-                <li>Defining the data model and QA rules for the dataset, enabling future mixed-effects modeling and large-scale analysis</li>
-              </ul>
-            </div>
-
-            <div class="r-entry">
-              <div class="r-row">
-                <div class="r-left"><strong>AURA Application Mentorship</strong></div>
-                <div class="r-right">Remote, Brazil</div>
-              </div>
-              <div class="r-row" style="margin-top:2px;">
-                <div class="r-left" style="font-weight:700; color: rgba(31,36,48,.78);">
-                  Cofounder and Mentor
-                </div>
-                <div class="r-right">Jan 2023 – Present</div>
-              </div>
-              <ul class="r-bullets">
-                <li>Owned product and curriculum roadmap for mentorship programs, using student feedback and funnel metrics to prioritize features and content; launched 3 new courses and 11 cohorts</li>
-                <li>Contributed to 400+ student acceptances; led design and rollout of AURA’s online teaching platform by defining requirements, prioritizing features, and partnering with dev/design</li>
-              </ul>
-            </div>
-
-            <div class="r-entry">
-              <div class="r-row">
-                <div class="r-left"><strong>Minerva University</strong></div>
-                <div class="r-right">San Francisco, CA</div>
-              </div>
-              <div class="r-row" style="margin-top:2px;">
-                <div class="r-left" style="font-weight:700; color: rgba(31,36,48,.78);">
-                  Teaching Assistant (Introduction to CS — Formal Analysis 50 and 51)
-                </div>
-                <div class="r-right">Aug 2024 – Present</div>
-              </div>
-              <ul class="r-bullets">
-                <li>Supported 200+ students in programming, statistics, and simulations by debugging code, reviewing algorithm design, and answering questions during office hours</li>
-                <li>Analyzed performance metrics and student feedback to identify pain points and propose curriculum tweaks</li>
-              </ul>
-            </div>
-
-            <div class="r-entry">
-              <div class="r-row">
-                <div class="r-left"><strong>Code2040 Fellows Program</strong></div>
-                <div class="r-right">Remote</div>
-              </div>
-              <div class="r-row" style="margin-top:2px;">
-                <div class="r-left" style="font-weight:700; color: rgba(31,36,48,.78);">
-                  Fellow
-                </div>
-                <div class="r-right">Sep 2024 – Jun 2025</div>
-              </div>
-              <ul class="r-bullets">
-                <li>Selected as one of 40 fellows in a 10-month program focused on software engineering and equity in tech</li>
-                <li>Built knowledge in Python with industry mentors and practiced data structures, debugging, version control, and code reviews</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="r-pdf" aria-label="Resume PDF">
-            <a class="btn" href="Curriculum.pdf" target="_blank" rel="noreferrer">Open PDF</a>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <span>© <span id="year"></span> Pedro Paiva</span>
-    </footer>
-  </div>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
