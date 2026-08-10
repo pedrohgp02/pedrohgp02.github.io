@@ -33,20 +33,28 @@
     }
 
     *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+
+    html{
+      min-height: 100%;
+      background: var(--bg);
+    }
 
     body{
       margin:0;
+      min-height:100vh;
       color: var(--ink);
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
       line-height: 1.65;
 
-      /* Page background */
-      background:
-        radial-gradient(950px 650px at 12% 8%, rgba(198,230,214,.85), transparent 62%),
-        radial-gradient(900px 650px at 95% 12%, rgba(217,240,228,.90), transparent 62%),
-        radial-gradient(900px 650px at 25% 105%, rgba(169,215,193,.55), transparent 62%),
-        var(--bg);
+      /* Continuous page background: no repeated gradient seams */
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(1050px 720px at 8% 4%, rgba(198,230,214,.82), transparent 64%),
+        radial-gradient(980px 720px at 96% 10%, rgba(217,240,228,.88), transparent 64%),
+        radial-gradient(1200px 900px at 18% 94%, rgba(169,215,193,.42), transparent 66%);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: auto;
     }
 
     a{ color: inherit; text-decoration: none; }
@@ -211,6 +219,89 @@
     }
     .project-card:hover{
       border-color: rgba(31,36,48,.16);
+    }
+
+
+    /* Featured project */
+    .project-card.featured{
+      grid-column: 1 / -1;
+      border-color: rgba(169,215,193,.72);
+      box-shadow: 0 10px 28px rgba(31,36,48,.08);
+    }
+
+    .project-card.featured:hover{
+      border-color: rgba(169,215,193,.95);
+    }
+
+    .project-card.featured .project-body{
+      padding: 20px;
+      align-content: center;
+    }
+
+    .project-card.featured .project-title{
+      font-size: 20px;
+      letter-spacing: -0.35px;
+    }
+
+    .project-card.featured .project-sub{
+      font-size: 14.5px;
+      line-height: 1.7;
+    }
+
+    .section-intro{
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .live-dot{
+      display:inline-block;
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:#45a97a;
+      margin-right:5px;
+      vertical-align:1px;
+      box-shadow: 0 0 0 3px rgba(69,169,122,.12);
+    }
+
+    .plink.primary{
+      background: rgba(217,240,228,.86);
+      border-color: rgba(169,215,193,.85);
+    }
+
+    .plink.primary:hover{
+      background: rgba(198,230,214,.92);
+      border-color: rgba(169,215,193,1);
+    }
+
+    @media (min-width: 840px){
+      .project-card.featured{
+        display:grid;
+        grid-template-columns: 1.12fr .88fr;
+        min-height: 340px;
+      }
+
+      .project-card.featured .project-media{
+        aspect-ratio:auto;
+        min-height:340px;
+        border-bottom:0;
+        border-right:1px solid var(--line2);
+      }
+
+      .project-card.featured .project-body{
+        padding: 28px;
+        gap: 14px;
+      }
+
+      .project-card.featured .project-title{
+        font-size: 23px;
+      }
+
+      .project-card.featured .project-sub{
+        font-size: 15px;
+      }
     }
 
     .project-media{
@@ -484,10 +575,38 @@
 
     <section id="projects">
       <div class="section-head">
-        <h2>Projects</h2>
+        <div>
+          <h2>Selected Projects</h2>
+          <p class="section-intro">Data products, machine learning, statistical modeling, and simulation.</p>
+        </div>
       </div>
 
       <div class="projects-grid">
+        <article class="project-card featured">
+          <div class="project-media">
+            <span class="media-label"><span class="live-dot" aria-hidden="true"></span>Live Data Product</span>
+            <img src="assets/dengue-dashboard.png" alt="Dengue surveillance and forecasting dashboard">
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">Dengue Surveillance &amp; Forecasting Dashboard</h3>
+            <p class="project-sub">
+              An end-to-end public-health data product that ingests official Brazilian dengue surveillance data,
+              builds weekly state-level time series, benchmarks forecasting approaches with walk-forward evaluation,
+              and serves interactive monitoring and multi-week forecasts through a deployed Streamlit dashboard.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Forecasting</span>
+              <span class="tag">Streamlit</span>
+              <span class="tag">scikit-learn</span>
+              <span class="tag">Public Health</span>
+            </div>
+            <div class="project-links">
+              <a class="plink primary" href="https://dengue-surveillance.streamlit.app/" target="_blank" rel="noreferrer">Open live dashboard ↗</a>
+              <a class="plink" href="https://github.com/pedrohgp02/dengue-surveillance-dashboard" target="_blank" rel="noreferrer">View code</a>
+            </div>
+          </div>
+        </article>
         <article class="project-card">
           <div class="project-media">
             <span class="media-label">Audio ML</span>
@@ -747,8 +866,8 @@
                 <div class="r-left"><strong>Dengue Surveillance Dashboard</strong></div>
               </div>
               <ul class="r-bullets">
-                <li>Deployed a dashboard forecasting dengue outbreaks across all 27 Brazilian states, consolidating state-level risk information for public-health planning.</li>
-                <li>Benchmarked four forecasting approaches with expanding-window backtesting to decide which model was reliable enough to ship.</li>
+                <li>Built and deployed a public-health surveillance dashboard for weekly dengue activity across five Brazilian states, integrating official SINAN data into reproducible ingestion, caching, forecasting, and monitoring pipelines.</li>
+                <li>Benchmarked persistence, seasonal, linear, and tree-based forecasting approaches using expanding-window and multi-horizon backtesting to evaluate performance under temporal distribution shift.</li>
               </ul>
             </div>
 
