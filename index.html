@@ -180,81 +180,8 @@
     details.project-note[open] summary:after{content:"×"}
     details.project-note p{margin:7px 0 0;line-height:1.55}
 
-    .remember-visual,.genealogy-visual,.writing-visual{
+    .writing-visual{
       width:100%;height:100%;min-height:220px;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;z-index:0;
-    }
-
-    /* RememberMe concept preview: a compact memory assistant instead of a process diagram */
-    .remember-visual{
-      min-height:300px;
-      background:
-        radial-gradient(circle at 18% 18%,rgba(255,255,255,.92),transparent 30%),
-        linear-gradient(145deg,rgba(217,240,228,.96),rgba(239,248,243,.78));
-      overflow:hidden;
-    }
-    .remember-shell{
-      width:min(92%,520px);
-      display:grid;
-      grid-template-columns:.84fr 1.16fr;
-      gap:12px;
-      align-items:stretch;
-      transform:rotate(-.35deg);
-      transition:transform 260ms ease;
-    }
-    .project-card:hover .remember-shell{transform:rotate(0deg) translateY(-2px)}
-    .memory-stack{display:grid;gap:10px;align-content:center}
-    .memory-card{
-      border:1px solid rgba(31,36,48,.10);
-      border-radius:16px;
-      background:rgba(255,255,255,.88);
-      padding:13px;
-      box-shadow:0 8px 22px rgba(31,36,48,.055);
-      display:grid;gap:8px;
-    }
-    .memory-card:nth-child(1){transform:translateX(8px) rotate(-1.2deg)}
-    .memory-card:nth-child(2){transform:translateX(-2px) rotate(.8deg)}
-    .memory-thumb{
-      height:54px;border-radius:11px;overflow:hidden;position:relative;
-      background:linear-gradient(135deg,rgba(169,215,193,.88),rgba(235,246,240,.95));
-    }
-    .memory-thumb:before,.memory-thumb:after{content:"";position:absolute;border-radius:999px;background:rgba(255,255,255,.68)}
-    .memory-thumb:before{width:34px;height:34px;left:14px;top:10px}
-    .memory-thumb:after{width:72px;height:18px;right:-8px;bottom:7px;border-radius:12px}
-    .memory-meta{display:flex;align-items:center;justify-content:space-between;gap:8px}
-    .memory-meta strong{font-size:11px;letter-spacing:-.1px}
-    .memory-meta span{font-size:9px;color:var(--faint);font-weight:800}
-
-    .assistant-panel{
-      border:1px solid rgba(31,36,48,.11);
-      border-radius:20px;
-      background:rgba(255,255,255,.93);
-      box-shadow:0 14px 30px rgba(31,36,48,.075);
-      padding:16px;
-      display:grid;gap:11px;align-content:center;
-    }
-    .assistant-top{display:flex;align-items:center;gap:9px}
-    .assistant-icon{
-      width:31px;height:31px;border-radius:10px;display:grid;place-items:center;
-      background:rgba(217,240,228,.86);border:1px solid rgba(169,215,193,.7);font-size:15px;
-    }
-    .assistant-top strong{display:block;font-size:12px}
-    .assistant-top span{display:block;margin-top:1px;font-size:9px;color:var(--faint);font-weight:800}
-    .assistant-question{
-      padding:10px 11px;border-radius:12px 12px 4px 12px;
-      background:rgba(31,36,48,.055);color:rgba(31,36,48,.76);font-size:10px;line-height:1.45;
-      margin-left:24px;
-    }
-    .assistant-answer{
-      padding:11px;border-radius:4px 12px 12px 12px;
-      background:rgba(217,240,228,.58);border:1px solid rgba(169,215,193,.48);
-      font-size:10px;line-height:1.5;color:rgba(31,36,48,.78);
-    }
-    .assistant-answer b{color:var(--ink)}
-    .assistant-source{margin-top:5px;color:var(--faint);font-size:8.5px;font-weight:850;text-transform:uppercase;letter-spacing:.35px}
-    .remember-award{
-      position:absolute;right:18px;bottom:16px;z-index:2;padding:7px 10px;border-radius:999px;
-      background:rgba(255,255,255,.92);border:1px solid rgba(31,36,48,.10);
-      box-shadow:0 7px 18px rgba(31,36,48,.055);font-size:10px;font-weight:950;color:rgba(31,36,48,.7);
     }
 
     .technical-grid{display:grid;grid-template-columns:1fr;gap:14px}
@@ -353,7 +280,7 @@
       .hero{padding:38px 18px 28px}
       .metrics{grid-template-columns:1fr 1fr 1fr}.metric{padding:9px 8px}.metric strong{font-size:16px}
       .section-head{align-items:flex-start;flex-direction:column}.flow{grid-template-columns:1fr;gap:5px}.flow-arrow{transform:rotate(90deg)}
-      .remember-visual{min-height:330px}.resume-callout{align-items:flex-start}
+      .resume-callout{align-items:flex-start}
     }
 
     @media (prefers-reduced-motion:reduce){
@@ -474,50 +401,27 @@
 
           <article class="project-card">
             <div class="project-media">
-              <div class="remember-visual" aria-label="Illustrative RememberMe memory assistant preview">
-                <div class="remember-shell">
-                  <div class="memory-stack" aria-hidden="true">
-                    <div class="memory-card">
-                      <div class="memory-thumb"></div>
-                      <div class="memory-meta"><strong>Family video</strong><span>indexed</span></div>
-                    </div>
-                    <div class="memory-card">
-                      <div class="memory-thumb"></div>
-                      <div class="memory-meta"><strong>Personal memory</strong><span>retrievable</span></div>
-                    </div>
-                  </div>
-                  <div class="assistant-panel">
-                    <div class="assistant-top">
-                      <div class="assistant-icon" aria-hidden="true">✦</div>
-                      <div><strong>RememberMe</strong><span>personal memory assistant</span></div>
-                    </div>
-                    <div class="assistant-question">Help me remember this moment.</div>
-                    <div class="assistant-answer">
-                      <b>Related context found.</b><br>Personal media is processed and stored as searchable context for recall.
-                      <div class="assistant-source">TwelveLabs + retrieval</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="remember-award">2× hackathon winner</div>
-              </div>
+              <span class="media-label">Bayesian Modeling · PyMC</span>
+              <img src="assets/sports-attendance.png" alt="Bayesian sports attendance modeling results" loading="lazy">
             </div>
             <div class="project-body">
-              <h3 class="project-title">RememberMe: AI Memory Support</h3>
+              <h3 class="project-title">Modeling Sports Attendance in Argentina</h3>
               <p class="project-sub">
-                Led a four-person team to prototype a multimodal memory-support tool for people living with dementia, using AI to turn personal media into retrievable context for recall.
+                A Bayesian analysis of football attendance using hierarchical Negative Binomial models to capture team and day-of-week effects, compare predictive performance, and estimate missing scanner counts with uncertainty.
               </p>
-              <div class="metrics" aria-label="RememberMe project metrics">
-                <div class="metric"><strong class="count-up" data-target="24" data-suffix="h">24h</strong><span>build sprint</span></div>
-                <div class="metric"><strong class="count-up" data-target="4">4</strong><span>person team</span></div>
-                <div class="metric"><strong class="count-up" data-target="2" data-suffix="×">2×</strong><span>hackathon awards</span></div>
+              <div class="metrics" aria-label="Sports attendance project highlights">
+                <div class="metric"><strong class="count-up" data-target="2">2</strong><span>Bayesian models compared</span></div>
+                <div class="metric"><strong>Team + day</strong><span>hierarchical effects</span></div>
+                <div class="metric"><strong>PSIS-LOO</strong><span>model comparison</span></div>
               </div>
-              <div class="project-tags"><span class="tag">TwelveLabs</span><span class="tag">Vespa</span><span class="tag">Python</span><span class="tag">AI Retrieval</span></div>
+              <div class="project-tags"><span class="tag">PyMC</span><span class="tag">Bayesian Inference</span><span class="tag">Negative Binomial</span><span class="tag">Posterior Predictive</span></div>
               <div class="project-links">
-                <a class="plink primary" href="https://github.com/pedrohgp02/RememberMe" target="_blank" rel="noreferrer">Team repo ↗</a>
+                <a class="plink primary" href="sports_attendance.pdf" target="_blank" rel="noreferrer">Read report ↗</a>
+                <a class="plink" href="https://github.com/pedrohgp02/modeling-sports-attendance" target="_blank" rel="noreferrer">View code ↗</a>
               </div>
               <details class="project-note">
-                <summary>What made it product-like</summary>
-                <p>The project started from a user need rather than a model. We worked backward from memory recall, chose multimodal retrieval as the enabling system, and shipped a working prototype under a 24-hour constraint.</p>
+                <summary>Why the hierarchical model worked better</summary>
+                <p>Attendance varies substantially by team and day. Partial pooling captured those differences while handling overdispersed count data, giving better predictive performance and more realistic uncertainty than the simpler pooled alternative.</p>
               </details>
             </div>
           </article>
@@ -528,7 +432,7 @@
         <div class="section-head">
           <div>
             <h2 class="section-title">More technical work</h2>
-            <p class="section-intro">A smaller set showing breadth across simulation, Bayesian inference, data structures, and algorithms.</p>
+            <p class="section-intro">A smaller set showing breadth across simulation, AI prototyping, data structures, and algorithms.</p>
           </div>
           <a class="small-link" href="https://github.com/pedrohgp02" target="_blank" rel="noreferrer">All GitHub projects ↗</a>
         </div>
@@ -545,12 +449,11 @@
           </article>
 
           <article class="technical-card">
-            <div class="technical-top"><div><span class="technical-kicker">Bayesian Modeling · PyMC</span><h3>Sports Attendance in Argentina</h3></div></div>
-            <p>Modeled football attendance with a hierarchical Negative Binomial model, team and day effects, posterior predictive checks, and PSIS-LOO model comparison.</p>
-            <div class="result-line"><strong>Result:</strong> the hierarchical model produced better predictive performance and more realistic uncertainty than simpler pooled alternatives.</div>
+            <div class="technical-top"><div><span class="technical-kicker">Hackathon · AI Retrieval</span><h3>RememberMe: AI Memory Support</h3></div></div>
+            <p>Led a four-person team to prototype a multimodal memory-support tool for people living with dementia, using TwelveLabs and Vespa to turn personal media into retrievable context.</p>
+            <div class="result-line"><strong>Built in 24 hours:</strong> shipped a working prototype and won <strong>2 hackathon awards</strong>, including Best Hack for Quality of Life and Best Use of TwelveLabs.</div>
             <div class="technical-links">
-              <a class="small-link" href="sports_attendance.pdf" target="_blank" rel="noreferrer">Report ↗</a>
-              <a class="small-link" href="https://github.com/pedrohgp02/modeling-sports-attendance" target="_blank" rel="noreferrer">Code ↗</a>
+              <a class="small-link" href="https://github.com/pedrohgp02/RememberMe" target="_blank" rel="noreferrer">Team repo ↗</a>
             </div>
           </article>
 
