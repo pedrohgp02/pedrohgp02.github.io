@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: "17 11 */3 * *"
   workflow_dispatch:
+  push:
+    paths:
+      - "scripts/update_substack.py"
 
 permissions:
   contents: write
