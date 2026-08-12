@@ -1,0 +1,30 @@
+name: Sync latest Substack post
+
+on:
+  schedule:
+    - cron: "17 11 */3 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync latest Substack article
+        run: python scripts/update_substack.py
+
+      - name: Commit changes if needed
+        run: |
+          if git diff --quiet; then
+            echo "No Substack changes detected."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html assets/substack-latest.*
+          git commit -m "Sync latest Substack post"
+          git push
