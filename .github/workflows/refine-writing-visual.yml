@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Remove faux article card styling
+      - name: Simplify writing visual
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -21,28 +21,62 @@ jobs:
           path = Path("index.html")
           text = path.read_text()
 
-          old_css = '''    .writing-visual{background:linear-gradient(135deg,var(--g-2),var(--g-0));min-height:260px}
-    .ood-card{width:min(84%,330px);background:rgba(255,255,255,.82);border:1px solid rgba(31,36,48,.11);border-radius:18px;padding:22px;box-shadow:0 14px 32px rgba(31,36,48,.08);transform:rotate(-1.5deg)}
-    .ood-small{font-size:10px;color:var(--faint);font-weight:900;letter-spacing:.5px;text-transform:uppercase}.ood-title{margin-top:8px;font-size:27px;font-weight:950;letter-spacing:-.8px;line-height:1.02}.ood-note{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.5}'''
-
-          new_css = '''    .writing-visual{
-      background:linear-gradient(135deg,var(--g-2),var(--g-0));min-height:260px;
-      align-items:flex-end;justify-content:flex-start;padding:34px;text-align:left;
+          override = '''
+    /* Writing section: editorial treatment, no faux article card */
+    .writing-visual{
+      background:linear-gradient(135deg,var(--g-2),var(--g-0));
+      min-height:260px;
+      align-items:flex-end;
+      justify-content:flex-start;
+      padding:34px;
+      text-align:left;
     }
-    .ood-card{width:100%;background:transparent;border:0;border-radius:0;padding:0;box-shadow:none;transform:none}
-    .ood-small{font-size:10px;color:var(--faint);font-weight:950;letter-spacing:.65px;text-transform:uppercase}
-    .ood-title{margin-top:10px;font-size:clamp(42px,5vw,62px);font-weight:950;letter-spacing:-2.4px;line-height:.92;max-width:420px}
-    .ood-note{margin-top:18px;color:var(--muted);font-size:13px;line-height:1.55;max-width:330px}'''
+    .ood-card{
+      width:100%;
+      background:transparent;
+      border:0;
+      border-radius:0;
+      padding:0;
+      box-shadow:none;
+      transform:none;
+    }
+    .ood-small{
+      font-size:10px;
+      color:var(--faint);
+      font-weight:950;
+      letter-spacing:.65px;
+      text-transform:uppercase;
+    }
+    .ood-title{
+      margin-top:10px;
+      font-size:clamp(42px,5vw,62px);
+      font-weight:950;
+      letter-spacing:-2.4px;
+      line-height:.92;
+      max-width:420px;
+    }
+    .ood-note{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.55;
+      max-width:330px;
+    }
+'''
 
-          if old_css not in text:
-              raise SystemExit("Writing visual CSS block not found")
+          marker = '</style>'
+          if 'Writing section: editorial treatment' not in text:
+              text = text.replace(marker, override + '\n' + marker, 1)
 
-          text = text.replace(old_css, new_css, 1)
           path.write_text(text)
           PY
 
       - name: Commit changes
         run: |
+          if git diff --quiet; then
+            echo "No changes needed."
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
