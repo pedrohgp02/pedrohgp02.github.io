@@ -18,14 +18,16 @@
   </script>
 
   <style>
+
     /* =========================================================
-       BASE
+       VARIABLES
     ========================================================= */
 
     :root {
       --bg: #fbfbf8;
 
-      --surface: rgba(255, 255, 255, 0.92);
+      --surface: rgba(255, 255, 255, 0.80);
+      --surface-strong: rgba(255, 255, 255, 0.88);
       --surface-solid: #ffffff;
 
       --ink: #1f2430;
@@ -46,9 +48,17 @@
       --r-sm: 13px;
       --max: 1080px;
 
-      --shadow: 0 8px 24px rgba(31, 36, 48, 0.06);
-      --shadow-hover: 0 14px 34px rgba(31, 36, 48, 0.08);
+      --shadow:
+        0 8px 24px rgba(31, 36, 48, 0.055);
+
+      --shadow-hover:
+        0 14px 34px rgba(31, 36, 48, 0.08);
     }
+
+
+    /* =========================================================
+       BASE
+    ========================================================= */
 
     * {
       box-sizing: border-box;
@@ -78,7 +88,9 @@
 
       line-height: 1.65;
 
-      background-color: var(--bg);
+      background: var(--bg);
+
+      overflow-x: hidden;
     }
 
     a {
@@ -103,10 +115,83 @@
       color: var(--ink);
     }
 
+
+    /* =========================================================
+       FULL-PAGE FLUID BACKGROUND
+    ========================================================= */
+
+    #fluid-canvas {
+      position: fixed;
+
+      inset: 0;
+
+      width: 100vw;
+      height: 100vh;
+
+      z-index: 0;
+
+      pointer-events: none;
+
+      opacity: 0.42;
+
+      filter:
+        saturate(0.72)
+        brightness(1.10);
+
+      transform: translateZ(0);
+    }
+
+
+    /*
+      A tiny ambient background so the site is not completely
+      blank before someone starts painting.
+    */
+
+    .ambient-bg {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 0;
+
+      pointer-events: none;
+
+      background:
+        radial-gradient(
+          circle at 12% 12%,
+          rgba(205, 227, 255, 0.16),
+          transparent 27%
+        ),
+        radial-gradient(
+          circle at 88% 22%,
+          rgba(208, 245, 221, 0.17),
+          transparent 29%
+        ),
+        radial-gradient(
+          circle at 55% 82%,
+          rgba(229, 214, 255, 0.11),
+          transparent 28%
+        );
+    }
+
+
+    /*
+      Everything in the portfolio sits above the fluid canvas.
+    */
+
+    .page {
+      position: relative;
+
+      z-index: 1;
+    }
+
+
     .skip-link {
       position: fixed;
+
       left: 16px;
       top: -60px;
+
       z-index: 100;
 
       padding: 9px 13px;
@@ -128,11 +213,18 @@
       top: 14px;
     }
 
+
     .wrap {
       max-width: var(--max);
+
       margin: 0 auto;
-      padding: 24px 18px 68px;
+
+      padding:
+        24px
+        18px
+        68px;
     }
+
 
     /* =========================================================
        HEADER
@@ -145,8 +237,12 @@
 
       gap: 16px;
 
-      padding: 6px 2px 18px;
+      padding:
+        6px
+        2px
+        18px;
     }
+
 
     .name {
       display: flex;
@@ -162,6 +258,7 @@
       letter-spacing: -0.25px;
     }
 
+
     .mark {
       width: 11px;
       height: 11px;
@@ -175,11 +272,15 @@
           var(--g-2)
         );
 
-      border: 1px solid rgba(31, 36, 48, 0.14);
+      border:
+        1px solid
+        rgba(31, 36, 48, 0.14);
 
       box-shadow:
-        0 0 0 4px rgba(169, 215, 193, 0.16);
+        0 0 0 4px
+        rgba(169, 215, 193, 0.16);
     }
+
 
     .nav {
       display: flex;
@@ -194,14 +295,21 @@
       font-weight: 800;
     }
 
-    .nav a {
-      padding: 8px 10px;
 
-      border: 1px solid transparent;
+    .nav a {
+      padding:
+        8px
+        10px;
+
+      border:
+        1px solid transparent;
+
       border-radius: 999px;
 
-      transition: 160ms ease;
+      transition:
+        160ms ease;
     }
+
 
     .nav a:hover,
     .nav a:focus-visible,
@@ -210,10 +318,15 @@
 
       border-color: var(--line);
 
-      background: rgba(255, 255, 255, 0.72);
+      background:
+        rgba(255, 255, 255, 0.74);
+
+      backdrop-filter:
+        blur(10px);
 
       outline: none;
     }
+
 
     /* =========================================================
        HERO
@@ -222,7 +335,7 @@
     .hero {
       position: relative;
 
-      min-height: 585px;
+      min-height: 570px;
 
       display: flex;
       align-items: center;
@@ -230,101 +343,62 @@
 
       overflow: hidden;
 
-      padding: 56px 30px 36px;
+      padding:
+        58px
+        30px
+        38px;
 
       text-align: center;
 
-      border: 1px solid var(--line);
+      border:
+        1px solid
+        rgba(31, 36, 48, 0.10);
+
       border-radius: 24px;
 
-      background: #ffffff;
+      background:
+        rgba(255, 255, 255, 0.69);
 
-      box-shadow: var(--shadow);
+      backdrop-filter:
+        blur(5px);
+
+      box-shadow:
+        var(--shadow);
 
       isolation: isolate;
     }
 
+
     /*
-      Static fallback behind the fluid simulation.
-      This is also what users with reduced motion will see.
+      A very faint wash inside the hero.
+      The actual interesting color comes from the fluid behind it.
     */
 
     .hero::before {
       content: "";
 
       position: absolute;
+
       inset: 0;
 
-      z-index: 0;
+      z-index: -1;
 
       pointer-events: none;
 
       background:
-        radial-gradient(
-          circle at 15% 25%,
-          rgba(200, 225, 255, 0.24),
-          transparent 28%
-        ),
-        radial-gradient(
-          circle at 82% 30%,
-          rgba(207, 248, 220, 0.25),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 55% 86%,
-          rgba(233, 214, 255, 0.17),
-          transparent 30%
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.24),
+          rgba(243, 250, 246, 0.05)
         );
     }
 
-    /*
-      THE PAINT LAYER
-    */
-
-    #fluid-canvas {
-      position: absolute;
-      inset: 0;
-
-      z-index: 1;
-
-      width: 100%;
-      height: 100%;
-
-      opacity: 0.53;
-
-      filter:
-        saturate(0.72)
-        brightness(1.08);
-
-      /*
-        This MUST receive mouse movement for the fluid
-        library's hover trigger.
-      */
-      pointer-events: auto;
-    }
 
     .hero-content {
-      position: relative;
-
-      z-index: 2;
-
       width: 100%;
       max-width: 820px;
-
-      /*
-        Let movement pass through the text to the canvas.
-      */
-      pointer-events: none;
     }
 
-    /*
-      Re-enable interaction for actual controls.
-    */
-
-    .hero-content a,
-    .hero-content button {
-      pointer-events: auto;
-    }
 
     .eyebrow {
       display: inline-flex;
@@ -332,15 +406,26 @@
 
       gap: 8px;
 
-      margin: 0 auto 14px;
-      padding: 7px 10px;
+      margin:
+        0
+        auto
+        14px;
 
-      border: 1px solid rgba(31, 36, 48, 0.09);
+      padding:
+        7px
+        10px;
+
+      border:
+        1px solid
+        rgba(31, 36, 48, 0.09);
+
       border-radius: 999px;
 
-      background: rgba(255, 255, 255, 0.70);
+      background:
+        rgba(255, 255, 255, 0.62);
 
-      backdrop-filter: blur(8px);
+      backdrop-filter:
+        blur(10px);
 
       color: var(--muted);
 
@@ -352,42 +437,70 @@
       text-transform: uppercase;
     }
 
+
     h1 {
       max-width: 760px;
 
-      margin: 0 auto;
+      margin:
+        0
+        auto;
 
-      font-size: clamp(46px, 7vw, 72px);
+      font-size:
+        clamp(
+          46px,
+          7vw,
+          72px
+        );
+
       font-weight: 950;
 
       letter-spacing: -1.9px;
+
       line-height: 1.02;
     }
+
 
     .hero-tagline {
       max-width: 760px;
 
-      margin: 14px auto 0;
+      margin:
+        14px
+        auto
+        0;
 
-      color: rgba(31, 36, 48, 0.84);
+      color:
+        rgba(31, 36, 48, 0.84);
 
-      font-size: clamp(18px, 2.2vw, 24px);
+      font-size:
+        clamp(
+          18px,
+          2.2vw,
+          24px
+        );
+
       font-weight: 850;
 
       letter-spacing: -0.35px;
+
       line-height: 1.35;
     }
+
 
     .hero-lead {
       max-width: 710px;
 
-      margin: 13px auto 0;
+      margin:
+        13px
+        auto
+        0;
 
       color: var(--muted);
 
       font-size: 15px;
+
       line-height: 1.72;
     }
+
 
     .hero-meta {
       display: flex;
@@ -399,6 +512,7 @@
       margin-top: 18px;
     }
 
+
     .status-pill,
     .meta-pill {
       display: inline-flex;
@@ -406,20 +520,29 @@
 
       gap: 7px;
 
-      padding: 7px 10px;
+      padding:
+        7px
+        10px;
 
-      border: 1px solid var(--line);
+      border:
+        1px solid
+        var(--line);
+
       border-radius: 999px;
 
-      background: rgba(255, 255, 255, 0.73);
+      background:
+        rgba(255, 255, 255, 0.64);
 
-      backdrop-filter: blur(8px);
+      backdrop-filter:
+        blur(10px);
 
-      color: rgba(31, 36, 48, 0.72);
+      color:
+        rgba(31, 36, 48, 0.72);
 
       font-size: 12px;
       font-weight: 800;
     }
+
 
     .status-dot {
       width: 7px;
@@ -427,11 +550,14 @@
 
       border-radius: 999px;
 
-      background: #45a97a;
+      background:
+        #45a97a;
 
       box-shadow:
-        0 0 0 3px rgba(69, 169, 122, 0.12);
+        0 0 0 3px
+        rgba(69, 169, 122, 0.12);
     }
+
 
     .actions {
       display: flex;
@@ -443,6 +569,7 @@
       margin-top: 22px;
     }
 
+
     .btn,
     .plink,
     .small-link,
@@ -453,16 +580,23 @@
 
       gap: 8px;
 
-      border: 1px solid var(--line);
+      border:
+        1px solid
+        var(--line);
+
       border-radius: 999px;
 
-      background: rgba(255, 255, 255, 0.88);
+      background:
+        rgba(255, 255, 255, 0.82);
 
       color: var(--ink);
 
       font-weight: 900;
 
       cursor: pointer;
+
+      backdrop-filter:
+        blur(10px);
 
       transition:
         background 170ms ease,
@@ -471,20 +605,25 @@
         box-shadow 170ms ease;
     }
 
+
     .btn {
-      padding: 10px 14px;
+      padding:
+        10px
+        14px;
 
       font-size: 14px;
-
-      backdrop-filter: blur(8px);
     }
+
 
     .btn.primary,
     .plink.primary {
-      background: rgba(217, 240, 228, 0.90);
+      background:
+        rgba(217, 240, 228, 0.82);
 
-      border-color: rgba(169, 215, 193, 0.88);
+      border-color:
+        rgba(169, 215, 193, 0.88);
     }
+
 
     .btn:hover,
     .btn:focus-visible,
@@ -494,21 +633,27 @@
     .small-link:focus-visible,
     .copy-btn:hover,
     .copy-btn:focus-visible {
-      transform: translateY(-1px);
+      transform:
+        translateY(-1px);
 
-      background: rgba(217, 240, 228, 0.82);
+      background:
+        rgba(217, 240, 228, 0.86);
 
-      border-color: rgba(169, 215, 193, 0.92);
+      border-color:
+        rgba(169, 215, 193, 0.92);
 
       outline: none;
     }
+
 
     .btn.primary:hover,
     .btn.primary:focus-visible,
     .plink.primary:hover,
     .plink.primary:focus-visible {
-      background: rgba(198, 230, 214, 0.94);
+      background:
+        rgba(198, 230, 214, 0.92);
     }
+
 
     .paint-hint {
       display: inline-flex;
@@ -517,21 +662,28 @@
       gap: 7px;
 
       margin-top: 24px;
-      padding: 7px 10px;
 
-      color: rgba(31, 36, 48, 0.43);
+      padding:
+        7px
+        10px;
+
+      border-radius: 999px;
+
+      background:
+        rgba(255, 255, 255, 0.43);
+
+      backdrop-filter:
+        blur(8px);
+
+      color:
+        rgba(31, 36, 48, 0.45);
 
       font-size: 10px;
       font-weight: 850;
 
       letter-spacing: 0.35px;
-
-      border-radius: 999px;
-
-      background: rgba(255, 255, 255, 0.38);
-
-      backdrop-filter: blur(6px);
     }
+
 
     .paint-dot {
       width: 7px;
@@ -548,6 +700,7 @@
         );
     }
 
+
     .scroll-cue {
       display: inline-flex;
       align-items: center;
@@ -563,8 +716,10 @@
 
       letter-spacing: 0.25px;
 
-      transition: color 170ms ease;
+      transition:
+        color 170ms ease;
     }
+
 
     .scroll-cue:hover,
     .scroll-cue:focus-visible {
@@ -573,22 +728,33 @@
       outline: none;
     }
 
+
     .scroll-arrow {
       display: inline-block;
 
-      animation: scrollBounce 1.8s ease-in-out infinite;
+      animation:
+        scrollBounce
+        1.8s
+        ease-in-out
+        infinite;
     }
 
+
     @keyframes scrollBounce {
+
       0%,
       100% {
-        transform: translateY(0);
+        transform:
+          translateY(0);
       }
 
       50% {
-        transform: translateY(5px);
+        transform:
+          translateY(5px);
       }
+
     }
+
 
     /* =========================================================
        SECTIONS
@@ -600,6 +766,7 @@
       scroll-margin-top: 18px;
     }
 
+
     .section-head {
       display: flex;
       align-items: flex-end;
@@ -608,8 +775,12 @@
       gap: 16px;
 
       margin-bottom: 14px;
-      padding: 0 2px;
+
+      padding:
+        0
+        2px;
     }
+
 
     .section-title {
       display: inline-flex;
@@ -619,7 +790,8 @@
 
       margin: 0;
 
-      color: rgba(31, 36, 48, 0.80);
+      color:
+        rgba(31, 36, 48, 0.80);
 
       font-size: 14px;
       font-weight: 950;
@@ -628,6 +800,7 @@
 
       text-transform: uppercase;
     }
+
 
     .section-title::after {
       content: "";
@@ -639,29 +812,45 @@
 
       border-radius: 999px;
 
-      background: var(--g-5);
+      background:
+        var(--g-5);
 
       transition:
-        width 620ms cubic-bezier(0.2, 0.75, 0.2, 1);
+        width
+        620ms
+        cubic-bezier(
+          0.2,
+          0.75,
+          0.2,
+          1
+        );
     }
 
-    .section-head.is-visible .section-title::after {
+
+    .section-head.is-visible
+    .section-title::after {
       width: 34px;
     }
+
 
     .section-intro {
       max-width: 730px;
 
-      margin: 5px 0 0;
+      margin:
+        5px
+        0
+        0;
 
       color: var(--muted);
 
       font-size: 14px;
+
       line-height: 1.6;
     }
 
+
     /* =========================================================
-       PROJECT CARDS
+       PROJECTS
     ========================================================= */
 
     .projects-grid {
@@ -672,47 +861,72 @@
       gap: 16px;
     }
 
+
     .project-card {
       overflow: hidden;
 
-      border: 1px solid var(--line);
-      border-radius: var(--r);
+      border:
+        1px solid
+        var(--line);
 
-      background: var(--surface);
+      border-radius:
+        var(--r);
 
-      box-shadow: var(--shadow);
+      background:
+        var(--surface);
+
+      backdrop-filter:
+        blur(9px);
+
+      box-shadow:
+        var(--shadow);
 
       transition:
         border-color 190ms ease,
         box-shadow 190ms ease,
-        transform 190ms ease;
+        transform 190ms ease,
+        background 190ms ease;
     }
+
 
     .project-card:hover {
-      transform: translateY(-2px);
+      transform:
+        translateY(-2px);
 
-      border-color: rgba(31, 36, 48, 0.17);
+      border-color:
+        rgba(31, 36, 48, 0.17);
 
-      box-shadow: var(--shadow-hover);
+      background:
+        rgba(255, 255, 255, 0.86);
+
+      box-shadow:
+        var(--shadow-hover);
     }
 
+
     .project-card.featured {
-      border-color: rgba(169, 215, 193, 0.72);
+      grid-column:
+        1 / -1;
+
+      border-color:
+        rgba(169, 215, 193, 0.72);
 
       background:
         linear-gradient(
           135deg,
-          rgba(255, 255, 255, 0.98),
-          rgba(243, 250, 246, 0.82)
+          rgba(255, 255, 255, 0.85),
+          rgba(243, 250, 246, 0.72)
         );
     }
+
 
     .project-media {
       position: relative;
 
       overflow: hidden;
 
-      aspect-ratio: 16 / 9;
+      aspect-ratio:
+        16 / 9;
 
       background:
         linear-gradient(
@@ -721,13 +935,17 @@
           var(--g-0)
         );
 
-      border-bottom: 1px solid var(--line2);
+      border-bottom:
+        1px solid
+        var(--line2);
     }
+
 
     .project-media::after {
       content: "";
 
       position: absolute;
+
       inset: 0;
 
       pointer-events: none;
@@ -736,11 +954,15 @@
 
       background:
         radial-gradient(
-          700px 260px at 20% 15%,
+          700px
+          260px
+          at 20%
+          15%,
           rgba(255, 255, 255, 0.45),
           transparent 60%
         );
     }
+
 
     .project-media img {
       display: block;
@@ -760,12 +982,15 @@
         )
         scale(1.055);
 
-      transition: transform 260ms ease;
+      transition:
+        transform 260ms ease;
 
       will-change: transform;
     }
 
-    .project-card:hover .project-media img {
+
+    .project-card:hover
+    .project-media img {
       transform:
         translate3d(
           0,
@@ -775,27 +1000,38 @@
         scale(1.085);
     }
 
+
     .media-label {
       position: absolute;
+
       left: 14px;
       bottom: 12px;
 
       z-index: 2;
 
-      padding: 7px 10px;
+      padding:
+        7px
+        10px;
 
-      border: 1px solid rgba(31, 36, 48, 0.12);
+      border:
+        1px solid
+        rgba(31, 36, 48, 0.12);
+
       border-radius: 999px;
 
-      background: rgba(255, 255, 255, 0.90);
+      background:
+        rgba(255, 255, 255, 0.88);
 
-      backdrop-filter: blur(7px);
+      backdrop-filter:
+        blur(8px);
 
-      color: rgba(31, 36, 48, 0.72);
+      color:
+        rgba(31, 36, 48, 0.72);
 
       font-size: 11px;
       font-weight: 900;
     }
+
 
     .live-dot {
       display: inline-block;
@@ -807,13 +1043,16 @@
 
       border-radius: 999px;
 
-      background: #45a97a;
+      background:
+        #45a97a;
 
       box-shadow:
-        0 0 0 3px rgba(69, 169, 122, 0.12);
+        0 0 0 3px
+        rgba(69, 169, 122, 0.12);
 
       vertical-align: 1px;
     }
+
 
     .project-body {
       display: grid;
@@ -822,8 +1061,12 @@
 
       align-content: start;
 
-      padding: 17px 18px 18px;
+      padding:
+        17px
+        18px
+        18px;
     }
+
 
     .project-title {
       margin: 0;
@@ -832,8 +1075,10 @@
       font-weight: 950;
 
       letter-spacing: -0.35px;
+
       line-height: 1.2;
     }
+
 
     .project-sub {
       margin: 0;
@@ -841,8 +1086,10 @@
       color: var(--muted);
 
       font-size: 14px;
+
       line-height: 1.68;
     }
+
 
     .project-tags {
       display: flex;
@@ -850,20 +1097,29 @@
 
       gap: 7px;
 
-      color: rgba(31, 36, 48, 0.72);
+      color:
+        rgba(31, 36, 48, 0.72);
 
       font-size: 11px;
       font-weight: 900;
     }
 
-    .tag {
-      padding: 6px 9px;
 
-      border: 1px solid rgba(31, 36, 48, 0.09);
+    .tag {
+      padding:
+        6px
+        9px;
+
+      border:
+        1px solid
+        rgba(31, 36, 48, 0.09);
+
       border-radius: 999px;
 
-      background: rgba(217, 240, 228, 0.50);
+      background:
+        rgba(217, 240, 228, 0.48);
     }
+
 
     .project-links {
       display: flex;
@@ -874,35 +1130,55 @@
       margin-top: 1px;
     }
 
-    .plink {
-      padding: 8px 10px;
 
-      color: rgba(31, 36, 48, 0.88);
+    .plink {
+      padding:
+        8px
+        10px;
+
+      color:
+        rgba(31, 36, 48, 0.88);
 
       font-size: 12px;
     }
+
 
     .metrics {
       display: grid;
 
       grid-template-columns:
-        repeat(3, 1fr);
+        repeat(
+          3,
+          1fr
+        );
 
       gap: 8px;
 
       margin-top: 2px;
     }
 
+
     .metric {
       min-width: 0;
 
-      padding: 10px 10px 9px;
+      padding:
+        10px
+        10px
+        9px;
 
-      border: 1px solid var(--line2);
+      border:
+        1px solid
+        var(--line2);
+
       border-radius: 12px;
 
-      background: rgba(255, 255, 255, 0.62);
+      background:
+        rgba(255, 255, 255, 0.55);
+
+      backdrop-filter:
+        blur(6px);
     }
+
 
     .metric strong {
       display: block;
@@ -910,24 +1186,29 @@
       font-size: 18px;
 
       letter-spacing: -0.4px;
+
       line-height: 1.1;
     }
+
 
     .metric span {
       display: block;
 
       margin-top: 4px;
 
-      color: var(--faint);
+      color:
+        var(--faint);
 
       font-size: 10px;
       font-weight: 850;
 
       letter-spacing: 0.35px;
+
       line-height: 1.25;
 
       text-transform: uppercase;
     }
+
 
     /* =========================================================
        TECHNICAL WORK
@@ -941,6 +1222,7 @@
       gap: 14px;
     }
 
+
     .technical-card {
       display: grid;
 
@@ -948,73 +1230,119 @@
 
       padding: 17px;
 
-      border: 1px solid var(--line);
-      border-radius: var(--r);
+      border:
+        1px solid
+        var(--line);
 
-      background: var(--surface);
+      border-radius:
+        var(--r);
 
-      box-shadow: var(--shadow);
+      background:
+        var(--surface);
+
+      backdrop-filter:
+        blur(9px);
+
+      box-shadow:
+        var(--shadow);
 
       transition:
         border-color 180ms ease,
         transform 180ms ease,
-        box-shadow 180ms ease;
+        box-shadow 180ms ease,
+        background 180ms ease;
     }
+
 
     .technical-card:hover {
-      transform: translateY(-2px);
+      transform:
+        translateY(-2px);
 
-      border-color: rgba(31, 36, 48, 0.16);
+      border-color:
+        rgba(31, 36, 48, 0.16);
 
-      box-shadow: var(--shadow-hover);
+      background:
+        rgba(255, 255, 255, 0.86);
+
+      box-shadow:
+        var(--shadow-hover);
     }
+
 
     .technical-top {
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
+
+      justify-content:
+        space-between;
+
+      align-items:
+        flex-start;
 
       gap: 12px;
     }
 
+
     .technical-kicker {
-      color: var(--faint);
+      color:
+        var(--faint);
 
       font-size: 10px;
       font-weight: 950;
 
-      letter-spacing: 0.55px;
+      letter-spacing:
+        0.55px;
 
-      text-transform: uppercase;
+      text-transform:
+        uppercase;
     }
 
+
     .technical-card h3 {
-      margin: 3px 0 0;
+      margin:
+        3px
+        0
+        0;
 
       font-size: 16px;
 
-      letter-spacing: -0.25px;
-      line-height: 1.25;
+      letter-spacing:
+        -0.25px;
+
+      line-height:
+        1.25;
     }
+
 
     .technical-card p {
       margin: 0;
 
-      color: var(--muted);
+      color:
+        var(--muted);
 
       font-size: 13px;
-      line-height: 1.58;
+
+      line-height:
+        1.58;
     }
 
+
     .result-line {
-      padding: 9px 10px;
+      padding:
+        9px
+        10px;
 
-      border: 1px solid rgba(169, 215, 193, 0.42);
-      border-radius: 11px;
+      border:
+        1px solid
+        rgba(169, 215, 193, 0.42);
 
-      background: rgba(217, 240, 228, 0.48);
+      border-radius:
+        11px;
 
-      color: rgba(31, 36, 48, 0.76);
+      background:
+        rgba(217, 240, 228, 0.42);
+
+      color:
+        rgba(31, 36, 48, 0.76);
 
       font-size: 12px;
       font-weight: 750;
@@ -1022,9 +1350,12 @@
       line-height: 1.45;
     }
 
+
     .result-line strong {
-      color: var(--ink);
+      color:
+        var(--ink);
     }
+
 
     .technical-links {
       display: flex;
@@ -1033,13 +1364,19 @@
       gap: 8px;
     }
 
+
     .small-link {
-      padding: 7px 9px;
+      padding:
+        7px
+        9px;
 
-      color: rgba(31, 36, 48, 0.82);
+      color:
+        rgba(31, 36, 48, 0.82);
 
-      font-size: 11px;
+      font-size:
+        11px;
     }
+
 
     /* =========================================================
        EXPERIENCE
@@ -1053,65 +1390,128 @@
       gap: 12px;
     }
 
+
     .experience-card {
       padding: 17px;
 
-      border: 1px solid var(--line);
-      border-radius: var(--r);
+      border:
+        1px solid
+        var(--line);
 
-      background: var(--surface);
+      border-radius:
+        var(--r);
 
-      box-shadow: var(--shadow);
+      background:
+        var(--surface);
+
+      backdrop-filter:
+        blur(9px);
+
+      box-shadow:
+        var(--shadow);
+
+      transition:
+        transform 180ms ease,
+        background 180ms ease,
+        box-shadow 180ms ease;
     }
+
+
+    .experience-card:hover {
+      transform:
+        translateY(-2px);
+
+      background:
+        rgba(255, 255, 255, 0.86);
+
+      box-shadow:
+        var(--shadow-hover);
+    }
+
 
     .experience-head {
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
+
+      justify-content:
+        space-between;
 
       gap: 12px;
+
+      align-items:
+        flex-start;
     }
+
 
     .experience-card h3 {
       margin: 0;
 
       font-size: 16px;
 
-      letter-spacing: -0.2px;
-      line-height: 1.25;
+      letter-spacing:
+        -0.2px;
+
+      line-height:
+        1.25;
     }
 
-    .experience-role {
-      margin: 3px 0 0;
 
-      color: var(--muted);
+    .experience-role {
+      margin:
+        3px
+        0
+        0;
+
+      color:
+        var(--muted);
 
       font-size: 12px;
       font-weight: 800;
     }
 
-    .experience-card p {
-      margin: 10px 0 0;
 
-      color: var(--muted);
+    .experience-card p {
+      margin:
+        10px
+        0
+        0;
+
+      color:
+        var(--muted);
 
       font-size: 13px;
-      line-height: 1.62;
+
+      line-height:
+        1.62;
     }
 
+
     .experience-location {
-      flex: 0 0 auto;
+      flex:
+        0
+        0
+        auto;
 
-      padding: 5px 8px;
+      padding:
+        5px
+        8px;
 
-      border: 1px solid var(--line2);
-      border-radius: 999px;
+      border:
+        1px solid
+        var(--line2);
 
-      color: var(--faint);
+      border-radius:
+        999px;
+
+      background:
+        rgba(255, 255, 255, 0.42);
+
+      color:
+        var(--faint);
 
       font-size: 10px;
       font-weight: 850;
     }
+
 
     /* =========================================================
        WRITING
@@ -1122,13 +1522,23 @@
 
       overflow: hidden;
 
-      border: 1px solid var(--line);
-      border-radius: var(--r);
+      border:
+        1px solid
+        var(--line);
 
-      background: var(--surface);
+      border-radius:
+        var(--r);
 
-      box-shadow: var(--shadow);
+      background:
+        var(--surface);
+
+      backdrop-filter:
+        blur(9px);
+
+      box-shadow:
+        var(--shadow);
     }
+
 
     .writing-image {
       position: relative;
@@ -1137,6 +1547,7 @@
 
       overflow: hidden;
     }
+
 
     .writing-image img {
       width: 100%;
@@ -1147,10 +1558,12 @@
       object-fit: cover;
     }
 
+
     .writing-image::after {
       content: "";
 
       position: absolute;
+
       inset: 0;
 
       background:
@@ -1161,27 +1574,40 @@
         );
     }
 
+
     .writing-content {
       padding: 20px;
     }
 
+
     .writing-content h3 {
-      margin: 4px 0 8px;
+      margin:
+        4px
+        0
+        8px;
 
       font-size: 22px;
 
-      letter-spacing: -0.45px;
-      line-height: 1.25;
+      letter-spacing:
+        -0.45px;
+
+      line-height:
+        1.25;
     }
+
 
     .writing-content p {
       margin: 0;
 
-      color: var(--muted);
+      color:
+        var(--muted);
 
       font-size: 14px;
-      line-height: 1.68;
+
+      line-height:
+        1.68;
     }
+
 
     /* =========================================================
        ABOUT
@@ -1194,27 +1620,40 @@
 
       padding: 22px;
 
-      border: 1px solid var(--line);
-      border-radius: var(--r);
+      border:
+        1px solid
+        var(--line);
+
+      border-radius:
+        var(--r);
 
       background:
         linear-gradient(
           135deg,
-          rgba(255, 255, 255, 0.96),
-          rgba(243, 250, 246, 0.76)
+          rgba(255, 255, 255, 0.83),
+          rgba(243, 250, 246, 0.68)
         );
 
-      box-shadow: var(--shadow);
+      backdrop-filter:
+        blur(10px);
+
+      box-shadow:
+        var(--shadow);
     }
+
 
     .about-card p {
       margin: 0;
 
-      color: var(--muted);
+      color:
+        var(--muted);
 
       font-size: 14px;
-      line-height: 1.75;
+
+      line-height:
+        1.75;
     }
+
 
     .skills {
       display: flex;
@@ -1223,19 +1662,32 @@
       gap: 8px;
     }
 
+
     .skill {
-      padding: 7px 10px;
+      padding:
+        7px
+        10px;
 
-      border: 1px solid rgba(31, 36, 48, 0.09);
-      border-radius: 999px;
+      border:
+        1px solid
+        rgba(31, 36, 48, 0.09);
 
-      background: rgba(255, 255, 255, 0.68);
+      border-radius:
+        999px;
 
-      color: rgba(31, 36, 48, 0.74);
+      background:
+        rgba(255, 255, 255, 0.58);
 
-      font-size: 11px;
-      font-weight: 900;
+      color:
+        rgba(31, 36, 48, 0.74);
+
+      font-size:
+        11px;
+
+      font-weight:
+        900;
     }
+
 
     /* =========================================================
        CONTACT
@@ -1246,42 +1698,71 @@
 
       overflow: hidden;
 
-      padding: 38px 24px;
+      padding:
+        38px
+        24px;
 
-      text-align: center;
+      text-align:
+        center;
 
-      border: 1px solid rgba(169, 215, 193, 0.64);
-      border-radius: 22px;
+      border:
+        1px solid
+        rgba(169, 215, 193, 0.64);
+
+      border-radius:
+        22px;
 
       background:
         linear-gradient(
           135deg,
-          rgba(255, 255, 255, 0.96),
-          rgba(217, 240, 228, 0.72)
+          rgba(255, 255, 255, 0.80),
+          rgba(217, 240, 228, 0.59)
         );
 
-      box-shadow: var(--shadow);
+      backdrop-filter:
+        blur(10px);
+
+      box-shadow:
+        var(--shadow);
     }
+
 
     .contact-card h2 {
       margin: 0;
 
-      font-size: clamp(28px, 4vw, 40px);
+      font-size:
+        clamp(
+          28px,
+          4vw,
+          40px
+        );
 
-      letter-spacing: -1px;
-      line-height: 1.1;
+      letter-spacing:
+        -1px;
+
+      line-height:
+        1.1;
     }
+
 
     .contact-card p {
       max-width: 590px;
 
-      margin: 12px auto 0;
+      margin:
+        12px
+        auto
+        0;
 
-      color: var(--muted);
+      color:
+        var(--muted);
 
-      font-size: 14px;
-      line-height: 1.65;
+      font-size:
+        14px;
+
+      line-height:
+        1.65;
     }
+
 
     .contact-actions {
       display: flex;
@@ -1290,14 +1771,20 @@
 
       gap: 9px;
 
-      margin-top: 19px;
+      margin-top:
+        19px;
     }
+
 
     .copy-btn {
-      padding: 10px 14px;
+      padding:
+        10px
+        14px;
 
-      font-size: 13px;
+      font-size:
+        13px;
     }
+
 
     /* =========================================================
        FOOTER
@@ -1306,19 +1793,33 @@
     footer {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
+
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
 
       gap: 14px;
 
-      margin-top: 38px;
-      padding: 18px 2px 4px;
+      margin-top:
+        38px;
 
-      color: var(--faint);
+      padding:
+        18px
+        2px
+        4px;
 
-      font-size: 11px;
-      font-weight: 750;
+      color:
+        var(--faint);
+
+      font-size:
+        11px;
+
+      font-weight:
+        750;
     }
+
 
     .footer-links {
       display: flex;
@@ -1327,87 +1828,139 @@
       gap: 14px;
     }
 
+
     .footer-links a:hover {
-      color: var(--ink);
+      color:
+        var(--ink);
     }
 
+
     /* =========================================================
-       REVEAL ANIMATION
+       REVEAL ANIMATIONS
     ========================================================= */
 
     .js .reveal {
       opacity: 0;
 
-      transform: translateY(18px);
+      transform:
+        translateY(18px);
 
       transition:
         opacity 620ms ease,
-        transform 620ms cubic-bezier(0.2, 0.75, 0.2, 1);
+        transform
+        620ms
+        cubic-bezier(
+          0.2,
+          0.75,
+          0.2,
+          1
+        );
     }
+
 
     .js .reveal.is-visible {
       opacity: 1;
 
-      transform: translateY(0);
+      transform:
+        translateY(0);
     }
+
 
     /* =========================================================
        DESKTOP
     ========================================================= */
 
-    @media (min-width: 720px) {
+    @media (
+      min-width:
+      720px
+    ) {
+
       .projects-grid {
         grid-template-columns:
-          repeat(2, minmax(0, 1fr));
+          repeat(
+            2,
+            minmax(0, 1fr)
+          );
       }
 
+
       .project-card.featured {
-        grid-column: 1 / -1;
+        grid-column:
+          1 / -1;
 
         display: grid;
 
         grid-template-columns:
-          1.08fr 0.92fr;
+          1.08fr
+          0.92fr;
       }
 
-      .project-card.featured .project-media {
+
+      .project-card.featured
+      .project-media {
         height: 100%;
-        min-height: 350px;
 
-        aspect-ratio: auto;
+        min-height:
+          350px;
 
-        border-bottom: 0;
-        border-right: 1px solid var(--line2);
+        aspect-ratio:
+          auto;
+
+        border-bottom:
+          0;
+
+        border-right:
+          1px solid
+          var(--line2);
       }
+
 
       .technical-grid {
         grid-template-columns:
-          repeat(2, minmax(0, 1fr));
+          repeat(
+            2,
+            minmax(0, 1fr)
+          );
       }
+
 
       .experience-grid {
         grid-template-columns:
-          repeat(2, minmax(0, 1fr));
+          repeat(
+            2,
+            minmax(0, 1fr)
+          );
       }
+
 
       .writing-card {
         grid-template-columns:
-          0.95fr 1.05fr;
+          0.95fr
+          1.05fr;
       }
+
 
       .about-card {
         grid-template-columns:
-          1.3fr 0.7fr;
+          1.3fr
+          0.7fr;
 
-        align-items: start;
+        align-items:
+          start;
       }
+
     }
+
 
     /* =========================================================
        MOBILE
     ========================================================= */
 
-    @media (max-width: 719px) {
+    @media (
+      max-width:
+      719px
+    ) {
+
       .wrap {
         padding:
           16px
@@ -1415,70 +1968,100 @@
           54px;
       }
 
+
       .top {
-        align-items: flex-start;
+        align-items:
+          flex-start;
       }
+
 
       .nav {
         gap: 2px;
 
-        font-size: 11px;
+        font-size:
+          11px;
       }
+
 
       .nav a {
-        padding: 6px 7px;
+        padding:
+          6px
+          7px;
       }
 
+
       .hero {
-        min-height: 560px;
+        min-height:
+          550px;
 
         padding:
           48px
           18px
           30px;
 
-        border-radius: 20px;
+        border-radius:
+          20px;
       }
 
-      #fluid-canvas {
-        opacity: 0.45;
-
-        filter:
-          saturate(0.67)
-          brightness(1.11);
-      }
 
       .metrics {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+          1fr;
       }
+
 
       .experience-head {
-        display: block;
+        display:
+          block;
       }
+
 
       .experience-location {
-        display: inline-block;
+        display:
+          inline-block;
 
-        margin-top: 8px;
+        margin-top:
+          8px;
       }
-    }
 
-    /* =========================================================
-       ACCESSIBILITY
-    ========================================================= */
 
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
+      /*
+        Disable the interactive fluid on touch devices.
+        This prevents the canvas from interfering with page scroll.
+      */
 
       #fluid-canvas {
         display: none;
       }
 
-      .scroll-arrow {
-        animation: none;
+    }
+
+
+    /* =========================================================
+       REDUCED MOTION
+    ========================================================= */
+
+    @media (
+      prefers-reduced-motion:
+      reduce
+    ) {
+
+      html {
+        scroll-behavior:
+          auto;
       }
+
+
+      #fluid-canvas {
+        display: none;
+      }
+
+
+      .scroll-arrow {
+        animation:
+          none;
+      }
+
 
       .js .reveal {
         opacity: 1;
@@ -1487,578 +2070,178 @@
 
         transition: none;
       }
+
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <a class="skip-link" href="#main">
-    Skip to content
-  </a>
+  <!-- =====================================================
+       FLUID BACKGROUND
+  ====================================================== -->
 
-  <div class="wrap">
+  <canvas
+    id="fluid-canvas"
+    aria-hidden="true"
+  ></canvas>
 
-    <!-- =====================================================
-         NAV
-    ====================================================== -->
+  <div
+    class="ambient-bg"
+    aria-hidden="true"
+  ></div>
 
-    <header class="top">
-      <a class="name" href="#top" aria-label="Pedro Paiva home">
-        <span class="mark"></span>
-        Pedro Paiva
-      </a>
 
-      <nav class="nav" aria-label="Main navigation">
-        <a href="#work">Work</a>
-        <a href="#technical">Technical</a>
-        <a href="#experience">Experience</a>
-        <a href="#writing">Writing</a>
-        <a href="#about">About</a>
-      </nav>
-    </header>
+  <!-- =====================================================
+       PAGE
+  ====================================================== -->
 
-    <main id="main">
+  <div class="page">
+
+    <a
+      class="skip-link"
+      href="#main"
+    >
+      Skip to content
+    </a>
+
+
+    <div class="wrap">
+
 
       <!-- ===================================================
-           HERO
+           NAVIGATION
       ==================================================== -->
 
-      <section class="hero reveal" id="top">
+      <header class="top">
 
-        <canvas
-          id="fluid-canvas"
-          aria-hidden="true"
-        ></canvas>
+        <a
+          class="name"
+          href="#top"
+          aria-label="Pedro Paiva home"
+        >
+          <span class="mark"></span>
 
-        <div class="hero-content">
+          Pedro Paiva
+        </a>
 
-          <div class="eyebrow">
-            Data · Machine Learning · Product
-          </div>
 
-          <h1>
-            Hi! I'm Pedro.
-          </h1>
+        <nav
+          class="nav"
+          aria-label="Main navigation"
+        >
 
-          <p class="hero-tagline">
-            I turn messy data into models, tools, and products people can actually use.
-          </p>
-
-          <p class="hero-lead">
-            I'm a Computational Sciences student at Minerva University working across
-            data science, machine learning, statistical modeling, and applied AI.
-            I like projects that start with a real question and end with something
-            interpretable, useful, or deployable.
-          </p>
-
-          <div class="hero-meta">
-
-            <span class="status-pill">
-              <span class="status-dot"></span>
-              Open to 2027 opportunities
-            </span>
-
-            <span class="meta-pill">
-              Python · R · SQL
-            </span>
-
-            <span class="meta-pill">
-              ML · Statistics · Data Products
-            </span>
-
-          </div>
-
-          <div class="actions">
-
-            <a
-              class="btn primary"
-              href="#work"
-            >
-              Explore my work ↓
-            </a>
-
-            <a
-              class="btn"
-              href="Curriculum.pdf"
-              target="_blank"
-              rel="noopener"
-            >
-              Résumé ↗
-            </a>
-
-            <a
-              class="btn"
-              href="https://github.com/pedrohgp02"
-              target="_blank"
-              rel="noopener"
-            >
-              GitHub ↗
-            </a>
-
-          </div>
-
-          <div class="paint-hint">
-            <span class="paint-dot"></span>
-            move your cursor to paint
-          </div>
-
-          <br />
-
-          <a
-            class="scroll-cue"
-            href="#work"
-          >
-            selected work
-            <span class="scroll-arrow">↓</span>
+          <a href="#work">
+            Work
           </a>
 
-        </div>
-      </section>
+          <a href="#technical">
+            Technical
+          </a>
 
-      <!-- ===================================================
-           FEATURED WORK
-      ==================================================== -->
+          <a href="#experience">
+            Experience
+          </a>
 
-      <section id="work">
+          <a href="#writing">
+            Writing
+          </a>
 
-        <div class="section-head reveal">
-          <div>
-            <h2 class="section-title">
-              Featured work
-            </h2>
+          <a href="#about">
+            About
+          </a>
 
-            <p class="section-intro">
-              A few projects where the analysis, engineering, and final product all matter.
-            </p>
-          </div>
-        </div>
+        </nav>
 
-        <div class="projects-grid">
+      </header>
 
-          <!-- DENGUE -->
 
-          <article class="project-card featured reveal">
+      <main id="main">
 
-            <div class="project-media">
 
-              <img
-                src="assets/dengue-dashboard.png"
-                alt="Dengue surveillance and forecasting dashboard"
-              />
+        <!-- =================================================
+             HERO
+        ================================================== -->
 
-              <div class="media-label">
-                <span class="live-dot"></span>
-                Live data product
-              </div>
+        <section
+          class="hero reveal"
+          id="top"
+        >
 
+          <div class="hero-content">
+
+
+            <div class="eyebrow">
+              Data · Machine Learning · Product
             </div>
 
-            <div class="project-body">
 
-              <h3 class="project-title">
-                Dengue Surveillance & Forecasting
-              </h3>
+            <h1>
+              Hi! I'm Pedro.
+            </h1>
 
-              <p class="project-sub">
-                An end-to-end public-health data product that ingests official
-                Brazilian surveillance data, evaluates forecasting models using
-                time-aware backtesting, and serves interactive forecasts through
-                Streamlit.
-              </p>
 
-              <div class="metrics">
-
-                <div class="metric">
-                  <strong>5</strong>
-                  <span>forecast approaches</span>
-                </div>
-
-                <div class="metric">
-                  <strong>250K</strong>
-                  <span>row processing chunks</span>
-                </div>
-
-                <div class="metric">
-                  <strong>5</strong>
-                  <span>states deployed</span>
-                </div>
-
-              </div>
-
-              <div class="project-tags">
-
-                <span class="tag">
-                  Python
-                </span>
-
-                <span class="tag">
-                  Forecasting
-                </span>
-
-                <span class="tag">
-                  scikit-learn
-                </span>
-
-                <span class="tag">
-                  Streamlit
-                </span>
-
-                <span class="tag">
-                  Plotly
-                </span>
-
-              </div>
-
-              <div class="project-links">
-
-                <a
-                  class="plink primary"
-                  href="https://dengue-surveillance.streamlit.app/"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  Live dashboard ↗
-                </a>
-
-                <a
-                  class="plink"
-                  href="https://github.com/pedrohgp02/dengue-surveillance-dashboard"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  GitHub ↗
-                </a>
-
-              </div>
-
-            </div>
-          </article>
-
-          <!-- SPOTIFY -->
-
-          <article class="project-card reveal">
-
-            <div class="project-media">
-
-              <img
-                src="assets/spotify.jpg"
-                alt="Spotify skip prediction project visualization"
-              />
-
-              <div class="media-label">
-                Machine learning study
-              </div>
-
-            </div>
-
-            <div class="project-body">
-
-              <h3 class="project-title">
-                Predicting Spotify Skips from Song Intros
-              </h3>
-
-              <p class="project-sub">
-                I used 92,445 personal listening events to test whether a listener's
-                decision to skip a track is better predicted from the first seconds
-                of audio or from behavioral context.
-              </p>
-
-              <div class="metrics">
-
-                <div class="metric">
-                  <strong>92,445</strong>
-                  <span>listening events</span>
-                </div>
-
-                <div class="metric">
-                  <strong>61.8%</strong>
-                  <span>audio CV accuracy</span>
-                </div>
-
-                <div class="metric">
-                  <strong>75.1%</strong>
-                  <span>context CV accuracy</span>
-                </div>
-
-              </div>
-
-              <div class="project-tags">
-
-                <span class="tag">
-                  PyTorch
-                </span>
-
-                <span class="tag">
-                  AST
-                </span>
-
-                <span class="tag">
-                  CNN
-                </span>
-
-                <span class="tag">
-                  Behavioral Data
-                </span>
-
-              </div>
-
-              <div class="project-links">
-
-                <a
-                  class="plink"
-                  href="predicting-spotify-skips.pdf"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  Read report ↗
-                </a>
-
-              </div>
-
-            </div>
-          </article>
-
-          <!-- BAYESIAN SPORTS -->
-
-          <article class="project-card reveal">
-
-            <div class="project-media">
-
-              <img
-                src="assets/sports-attendance.png"
-                alt="Bayesian football attendance modeling results"
-              />
-
-              <div class="media-label">
-                Bayesian statistics
-              </div>
-
-            </div>
-
-            <div class="project-body">
-
-              <h3 class="project-title">
-                Modeling Sports Attendance in Argentina
-              </h3>
-
-              <p class="project-sub">
-                Hierarchical Bayesian modeling of Argentine football attendance
-                using team effects, weekday effects, Negative Binomial likelihoods,
-                posterior predictive checks, and missing-data estimation.
-              </p>
-
-              <div class="project-tags">
-
-                <span class="tag">
-                  PyMC
-                </span>
-
-                <span class="tag">
-                  Bayesian Statistics
-                </span>
-
-                <span class="tag">
-                  MCMC
-                </span>
-
-                <span class="tag">
-                  PSIS-LOO
-                </span>
-
-              </div>
-
-              <div class="project-links">
-
-                <a
-                  class="plink primary"
-                  href="https://github.com/pedrohgp02/modeling-sports-attendance"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  GitHub ↗
-                </a>
-
-                <a
-                  class="plink"
-                  href="sports_attendance.pdf"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  Report ↗
-                </a>
-
-              </div>
-
-            </div>
-          </article>
-
-        </div>
-      </section>
-
-      <!-- ===================================================
-           TECHNICAL WORK
-      ==================================================== -->
-
-      <section id="technical">
-
-        <div class="section-head reveal">
-
-          <div>
-
-            <h2 class="section-title">
-              Technical work
-            </h2>
-
-            <p class="section-intro">
-              Smaller projects where I explored algorithms, simulation,
-              optimization, and applied AI.
+            <p class="hero-tagline">
+              I turn messy data into models, tools, and products people can actually use.
             </p>
 
-          </div>
 
-        </div>
-
-        <div class="technical-grid">
-
-          <!-- WILDFIRE -->
-
-          <article class="technical-card reveal">
-
-            <div class="technical-top">
-
-              <div>
-
-                <div class="technical-kicker">
-                  Simulation
-                </div>
-
-                <h3>
-                  Wildfire Spread on a Real Deforestation Frontier
-                </h3>
-
-              </div>
-
-            </div>
-
-            <p>
-              Cellular automata simulation built around real Amazon deforestation
-              patterns to test how targeted interventions change simulated fire spread.
+            <p class="hero-lead">
+              I'm a Computational Sciences student at Minerva University working across
+              data science, machine learning, statistical modeling, and applied AI.
+              I like projects that start with a real question and end with something
+              interpretable, useful, or deployable.
             </p>
 
-            <div class="result-line">
-              <strong>Result:</strong>
-              targeted interventions reduced simulated burned area by up to
-              83.8% across 500 Monte Carlo runs.
+
+            <div class="hero-meta">
+
+              <span class="status-pill">
+
+                <span class="status-dot"></span>
+
+                Open to 2027 opportunities
+
+              </span>
+
+
+              <span class="meta-pill">
+                Python · R · SQL
+              </span>
+
+
+              <span class="meta-pill">
+                ML · Statistics · Data Products
+              </span>
+
             </div>
 
-            <div class="technical-links">
+
+            <div class="actions">
 
               <a
-                class="small-link"
-                href="cellular-automata.pdf"
+                class="btn primary"
+                href="#work"
+              >
+                Explore my work ↓
+              </a>
+
+
+              <a
+                class="btn"
+                href="Curriculum.pdf"
                 target="_blank"
                 rel="noopener"
               >
-                Report ↗
+                Résumé ↗
               </a>
 
-              <a
-                class="small-link"
-                href="cellular-automata.ipynb"
-                target="_blank"
-                rel="noopener"
-              >
-                Notebook ↗
-              </a>
-
-            </div>
-
-          </article>
-
-          <!-- REMEMBERME -->
-
-          <article class="technical-card reveal">
-
-            <div class="technical-top">
-
-              <div>
-
-                <div class="technical-kicker">
-                  Applied AI
-                </div>
-
-                <h3>
-                  RememberMe: AI Memory Support
-                </h3>
-
-              </div>
-
-            </div>
-
-            <p>
-              A 24-hour hackathon prototype designed to make personal videos,
-              audio, and notes searchable so relevant context can be surfaced
-              when someone needs help recalling a memory.
-            </p>
-
-            <div class="result-line">
-              <strong>UC Berkeley Hack for Impact:</strong>
-              Best Hack for Quality of Life and Best Use of TwelveLabs.
-            </div>
-
-            <div class="technical-links">
 
               <a
-                class="small-link"
-                href="https://github.com/pedrohgp02/RememberMe"
-                target="_blank"
-                rel="noopener"
-              >
-                Team repo ↗
-              </a>
-
-            </div>
-
-          </article>
-
-          <!-- GENES -->
-
-          <article class="technical-card reveal">
-
-            <div class="technical-top">
-
-              <div>
-
-                <div class="technical-kicker">
-                  Algorithms
-                </div>
-
-                <h3>
-                  Decoding Relationships Between Genes
-                </h3>
-
-              </div>
-
-            </div>
-
-            <p>
-              Genealogical tree reconstruction from DNA sequences using
-              Longest Common Subsequence similarity, greedy construction,
-              and global dynamic programming.
-            </p>
-
-            <div class="result-line">
-              <strong>Optimization:</strong>
-              global dynamic programming improved the objective score from
-              1336 to 1442 compared with the greedy approach.
-            </div>
-
-            <div class="technical-links">
-
-              <a
-                class="small-link"
-                href="https://github.com/pedrohgp02/genealogy-dp-project"
+                class="btn"
+                href="https://github.com/pedrohgp02"
                 target="_blank"
                 rel="noopener"
               >
@@ -2067,622 +2250,1441 @@
 
             </div>
 
-          </article>
 
-          <!-- SCHEDULER -->
+            <div class="paint-hint">
 
-          <article class="technical-card reveal">
+              <span class="paint-dot"></span>
 
-            <div class="technical-top">
+              move your cursor anywhere to paint
 
-              <div>
+            </div>
 
-                <div class="technical-kicker">
-                  Data Structures
+
+            <br />
+
+
+            <a
+              class="scroll-cue"
+              href="#work"
+            >
+              selected work
+
+              <span class="scroll-arrow">
+                ↓
+              </span>
+
+            </a>
+
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FEATURED WORK
+        ================================================== -->
+
+        <section id="work">
+
+
+          <div class="section-head reveal">
+
+            <div>
+
+              <h2 class="section-title">
+                Featured work
+              </h2>
+
+
+              <p class="section-intro">
+                A few projects where the analysis, engineering, and final product all matter.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="projects-grid">
+
+
+            <!-- =============================================
+                 DENGUE
+            ============================================== -->
+
+            <article
+              class="project-card featured reveal"
+            >
+
+
+              <div class="project-media">
+
+                <img
+                  src="assets/dengue-dashboard.png"
+                  alt="Dengue surveillance and forecasting dashboard"
+                />
+
+
+                <div class="media-label">
+
+                  <span class="live-dot"></span>
+
+                  Live data product
+
                 </div>
-
-                <h3>
-                  Constraint-Aware Task Scheduler
-                </h3>
 
               </div>
 
+
+              <div class="project-body">
+
+
+                <h3 class="project-title">
+                  Dengue Surveillance & Forecasting
+                </h3>
+
+
+                <p class="project-sub">
+                  An end-to-end public-health data product that ingests official
+                  Brazilian surveillance data, evaluates forecasting models using
+                  time-aware backtesting, and serves interactive forecasts through
+                  Streamlit.
+                </p>
+
+
+                <div class="metrics">
+
+
+                  <div class="metric">
+
+                    <strong>
+                      5
+                    </strong>
+
+                    <span>
+                      forecast approaches
+                    </span>
+
+                  </div>
+
+
+                  <div class="metric">
+
+                    <strong>
+                      250K
+                    </strong>
+
+                    <span>
+                      row processing chunks
+                    </span>
+
+                  </div>
+
+
+                  <div class="metric">
+
+                    <strong>
+                      5
+                    </strong>
+
+                    <span>
+                      states deployed
+                    </span>
+
+                  </div>
+
+
+                </div>
+
+
+                <div class="project-tags">
+
+                  <span class="tag">
+                    Python
+                  </span>
+
+                  <span class="tag">
+                    Forecasting
+                  </span>
+
+                  <span class="tag">
+                    scikit-learn
+                  </span>
+
+                  <span class="tag">
+                    Streamlit
+                  </span>
+
+                  <span class="tag">
+                    Plotly
+                  </span>
+
+                </div>
+
+
+                <div class="project-links">
+
+                  <a
+                    class="plink primary"
+                    href="https://dengue-surveillance.streamlit.app/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Live dashboard ↗
+                  </a>
+
+
+                  <a
+                    class="plink"
+                    href="https://github.com/pedrohgp02/dengue-surveillance-dashboard"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    GitHub ↗
+                  </a>
+
+                </div>
+
+
+              </div>
+
+            </article>
+
+
+            <!-- =============================================
+                 SPOTIFY
+            ============================================== -->
+
+            <article
+              class="project-card reveal"
+            >
+
+
+              <div class="project-media">
+
+                <img
+                  src="assets/spotify.jpg"
+                  alt="Spotify skip prediction project visualization"
+                />
+
+
+                <div class="media-label">
+                  Machine learning study
+                </div>
+
+              </div>
+
+
+              <div class="project-body">
+
+
+                <h3 class="project-title">
+                  Predicting Spotify Skips from Song Intros
+                </h3>
+
+
+                <p class="project-sub">
+                  I used 92,445 personal listening events to test whether a listener's
+                  decision to skip a track is better predicted from the first seconds
+                  of audio or from behavioral context.
+                </p>
+
+
+                <div class="metrics">
+
+
+                  <div class="metric">
+
+                    <strong>
+                      92,445
+                    </strong>
+
+                    <span>
+                      listening events
+                    </span>
+
+                  </div>
+
+
+                  <div class="metric">
+
+                    <strong>
+                      61.8%
+                    </strong>
+
+                    <span>
+                      audio CV accuracy
+                    </span>
+
+                  </div>
+
+
+                  <div class="metric">
+
+                    <strong>
+                      75.1%
+                    </strong>
+
+                    <span>
+                      context CV accuracy
+                    </span>
+
+                  </div>
+
+
+                </div>
+
+
+                <div class="project-tags">
+
+                  <span class="tag">
+                    PyTorch
+                  </span>
+
+                  <span class="tag">
+                    AST
+                  </span>
+
+                  <span class="tag">
+                    CNN
+                  </span>
+
+                  <span class="tag">
+                    Behavioral Data
+                  </span>
+
+                </div>
+
+
+                <div class="project-links">
+
+                  <a
+                    class="plink"
+                    href="predicting-spotify-skips.pdf"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Read report ↗
+                  </a>
+
+                </div>
+
+
+              </div>
+
+            </article>
+
+
+            <!-- =============================================
+                 BAYESIAN SPORTS
+            ============================================== -->
+
+            <article
+              class="project-card reveal"
+            >
+
+
+              <div class="project-media">
+
+                <img
+                  src="assets/sports-attendance.png"
+                  alt="Bayesian football attendance modeling results"
+                />
+
+
+                <div class="media-label">
+                  Bayesian statistics
+                </div>
+
+              </div>
+
+
+              <div class="project-body">
+
+
+                <h3 class="project-title">
+                  Modeling Sports Attendance in Argentina
+                </h3>
+
+
+                <p class="project-sub">
+                  Hierarchical Bayesian modeling of Argentine football attendance
+                  using team effects, weekday effects, Negative Binomial likelihoods,
+                  posterior predictive checks, and missing-data estimation.
+                </p>
+
+
+                <div class="project-tags">
+
+                  <span class="tag">
+                    PyMC
+                  </span>
+
+                  <span class="tag">
+                    Bayesian Statistics
+                  </span>
+
+                  <span class="tag">
+                    MCMC
+                  </span>
+
+                  <span class="tag">
+                    PSIS-LOO
+                  </span>
+
+                </div>
+
+
+                <div class="project-links">
+
+                  <a
+                    class="plink primary"
+                    href="https://github.com/pedrohgp02/modeling-sports-attendance"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    GitHub ↗
+                  </a>
+
+
+                  <a
+                    class="plink"
+                    href="sports_attendance.pdf"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Report ↗
+                  </a>
+
+                </div>
+
+
+              </div>
+
+            </article>
+
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TECHNICAL WORK
+        ================================================== -->
+
+        <section id="technical">
+
+
+          <div class="section-head reveal">
+
+            <div>
+
+              <h2 class="section-title">
+                Technical work
+              </h2>
+
+
+              <p class="section-intro">
+                Smaller projects where I explored algorithms, simulation,
+                optimization, and applied AI.
+              </p>
+
             </div>
+
+          </div>
+
+
+          <div class="technical-grid">
+
+
+            <!-- WILDFIRE -->
+
+            <article
+              class="technical-card reveal"
+            >
+
+
+              <div class="technical-top">
+
+                <div>
+
+                  <div class="technical-kicker">
+                    Simulation
+                  </div>
+
+
+                  <h3>
+                    Wildfire Spread on a Real Deforestation Frontier
+                  </h3>
+
+                </div>
+
+              </div>
+
+
+              <p>
+                Cellular automata simulation built around real Amazon deforestation
+                patterns to test how targeted interventions change simulated fire spread.
+              </p>
+
+
+              <div class="result-line">
+
+                <strong>
+                  Result:
+                </strong>
+
+                targeted interventions reduced simulated burned area by up to
+                83.8% across 500 Monte Carlo runs.
+
+              </div>
+
+
+              <div class="technical-links">
+
+                <a
+                  class="small-link"
+                  href="cellular-automata.pdf"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Report ↗
+                </a>
+
+
+                <a
+                  class="small-link"
+                  href="cellular-automata.ipynb"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Notebook ↗
+                </a>
+
+              </div>
+
+
+            </article>
+
+
+            <!-- REMEMBERME -->
+
+            <article
+              class="technical-card reveal"
+            >
+
+
+              <div class="technical-top">
+
+                <div>
+
+                  <div class="technical-kicker">
+                    Applied AI
+                  </div>
+
+
+                  <h3>
+                    RememberMe: AI Memory Support
+                  </h3>
+
+                </div>
+
+              </div>
+
+
+              <p>
+                A 24-hour hackathon prototype designed to make personal videos,
+                audio, and notes searchable so relevant context can be surfaced
+                when someone needs help recalling a memory.
+              </p>
+
+
+              <div class="result-line">
+
+                <strong>
+                  UC Berkeley Hack for Impact:
+                </strong>
+
+                Best Hack for Quality of Life and Best Use of TwelveLabs.
+
+              </div>
+
+
+              <div class="technical-links">
+
+                <a
+                  class="small-link"
+                  href="https://github.com/pedrohgp02/RememberMe"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Team repo ↗
+                </a>
+
+              </div>
+
+
+            </article>
+
+
+            <!-- GENES -->
+
+            <article
+              class="technical-card reveal"
+            >
+
+
+              <div class="technical-top">
+
+                <div>
+
+                  <div class="technical-kicker">
+                    Algorithms
+                  </div>
+
+
+                  <h3>
+                    Decoding Relationships Between Genes
+                  </h3>
+
+                </div>
+
+              </div>
+
+
+              <p>
+                Genealogical tree reconstruction from DNA sequences using
+                Longest Common Subsequence similarity, greedy construction,
+                and global dynamic programming.
+              </p>
+
+
+              <div class="result-line">
+
+                <strong>
+                  Optimization:
+                </strong>
+
+                global dynamic programming improved the objective score from
+                1336 to 1442 compared with the greedy approach.
+
+              </div>
+
+
+              <div class="technical-links">
+
+                <a
+                  class="small-link"
+                  href="https://github.com/pedrohgp02/genealogy-dp-project"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  GitHub ↗
+                </a>
+
+              </div>
+
+
+            </article>
+
+
+            <!-- SCHEDULER -->
+
+            <article
+              class="technical-card reveal"
+            >
+
+
+              <div class="technical-top">
+
+                <div>
+
+                  <div class="technical-kicker">
+                    Data Structures
+                  </div>
+
+
+                  <h3>
+                    Constraint-Aware Task Scheduler
+                  </h3>
+
+                </div>
+
+              </div>
+
+
+              <p>
+                Object-oriented Python scheduler using a max-heap to prioritize
+                tasks while accounting for dependencies, urgency, deadlines,
+                duration, and time windows.
+              </p>
+
+
+              <div class="result-line">
+
+                <strong>
+                  Stress testing:
+                </strong>
+
+                evaluated scheduling behavior with workloads of up to 1,000 tasks
+                and analyzed the main O(n²) bottleneck.
+
+              </div>
+
+
+              <div class="technical-links">
+
+                <a
+                  class="small-link"
+                  href="https://drive.google.com/file/d/1da_NGLsglc-umsylu-yk0n4G3JfCZa_m/view?usp=drive_link"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  View project ↗
+                </a>
+
+              </div>
+
+
+            </article>
+
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             EXPERIENCE
+        ================================================== -->
+
+        <section id="experience">
+
+
+          <div class="section-head reveal">
+
+            <div>
+
+              <h2 class="section-title">
+                Experience
+              </h2>
+
+
+              <p class="section-intro">
+                Teaching, research, community building, and products for real users.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="experience-grid">
+
+
+            <article
+              class="experience-card reveal"
+            >
+
+
+              <div class="experience-head">
+
+                <div>
+
+                  <h3>
+                    AURA Application Mentorship
+                  </h3>
+
+
+                  <div class="experience-role">
+                    Co-founder · Mentor
+                  </div>
+
+                </div>
+
+
+                <span class="experience-location">
+                  Brazil
+                </span>
+
+              </div>
+
+
+              <p>
+                Co-founded an education initiative supporting students applying
+                internationally. Built resources, digital infrastructure, classes,
+                advising systems, and application workflows used across multiple cohorts.
+              </p>
+
+
+            </article>
+
+
+            <article
+              class="experience-card reveal"
+            >
+
+
+              <div class="experience-head">
+
+                <div>
+
+                  <h3>
+                    Yale Young Global Scholars
+                  </h3>
+
+
+                  <div class="experience-role">
+                    Instructor
+                  </div>
+
+                </div>
+
+
+                <span class="experience-location">
+                  Yale
+                </span>
+
+              </div>
+
+
+              <p>
+                Designed and taught a seminar on how algorithmic systems shape
+                what people see, hear, and click, using active-learning methods
+                with international high-school students.
+              </p>
+
+
+            </article>
+
+
+            <article
+              class="experience-card reveal"
+            >
+
+
+              <div class="experience-head">
+
+                <div>
+
+                  <h3>
+                    MateMarote · UTDT
+                  </h3>
+
+
+                  <div class="experience-role">
+                    Research Assistant
+                  </div>
+
+                </div>
+
+
+                <span class="experience-location">
+                  Buenos Aires
+                </span>
+
+              </div>
+
+
+              <p>
+                Worked with long-running behavioral research data, digitizing
+                historical records and building R and Python workflows for
+                schema design, validation, quality assurance, and analysis.
+              </p>
+
+
+            </article>
+
+
+            <article
+              class="experience-card reveal"
+            >
+
+
+              <div class="experience-head">
+
+                <div>
+
+                  <h3>
+                    Minerva University
+                  </h3>
+
+
+                  <div class="experience-role">
+                    Teaching Assistant
+                  </div>
+
+                </div>
+
+
+                <span class="experience-location">
+                  Global
+                </span>
+
+              </div>
+
+
+              <p>
+                Supported students across computational and analytical coursework,
+                including formal analysis, quantitative reasoning, and interdisciplinary
+                problem solving.
+              </p>
+
+
+            </article>
+
+
+          </div>
+
+        </section>
+
+
+        <!-- =================================================
+             WRITING
+        ================================================== -->
+
+        <section id="writing">
+
+
+          <div class="section-head reveal">
+
+            <div>
+
+              <h2 class="section-title">
+                Writing
+              </h2>
+
+
+              <p class="section-intro">
+                Notes from the intersection of data, technology, history, and moving around.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <article
+            class="writing-card reveal"
+          >
+
+
+            <div class="writing-image">
+
+              <img
+                src="assets/substack-latest.jpg"
+                alt="Photo accompanying Pedro's Out of Distribution writing"
+              />
+
+            </div>
+
+
+            <div class="writing-content">
+
+
+              <div class="technical-kicker">
+                Out of Distribution
+              </div>
+
+
+              <h3>
+                I keep ending up out of distribution
+              </h3>
+
+
+              <p>
+                A piece about Korea, history, borders, datasets, and what happens
+                when the categories used to describe the world stop fitting quite
+                as neatly as they first appeared.
+              </p>
+
+
+              <div
+                class="project-links"
+                style="margin-top: 16px"
+              >
+
+                <a
+                  class="plink primary"
+                  href="https://oodnotes.substack.com/p/i-keep-ending-up-out-of-distribution"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Read on Substack ↗
+                </a>
+
+
+                <a
+                  class="plink"
+                  href="https://oodnotes.substack.com/"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  All writing ↗
+                </a>
+
+              </div>
+
+
+            </div>
+
+
+          </article>
+
+
+        </section>
+
+
+        <!-- =================================================
+             ABOUT
+        ================================================== -->
+
+        <section id="about">
+
+
+          <div class="section-head reveal">
+
+            <div>
+
+              <h2 class="section-title">
+                About
+              </h2>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="about-card reveal"
+          >
+
+
+            <div>
+
+
+              <p>
+                I'm Pedro, a Computational Sciences student at Minerva University.
+                Most of my work sits somewhere between machine learning, statistics,
+                product thinking, and data engineering.
+              </p>
+
+
+              <p
+                style="margin-top: 12px"
+              >
+                I'm especially interested in projects where modeling choices have
+                consequences outside the notebook: public-health forecasting,
+                behavioral prediction, decision systems, recommendation,
+                human-computer interaction, and data products that people can
+                actually explore.
+              </p>
+
+
+              <p
+                style="margin-top: 12px"
+              >
+                Outside of technical work, I teach, mentor students applying
+                internationally, write, study languages, and spend a lot of time
+                thinking about how technology behaves once it leaves the model
+                and meets actual humans.
+              </p>
+
+
+            </div>
+
+
+            <div class="skills">
+
+
+              <span class="skill">
+                Python
+              </span>
+
+
+              <span class="skill">
+                SQL
+              </span>
+
+
+              <span class="skill">
+                R
+              </span>
+
+
+              <span class="skill">
+                PyTorch
+              </span>
+
+
+              <span class="skill">
+                scikit-learn
+              </span>
+
+
+              <span class="skill">
+                PyMC
+              </span>
+
+
+              <span class="skill">
+                pandas
+              </span>
+
+
+              <span class="skill">
+                NumPy
+              </span>
+
+
+              <span class="skill">
+                Statistics
+              </span>
+
+
+              <span class="skill">
+                Machine Learning
+              </span>
+
+
+              <span class="skill">
+                Forecasting
+              </span>
+
+
+              <span class="skill">
+                Data Products
+              </span>
+
+
+            </div>
+
+
+          </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             CONTACT
+        ================================================== -->
+
+        <section id="contact">
+
+
+          <div
+            class="contact-card reveal"
+          >
+
+
+            <h2>
+              Let's build something useful.
+            </h2>
+
 
             <p>
-              Object-oriented Python scheduler using a max-heap to prioritize
-              tasks while accounting for dependencies, urgency, deadlines,
-              duration, and time windows.
+              I'm always interested in conversations about data, machine learning,
+              product, research, and opportunities where technical work meets
+              real-world problems.
             </p>
 
-            <div class="result-line">
-              <strong>Stress testing:</strong>
-              evaluated scheduling behavior with workloads of up to 1,000 tasks
-              and analyzed the main O(n²) bottleneck.
-            </div>
 
-            <div class="technical-links">
+            <div class="contact-actions">
+
+
+              <button
+                class="copy-btn"
+                id="copy-email"
+                type="button"
+              >
+                Copy email
+              </button>
+
 
               <a
-                class="small-link"
-                href="https://drive.google.com/file/d/1da_NGLsglc-umsylu-yk0n4G3JfCZa_m/view?usp=drive_link"
+                class="btn"
+                href="mailto:pedro@uni.minerva.edu"
+              >
+                Email me
+              </a>
+
+
+              <a
+                class="btn"
+                href="https://www.linkedin.com/in/pedrohgpaiva/"
                 target="_blank"
                 rel="noopener"
               >
-                View project ↗
+                LinkedIn ↗
               </a>
 
-            </div>
-
-          </article>
-
-        </div>
-      </section>
-
-      <!-- ===================================================
-           EXPERIENCE
-      ==================================================== -->
-
-      <section id="experience">
-
-        <div class="section-head reveal">
-
-          <div>
-
-            <h2 class="section-title">
-              Experience
-            </h2>
-
-            <p class="section-intro">
-              Teaching, research, community building, and products for real users.
-            </p>
-
-          </div>
-
-        </div>
-
-        <div class="experience-grid">
-
-          <article class="experience-card reveal">
-
-            <div class="experience-head">
-
-              <div>
-                <h3>
-                  AURA Application Mentorship
-                </h3>
-
-                <div class="experience-role">
-                  Co-founder · Mentor
-                </div>
-              </div>
-
-              <span class="experience-location">
-                Brazil
-              </span>
-
-            </div>
-
-            <p>
-              Co-founded an education initiative supporting students applying
-              internationally. Built resources, digital infrastructure, classes,
-              advising systems, and application workflows used across multiple cohorts.
-            </p>
-
-          </article>
-
-          <article class="experience-card reveal">
-
-            <div class="experience-head">
-
-              <div>
-
-                <h3>
-                  Yale Young Global Scholars
-                </h3>
-
-                <div class="experience-role">
-                  Instructor
-                </div>
-
-              </div>
-
-              <span class="experience-location">
-                Yale
-              </span>
-
-            </div>
-
-            <p>
-              Designed and taught a seminar on how algorithmic systems shape
-              what people see, hear, and click, using active-learning methods
-              with international high-school students.
-            </p>
-
-          </article>
-
-          <article class="experience-card reveal">
-
-            <div class="experience-head">
-
-              <div>
-
-                <h3>
-                  MateMarote · UTDT
-                </h3>
-
-                <div class="experience-role">
-                  Research Assistant
-                </div>
-
-              </div>
-
-              <span class="experience-location">
-                Buenos Aires
-              </span>
-
-            </div>
-
-            <p>
-              Worked with long-running behavioral research data, digitizing
-              historical records and building R and Python workflows for
-              schema design, validation, quality assurance, and analysis.
-            </p>
-
-          </article>
-
-          <article class="experience-card reveal">
-
-            <div class="experience-head">
-
-              <div>
-
-                <h3>
-                  Minerva University
-                </h3>
-
-                <div class="experience-role">
-                  Teaching Assistant
-                </div>
-
-              </div>
-
-              <span class="experience-location">
-                Global
-              </span>
-
-            </div>
-
-            <p>
-              Supported students across computational and analytical coursework,
-              including formal analysis, quantitative reasoning, and interdisciplinary
-              problem solving.
-            </p>
-
-          </article>
-
-        </div>
-      </section>
-
-      <!-- ===================================================
-           WRITING
-      ==================================================== -->
-
-      <section id="writing">
-
-        <div class="section-head reveal">
-
-          <div>
-
-            <h2 class="section-title">
-              Writing
-            </h2>
-
-            <p class="section-intro">
-              Notes from the intersection of data, technology, history, and moving around.
-            </p>
-
-          </div>
-
-        </div>
-
-        <article class="writing-card reveal">
-
-          <div class="writing-image">
-
-            <img
-              src="assets/substack-latest.jpg"
-              alt="Photo accompanying Pedro's Out of Distribution writing"
-            />
-
-          </div>
-
-          <div class="writing-content">
-
-            <div class="technical-kicker">
-              Out of Distribution
-            </div>
-
-            <h3>
-              I keep ending up out of distribution
-            </h3>
-
-            <p>
-              A piece about Korea, history, borders, datasets, and what happens
-              when the categories used to describe the world stop fitting quite
-              as neatly as they first appeared.
-            </p>
-
-            <div class="project-links" style="margin-top:16px">
 
               <a
-                class="plink primary"
-                href="https://oodnotes.substack.com/p/i-keep-ending-up-out-of-distribution"
+                class="btn"
+                href="https://github.com/pedrohgp02"
                 target="_blank"
                 rel="noopener"
               >
-                Read on Substack ↗
+                GitHub ↗
               </a>
 
-              <a
-                class="plink"
-                href="https://oodnotes.substack.com/"
-                target="_blank"
-                rel="noopener"
-              >
-                All writing ↗
-              </a>
 
             </div>
 
-          </div>
-        </article>
 
-      </section>
+          </div>
+
+
+        </section>
+
+
+      </main>
+
 
       <!-- ===================================================
-           ABOUT
+           FOOTER
       ==================================================== -->
 
-      <section id="about">
+      <footer>
 
-        <div class="section-head reveal">
 
-          <div>
+        <div>
+          Pedro Paiva · 2026
+        </div>
 
-            <h2 class="section-title">
-              About
-            </h2>
 
-          </div>
+        <div class="footer-links">
+
+
+          <a
+            href="https://github.com/pedrohgp02"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
+          </a>
+
+
+          <a
+            href="https://www.linkedin.com/in/pedrohgpaiva/"
+            target="_blank"
+            rel="noopener"
+          >
+            LinkedIn
+          </a>
+
+
+          <a
+            href="https://oodnotes.substack.com/"
+            target="_blank"
+            rel="noopener"
+          >
+            Writing
+          </a>
+
+
+          <a href="#top">
+            Back to top ↑
+          </a>
+
 
         </div>
 
-        <div class="about-card reveal">
 
-          <div>
+      </footer>
 
-            <p>
-              I'm Pedro, a Computational Sciences student at Minerva University.
-              Most of my work sits somewhere between machine learning, statistics,
-              product thinking, and data engineering.
-            </p>
 
-            <p style="margin-top:12px">
-              I'm especially interested in projects where modeling choices have
-              consequences outside the notebook: public-health forecasting,
-              behavioral prediction, decision systems, recommendation,
-              human-computer interaction, and data products that people can
-              actually explore.
-            </p>
-
-            <p style="margin-top:12px">
-              Outside of technical work, I teach, mentor students applying
-              internationally, write, study languages, and spend a lot of time
-              thinking about how technology behaves once it leaves the model
-              and meets actual humans.
-            </p>
-
-          </div>
-
-          <div class="skills">
-
-            <span class="skill">
-              Python
-            </span>
-
-            <span class="skill">
-              SQL
-            </span>
-
-            <span class="skill">
-              R
-            </span>
-
-            <span class="skill">
-              PyTorch
-            </span>
-
-            <span class="skill">
-              scikit-learn
-            </span>
-
-            <span class="skill">
-              PyMC
-            </span>
-
-            <span class="skill">
-              pandas
-            </span>
-
-            <span class="skill">
-              NumPy
-            </span>
-
-            <span class="skill">
-              Statistics
-            </span>
-
-            <span class="skill">
-              Machine Learning
-            </span>
-
-            <span class="skill">
-              Forecasting
-            </span>
-
-            <span class="skill">
-              Data Products
-            </span>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- ===================================================
-           CONTACT
-      ==================================================== -->
-
-      <section id="contact">
-
-        <div class="contact-card reveal">
-
-          <h2>
-            Let's build something useful.
-          </h2>
-
-          <p>
-            I'm always interested in conversations about data, machine learning,
-            product, research, and opportunities where technical work meets
-            real-world problems.
-          </p>
-
-          <div class="contact-actions">
-
-            <button
-              class="copy-btn"
-              id="copy-email"
-              type="button"
-            >
-              Copy email
-            </button>
-
-            <a
-              class="btn"
-              href="mailto:pedro@uni.minerva.edu"
-            >
-              Email me
-            </a>
-
-            <a
-              class="btn"
-              href="https://www.linkedin.com/in/pedrohgpaiva/"
-              target="_blank"
-              rel="noopener"
-            >
-              LinkedIn ↗
-            </a>
-
-            <a
-              class="btn"
-              href="https://github.com/pedrohgp02"
-              target="_blank"
-              rel="noopener"
-            >
-              GitHub ↗
-            </a>
-
-          </div>
-
-        </div>
-
-      </section>
-
-    </main>
-
-    <!-- =====================================================
-         FOOTER
-    ====================================================== -->
-
-    <footer>
-
-      <div>
-        Pedro Paiva · 2026
-      </div>
-
-      <div class="footer-links">
-
-        <a
-          href="https://github.com/pedrohgp02"
-          target="_blank"
-          rel="noopener"
-        >
-          GitHub
-        </a>
-
-        <a
-          href="https://www.linkedin.com/in/pedrohgpaiva/"
-          target="_blank"
-          rel="noopener"
-        >
-          LinkedIn
-        </a>
-
-        <a
-          href="https://oodnotes.substack.com/"
-          target="_blank"
-          rel="noopener"
-        >
-          Writing
-        </a>
-
-        <a
-          href="#top"
-        >
-          Back to top ↑
-        </a>
-
-      </div>
-
-    </footer>
+    </div>
 
   </div>
 
+
   <!-- =====================================================
-       ACTUAL WEBGL FLUID SIMULATION
+       WEBGL FLUID LIBRARY
   ====================================================== -->
 
   <script
     src="https://cdn.jsdelivr.net/npm/webgl-fluid@0.4"
   ></script>
 
+
   <script>
 
     /* =====================================================
-       FLUID PAINT
+       FULL-SCREEN FLUID
     ====================================================== */
 
     (() => {
 
       const canvas =
-        document.getElementById("fluid-canvas");
+        document.getElementById(
+          "fluid-canvas"
+        );
+
 
       const prefersReducedMotion =
         window.matchMedia(
           "(prefers-reduced-motion: reduce)"
         ).matches;
 
+
+      const finePointer =
+        window.matchMedia(
+          "(hover: hover) and (pointer: fine)"
+        ).matches;
+
+
       if (
         !canvas ||
         prefersReducedMotion ||
+        !finePointer ||
         typeof window.WebGLFluid !== "function"
       ) {
         return;
       }
 
+
       /*
-        These are the main knobs controlling the effect.
+        SLOWER VERSION
 
-        DENSITY_DISSIPATION:
-        lower = paint hangs around longer
+        Compared with the first version:
 
-        VELOCITY_DISSIPATION:
-        lower = fluid keeps moving longer
-
-        CURL:
-        higher = more swirls
-
-        SPLAT_RADIUS:
-        higher = wider brush
-
-        SPLAT_FORCE:
-        higher = more energetic strokes
+        lower force
+        lower curl
+        slower color changes
+        more velocity damping
+        longer-lasting soft paint
       */
-
-      const mobile =
-        window.innerWidth < 720;
 
       window.WebGLFluid(
         canvas,
         {
-          TRIGGER: "hover",
+
+          TRIGGER:
+            "hover",
+
 
           /*
-            No random paint on load.
-            You create it with the cursor.
+            No automatic splashes on startup.
           */
-          IMMEDIATE: false,
-          AUTO: false,
+
+          IMMEDIATE:
+            false,
+
+          AUTO:
+            false,
+
 
           /*
-            Performance.
+            Resolution
+
+            High enough to look good,
+            but still reasonable for a portfolio.
           */
+
           SIM_RESOLUTION:
-            mobile ? 96 : 128,
+            128,
 
           DYE_RESOLUTION:
-            mobile ? 512 : 1024,
+            1024,
 
           CAPTURE_RESOLUTION:
             512,
 
+
           /*
-            Persistence.
+            Paint persistence
+
+            Smaller density dissipation means
+            the color fades more slowly.
           */
+
           DENSITY_DISSIPATION:
-            0.72,
+            0.38,
+
+
+          /*
+            Higher than before so the fluid
+            settles down more gently instead
+            of flying across the screen.
+          */
 
           VELOCITY_DISSIPATION:
-            0.18,
+            0.40,
 
-          /*
-            Fluid physics.
-          */
+
           PRESSURE:
             0.80,
+
 
           PRESSURE_ITERATIONS:
             20,
 
-          CURL:
-            28,
 
           /*
-            Mouse brush.
+            Lower curl gives us wide,
+            soft watercolor movement rather
+            than aggressive spirals.
           */
+
+          CURL:
+            14,
+
+
+          /*
+            Brush size.
+          */
+
           SPLAT_RADIUS:
-            mobile ? 0.22 : 0.15,
+            0.13,
+
+
+          /*
+            Much calmer than the first version.
+          */
 
           SPLAT_FORCE:
-            mobile ? 4200 : 5600,
+            2800,
+
 
           SPLAT_COUNT:
             1,
 
+
           /*
-            This keeps the colors changing.
-            CSS opacity + saturation above makes them pastel.
+            Keep the pastel rainbow behavior.
           */
+
           COLORFUL:
             true,
 
+
+          /*
+            Slower changes between colors.
+          */
+
           COLOR_UPDATE_SPEED:
-            6,
+            3,
+
 
           SHADING:
             true,
 
+
           PAUSED:
             false,
 
+
           /*
-            Canvas is transparent so the site's white
-            background remains visible.
+            Let the site's warm white show through.
           */
+
           TRANSPARENT:
             true,
+
 
           BACK_COLOR:
             {
@@ -2691,17 +3693,115 @@
               b: 248
             },
 
+
           /*
-            Bloom looks great on black,
-            but is too aggressive on our white portfolio.
+            These look cool on dark sites,
+            but are too intense for this design.
           */
+
           BLOOM:
             false,
 
+
           SUNRAYS:
             false
+
         }
       );
+
+
+      /*
+        The canvas is visually behind everything
+        and has pointer-events disabled so all
+        buttons, cards, links, scrolling, and text
+        remain completely usable.
+
+        We forward desktop pointer movement to the
+        canvas manually.
+
+        This is what lets you "paint" even when
+        your cursor is moving over portfolio content.
+      */
+
+
+      let lastForwardTime =
+        0;
+
+
+      document.addEventListener(
+        "pointermove",
+        event => {
+
+          if (
+            event.pointerType &&
+            event.pointerType !== "mouse"
+          ) {
+            return;
+          }
+
+
+          const now =
+            performance.now();
+
+
+          /*
+            A tiny throttle keeps it calm and
+            slightly reduces GPU work.
+          */
+
+          if (
+            now -
+            lastForwardTime <
+            12
+          ) {
+            return;
+          }
+
+
+          lastForwardTime =
+            now;
+
+
+          const syntheticMove =
+            new MouseEvent(
+              "mousemove",
+              {
+
+                clientX:
+                  event.clientX,
+
+                clientY:
+                  event.clientY,
+
+                screenX:
+                  event.screenX,
+
+                screenY:
+                  event.screenY,
+
+                bubbles:
+                  false,
+
+                cancelable:
+                  true,
+
+                view:
+                  window
+
+              }
+            );
+
+
+          canvas.dispatchEvent(
+            syntheticMove
+          );
+
+        },
+        {
+          passive: true
+        }
+      );
+
 
     })();
 
@@ -2717,8 +3817,12 @@
           ".reveal"
         );
 
+
       if (
-        !("IntersectionObserver" in window)
+        !(
+          "IntersectionObserver"
+          in window
+        )
       ) {
 
         elements.forEach(
@@ -2729,7 +3833,9 @@
         );
 
         return;
+
       }
+
 
       const observer =
         new IntersectionObserver(
@@ -2746,6 +3852,7 @@
                     "is-visible"
                   );
 
+
                   observer.unobserve(
                     entry.target
                   );
@@ -2757,11 +3864,17 @@
 
           },
           {
-            threshold: 0.10,
+
+            threshold:
+              0.10,
+
+
             rootMargin:
               "0px 0px -35px 0px"
+
           }
         );
+
 
       elements.forEach(
         element =>
@@ -2769,6 +3882,7 @@
             element
           )
       );
+
 
     })();
 
@@ -2784,8 +3898,12 @@
           ".section-head"
         );
 
+
       if (
-        !("IntersectionObserver" in window)
+        !(
+          "IntersectionObserver"
+          in window
+        )
       ) {
 
         heads.forEach(
@@ -2796,7 +3914,9 @@
         );
 
         return;
+
       }
+
 
       const observer =
         new IntersectionObserver(
@@ -2820,9 +3940,13 @@
 
           },
           {
-            threshold: 0.35
+
+            threshold:
+              0.35
+
           }
         );
+
 
       heads.forEach(
         element =>
@@ -2831,11 +3955,12 @@
           )
       );
 
+
     })();
 
 
     /* =====================================================
-       ACTIVE NAV
+       ACTIVE NAVIGATION
     ====================================================== */
 
     (() => {
@@ -2847,6 +3972,7 @@
           )
         );
 
+
       const sections =
         links
           .map(
@@ -2857,13 +3983,20 @@
                 )
               )
           )
-          .filter(Boolean);
+          .filter(
+            Boolean
+          );
+
 
       if (
-        !("IntersectionObserver" in window)
+        !(
+          "IntersectionObserver"
+          in window
+        )
       ) {
         return;
       }
+
 
       const observer =
         new IntersectionObserver(
@@ -2878,6 +4011,7 @@
                   return;
                 }
 
+
                 links.forEach(
                   link =>
                     link.classList.remove(
@@ -2885,15 +4019,18 @@
                     )
                 );
 
+
                 const active =
                   links.find(
                     link =>
                       link.getAttribute(
                         "href"
-                      ) ===
+                      )
+                      ===
                       "#" +
                       entry.target.id
                   );
+
 
                 if (
                   active
@@ -2910,13 +4047,17 @@
 
           },
           {
+
             rootMargin:
               "-30% 0px -60% 0px",
 
+
             threshold:
               0
+
           }
         );
+
 
       sections.forEach(
         section =>
@@ -2925,11 +4066,12 @@
           )
       );
 
+
     })();
 
 
     /* =====================================================
-       IMAGE PARALLAX
+       PROJECT IMAGE PARALLAX
     ====================================================== */
 
     (() => {
@@ -2939,10 +4081,12 @@
           ".project-media img"
         );
 
+
       const prefersReducedMotion =
         window.matchMedia(
           "(prefers-reduced-motion: reduce)"
         ).matches;
+
 
       if (
         prefersReducedMotion
@@ -2950,13 +4094,16 @@
         return;
       }
 
+
       let ticking =
         false;
+
 
       function update() {
 
         const viewportHeight =
           window.innerHeight;
+
 
         images.forEach(
           image => {
@@ -2966,6 +4113,7 @@
                 .parentElement
                 .getBoundingClientRect();
 
+
             if (
               rect.bottom < 0 ||
               rect.top >
@@ -2974,35 +4122,43 @@
               return;
             }
 
+
             const center =
               rect.top +
               rect.height / 2;
 
+
             const distance =
               center -
               viewportHeight / 2;
+
 
             const amount =
               Math.max(
                 -9,
                 Math.min(
                   9,
-                  distance * -0.018
+                  distance *
+                  -0.018
                 )
               );
 
+
             image.style.setProperty(
               "--parallax-y",
-              amount + "px"
+              amount +
+              "px"
             );
 
           }
         );
 
+
         ticking =
           false;
 
       }
+
 
       window.addEventListener(
         "scroll",
@@ -3016,6 +4172,7 @@
               update
             );
 
+
             ticking =
               true;
 
@@ -3027,7 +4184,9 @@
         }
       );
 
+
       update();
+
 
     })();
 
@@ -3043,14 +4202,17 @@
           "copy-email"
         );
 
+
       if (
         !button
       ) {
         return;
       }
 
+
       const email =
         "pedro@uni.minerva.edu";
+
 
       button.addEventListener(
         "click",
@@ -3058,15 +4220,20 @@
 
           try {
 
-            await navigator.clipboard.writeText(
-              email
-            );
+            await navigator
+              .clipboard
+              .writeText(
+                email
+              );
+
 
             const original =
               button.textContent;
 
+
             button.textContent =
               "Copied ✓";
+
 
             setTimeout(
               () => {
@@ -3078,7 +4245,9 @@
               1500
             );
 
-          } catch {
+          }
+
+          catch {
 
             window.location.href =
               "mailto:" +
@@ -3088,6 +4257,7 @@
 
         }
       );
+
 
     })();
 
