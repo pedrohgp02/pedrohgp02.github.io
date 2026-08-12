@@ -1,0 +1,36 @@
+name: Simplify Substack visual
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Add editorial writing styles
+        run: |
+          cat > /tmp/writing.css <<'EOF'
+
+    /* Editorial writing panel */
+    .writing-visual{background:linear-gradient(135deg,var(--g-2),var(--g-0));min-height:260px;align-items:flex-end;justify-content:flex-start;padding:34px;text-align:left}
+    .ood-card{width:100%;background:transparent;border:0;border-radius:0;padding:0;box-shadow:none;transform:none}
+    .ood-small{font-size:10px;color:var(--faint);font-weight:950;letter-spacing:.65px;text-transform:uppercase}
+    .ood-title{margin-top:10px;font-size:clamp(42px,5vw,62px);font-weight:950;letter-spacing:-2.4px;line-height:.92;max-width:420px}
+    .ood-note{margin-top:18px;color:var(--muted);font-size:13px;line-height:1.55;max-width:330px}
+EOF
+          python -c 'from pathlib import Path; p=Path("index.html"); s=p.read_text(); css=Path("/tmp/writing.css").read_text(); p.write_text(s if "Editorial writing panel" in s else s.replace("</style>", css+"\n</style>", 1))'
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Simplify writing visual panel"
+          git push
