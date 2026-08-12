@@ -1520,6 +1520,8 @@
     .writing-card {
       display: grid;
 
+      grid-template-columns: 1fr;
+
       overflow: hidden;
 
       border:
@@ -1540,72 +1542,206 @@
     }
 
 
-    .writing-image {
+    /* LEFT SIDE: ABOUT OUT OF DISTRIBUTION */
+
+    .writing-about {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      min-height: 360px;
+
+      padding: 28px;
+    }
+
+
+    .writing-about-main {
+      max-width: 430px;
+    }
+
+
+    .writing-label {
+      margin-bottom: 13px;
+
+      color: var(--faint);
+
+      font-size: 10px;
+      font-weight: 950;
+
+      letter-spacing: 0.7px;
+
+      text-transform: uppercase;
+    }
+
+
+    .writing-about h3 {
+      margin: 0;
+
+      font-size:
+        clamp(
+          25px,
+          3vw,
+          34px
+        );
+
+      font-weight: 950;
+
+      letter-spacing: -0.8px;
+
+      line-height: 1.12;
+    }
+
+
+    .writing-about p {
+      margin:
+        15px
+        0
+        0;
+
+      color: var(--muted);
+
+      font-size: 14px;
+
+      line-height: 1.75;
+    }
+
+
+    .writing-about .project-links {
+      margin-top: 24px;
+    }
+
+
+    /* RIGHT SIDE: LATEST ARTICLE */
+
+    .writing-latest {
       position: relative;
 
-      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+
+      min-height: 360px;
+
+      overflow: hidden;
+
+      border-top:
+        1px solid
+        var(--line2);
+
+      background:
+        rgba(255, 255, 255, 0.44);
+
+      transition:
+        background 180ms ease;
+    }
+
+
+    .writing-latest:hover {
+      background:
+        rgba(255, 255, 255, 0.62);
+    }
+
+
+    .writing-latest-image {
+      position: relative;
+
+      height: 230px;
 
       overflow: hidden;
     }
 
 
-    .writing-image img {
+    .writing-latest-image img {
+      display: block;
+
       width: 100%;
       height: 100%;
 
-      min-height: 260px;
-
       object-fit: cover;
+
+      transition:
+        transform 350ms ease;
     }
 
 
-    .writing-image::after {
+    .writing-latest:hover
+    .writing-latest-image img {
+      transform:
+        scale(1.025);
+    }
+
+
+    .writing-latest-image::after {
       content: "";
 
       position: absolute;
 
       inset: 0;
 
+      pointer-events: none;
+
       background:
         linear-gradient(
           to top,
-          rgba(20, 25, 30, 0.24),
-          transparent 60%
+          rgba(20, 25, 30, 0.12),
+          transparent 55%
         );
     }
 
 
-    .writing-content {
-      padding: 20px;
+    .writing-latest-content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+
+      padding:
+        20px
+        22px
+        22px;
     }
 
 
-    .writing-content h3 {
+    .writing-latest-content h3 {
       margin:
         4px
         0
         8px;
 
-      font-size: 22px;
+      font-size: 21px;
+      font-weight: 950;
 
-      letter-spacing:
-        -0.45px;
+      letter-spacing: -0.45px;
 
-      line-height:
-        1.25;
+      line-height: 1.25;
     }
 
 
-    .writing-content p {
+    .writing-latest-content p {
       margin: 0;
 
+      color: var(--muted);
+
+      font-size: 13px;
+
+      line-height: 1.65;
+    }
+
+
+    .writing-latest-link {
+      margin-top: auto;
+
+      padding-top: 17px;
+
       color:
-        var(--muted);
+        rgba(31, 36, 48, 0.80);
 
-      font-size: 14px;
+      font-size: 12px;
+      font-weight: 900;
+    }
 
-      line-height:
-        1.68;
+
+    .writing-latest:hover
+    .writing-latest-link {
+      color: var(--ink);
     }
 
 
@@ -1935,8 +2071,22 @@
 
       .writing-card {
         grid-template-columns:
-          0.95fr
-          1.05fr;
+          0.82fr
+          1.18fr;
+      }
+
+
+      .writing-latest {
+        border-top: 0;
+
+        border-left:
+          1px solid
+          var(--line2);
+      }
+
+
+      .writing-latest-image {
+        height: 260px;
       }
 
 
@@ -2001,6 +2151,25 @@
 
         border-radius:
           20px;
+      }
+
+
+      .writing-about {
+        min-height: auto;
+
+        padding:
+          23px
+          20px;
+      }
+
+
+      .writing-latest {
+        min-height: auto;
+      }
+
+
+      .writing-latest-image {
+        height: 220px;
       }
 
 
@@ -3166,63 +3335,47 @@
           </div>
 
 
-          <article
-            class="writing-card reveal"
-          >
+          <div class="writing-card reveal">
 
 
-            <div class="writing-image">
+            <!-- =============================================
+                 LEFT: ABOUT OUT OF DISTRIBUTION
+            ============================================== -->
 
-              <img
-                src="assets/substack-latest.jpg"
-                alt="Photo accompanying Pedro's Out of Distribution writing"
-              />
-
-            </div>
+            <div class="writing-about">
 
 
-            <div class="writing-content">
+              <div class="writing-about-main">
+
+                <div class="writing-label">
+                  Out of Distribution
+                </div>
 
 
-              <div class="technical-kicker">
-                Out of Distribution
+                <h3>
+                  Notes from places, datasets, and everything that doesn't quite fit.
+                </h3>
+
+
+                <p>
+                  Out of Distribution is where I write about the things I keep
+                  encountering outside of my technical work: history, cities,
+                  technology, data, culture, travel, and the strange ways they
+                  end up overlapping.
+                </p>
+
               </div>
 
 
-              <h3>
-                I keep ending up out of distribution
-              </h3>
-
-
-              <p>
-                A piece about Korea, history, borders, datasets, and what happens
-                when the categories used to describe the world stop fitting quite
-                as neatly as they first appeared.
-              </p>
-
-
-              <div
-                class="project-links"
-                style="margin-top: 16px"
-              >
+              <div class="project-links">
 
                 <a
                   class="plink primary"
-                  href="https://oodnotes.substack.com/p/i-keep-ending-up-out-of-distribution"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  Read on Substack ↗
-                </a>
-
-
-                <a
-                  class="plink"
                   href="https://oodnotes.substack.com/"
                   target="_blank"
                   rel="noopener"
                 >
-                  All writing ↗
+                  Visit Substack ↗
                 </a>
 
               </div>
@@ -3231,8 +3384,59 @@
             </div>
 
 
-          </article>
+            <!-- =============================================
+                 RIGHT: LATEST ARTICLE
+                 Update this block when you publish a new one
+            ============================================== -->
 
+            <a
+              class="writing-latest"
+              href="https://oodnotes.substack.com/p/i-keep-ending-up-out-of-distribution"
+              target="_blank"
+              rel="noopener"
+            >
+
+
+              <div class="writing-latest-image">
+
+                <img
+                  src="assets/substack-latest.jpg"
+                  alt="View over Seoul accompanying the latest Out of Distribution article"
+                />
+
+              </div>
+
+
+              <div class="writing-latest-content">
+
+                <div class="writing-label">
+                  Latest
+                </div>
+
+
+                <h3>
+                  I keep ending up out of distribution
+                </h3>
+
+
+                <p>
+                  Korea, history, borders, datasets, and what happens when
+                  the categories we use to describe the world stop fitting
+                  quite as neatly as they first appeared.
+                </p>
+
+
+                <div class="writing-latest-link">
+                  Read the latest article ↗
+                </div>
+
+              </div>
+
+
+            </a>
+
+
+          </div>
 
         </section>
 
