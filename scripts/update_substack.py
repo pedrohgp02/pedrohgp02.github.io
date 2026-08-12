@@ -3,6 +3,7 @@ from __future__ import annotations
 # Syncs the latest Out of Distribution post into the portfolio.
 import html as html_lib
 import re
+import subprocess
 import sys
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -11,13 +12,43 @@ from pathlib import Path
 FEED_URL = "https://oodnotes.substack.com/feed"
 INDEX_PATH = Path("index.html")
 ASSETS_DIR = Path("assets")
-USER_AGENT = "Mozilla/5.0 (compatible; PedroPortfolioBot/1.0)"
+USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/150 Safari/537.36"
 
 
 def fetch_bytes(url: str, timeout: int = 25):
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        return resp.read(), resp.headers.get_content_type()
+    req = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return resp.read(), resp.headers.get_content_type()
+    except Exception as urllib_exc:
+        try:
+            result = subprocess.run(
+                [
+                    "curl",
+                    "-LfsS",
+                    "--max-time",
+                    str(timeout),
+                    "-A",
+                    USER_AGENT,
+                    "-H",
+                    "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+                    "-H",
+                    "Accept-Language: en-US,en;q=0.9",
+                    url,
+                ],
+                check=True,
+                capture_output=True,
+            )
+            return result.stdout, None
+        except Exception as curl_exc:
+            raise RuntimeError(f"urllib failed ({urllib_exc}); curl failed ({curl_exc})") from curl_exc
 
 
 def first_text(node, names):
@@ -137,7 +168,7 @@ def update_index(title: str, link: str, image_path: str | None):
     safe_link = html_lib.escape(link, quote=True)
 
     latest_pattern = re.compile(
-        r'<a class="writing-latest" href="[^"]+" target="_blank" rel="noreferrer">\s*<span>Start here</span><strong>.*?</strong>\s*</a>',
+        r'<a class="writing-latest" href="[^"]+" target="_blank" rel="noreferrer">\s*<span>(?:Start here|Latest post)</span><strong>.*?</strong>\s*</a>',
         re.S,
     )
     latest_replacement = (
