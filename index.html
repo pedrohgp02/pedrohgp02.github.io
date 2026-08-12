@@ -132,7 +132,6 @@
     .scroll-arrow{display:inline-block;animation:scrollBounce 1.8s ease-in-out infinite}
     @keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
-
     section{margin-top:46px;scroll-margin-top:18px}
     .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:0 2px;margin-bottom:14px}
     .section-title{margin:0;font-size:14px;letter-spacing:.42px;font-weight:950;text-transform:uppercase;color:rgba(31,36,48,.8);display:inline-flex;align-items:center;gap:9px}
@@ -149,15 +148,10 @@
     .project-card.featured{grid-column:1/-1;border-color:rgba(169,215,193,.72);background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(243,250,246,.82))}
 
     .project-media{aspect-ratio:16/9;background:linear-gradient(135deg,var(--g-2),var(--g-0));border-bottom:1px solid var(--line2);position:relative;overflow:hidden}
-    .project-media:after{
-      content:"";position:absolute;inset:0;background:radial-gradient(700px 260px at 20% 15%,rgba(255,255,255,.45),transparent 60%);pointer-events:none;opacity:.7;
-    }
+    .project-media:after{content:"";position:absolute;inset:0;background:radial-gradient(700px 260px at 20% 15%,rgba(255,255,255,.45),transparent 60%);pointer-events:none;opacity:.7}
     .project-media img{width:100%;height:100%;object-fit:cover;display:block;--parallax-y:0px;transform:translate3d(0,var(--parallax-y),0) scale(1.055);transition:transform 260ms ease;will-change:transform}
     .project-card:hover .project-media img{transform:translate3d(0,var(--parallax-y),0) scale(1.085)}
-    .media-label{
-      position:absolute;left:14px;bottom:12px;padding:7px 10px;border-radius:999px;border:1px solid rgba(31,36,48,.12);
-      background:rgba(255,255,255,.9);color:rgba(31,36,48,.72);font-size:11px;font-weight:900;backdrop-filter:blur(7px);z-index:2;
-    }
+    .media-label{position:absolute;left:14px;bottom:12px;padding:7px 10px;border-radius:999px;border:1px solid rgba(31,36,48,.12);background:rgba(255,255,255,.9);color:rgba(31,36,48,.72);font-size:11px;font-weight:900;backdrop-filter:blur(7px);z-index:2}
     .live-dot{display:inline-block;width:7px;height:7px;border-radius:999px;background:#45a97a;margin-right:5px;vertical-align:1px;box-shadow:0 0 0 3px rgba(69,169,122,.12)}
 
     .project-body{padding:17px 18px 18px;display:grid;gap:11px;align-content:start}
@@ -180,15 +174,10 @@
     details.project-note[open] summary:after{content:"×"}
     details.project-note p{margin:7px 0 0;line-height:1.55}
 
-    .writing-visual{
-      width:100%;height:100%;min-height:220px;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;z-index:0;
-    }
+    .writing-visual{width:100%;height:100%;min-height:220px;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;z-index:0}
 
     .technical-grid{display:grid;grid-template-columns:1fr;gap:14px}
-    .technical-card{
-      border:1px solid var(--line);border-radius:var(--r);background:var(--surface);box-shadow:var(--shadow);padding:17px;display:grid;gap:10px;
-      transition:border-color 180ms ease,transform 180ms ease,box-shadow 180ms ease;
-    }
+    .technical-card{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);box-shadow:var(--shadow);padding:17px;display:grid;gap:10px;transition:border-color 180ms ease,transform 180ms ease,box-shadow 180ms ease}
     .technical-card:hover{border-color:rgba(31,36,48,.16);transform:translateY(-2px);box-shadow:var(--shadow-hover)}
     .technical-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
     .technical-kicker{font-size:10px;text-transform:uppercase;letter-spacing:.55px;color:var(--faint);font-weight:950}
@@ -207,9 +196,7 @@
     .experience-stat{white-space:nowrap;padding:6px 9px;border-radius:999px;background:rgba(217,240,228,.55);border:1px solid rgba(169,215,193,.45);font-size:10px;font-weight:950;color:rgba(31,36,48,.7)}
     .experience-card p{margin:10px 0 0;color:var(--muted);font-size:13px;line-height:1.6}
 
-    .writing-card{
-      display:grid;grid-template-columns:1fr;gap:0;border:1px solid rgba(169,215,193,.68);border-radius:22px;background:var(--surface);overflow:hidden;box-shadow:var(--shadow);
-    }
+    .writing-card{display:grid;grid-template-columns:1fr;gap:0;border:1px solid rgba(169,215,193,.68);border-radius:22px;background:var(--surface);overflow:hidden;box-shadow:var(--shadow)}
     .writing-copy{padding:24px;display:grid;gap:12px;align-content:center}
     .writing-copy .publication{font-size:11px;font-weight:950;letter-spacing:.65px;text-transform:uppercase;color:var(--faint)}
     .writing-copy h3{margin:0;font-size:25px;line-height:1.1;letter-spacing:-.65px}
@@ -220,6 +207,11 @@
     .writing-visual{background:linear-gradient(135deg,var(--g-2),var(--g-0));min-height:260px}
     .ood-card{width:min(84%,330px);background:rgba(255,255,255,.82);border:1px solid rgba(31,36,48,.11);border-radius:18px;padding:22px;box-shadow:0 14px 32px rgba(31,36,48,.08);transform:rotate(-1.5deg)}
     .ood-small{font-size:10px;color:var(--faint);font-weight:900;letter-spacing:.5px;text-transform:uppercase}.ood-title{margin-top:8px;font-size:27px;font-weight:950;letter-spacing:-.8px;line-height:1.02}.ood-note{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.5}
+
+    .writing-visual.latest-post-visual{position:relative;padding:0;min-height:300px;overflow:hidden;background:var(--g-1)}
+    .writing-visual.latest-post-visual img{width:100%;height:100%;min-height:300px;object-fit:cover;object-position:center center;display:block;transition:transform 220ms ease}
+    .writing-visual.latest-post-visual:hover img{transform:scale(1.025)}
+    .writing-visual-overlay{position:absolute;left:18px;bottom:18px;padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.9);border:1px solid var(--line);font-size:11px;font-weight:900;color:rgba(31,36,48,.78);backdrop-filter:blur(7px)}
 
     .about-card{border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:var(--shadow);padding:24px;display:grid;grid-template-columns:1fr;gap:18px}
     .about-card h3{margin:0;font-size:26px;letter-spacing:-.6px;line-height:1.12}.about-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.75}
@@ -232,17 +224,10 @@
     footer a{font-weight:850;color:rgba(31,36,48,.66)}
     footer a:hover{color:var(--ink)}
 
-    .back-top{
-      position:fixed;right:18px;bottom:18px;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);
-      background:rgba(255,255,255,.9);box-shadow:var(--shadow);display:grid;place-items:center;color:var(--muted);font-weight:950;
-      opacity:0;pointer-events:none;transform:translateY(8px);transition:180ms ease;z-index:20;cursor:pointer;
-    }
+    .back-top{position:fixed;right:18px;bottom:18px;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.9);box-shadow:var(--shadow);display:grid;place-items:center;color:var(--muted);font-weight:950;opacity:0;pointer-events:none;transform:translateY(8px);transition:180ms ease;z-index:20;cursor:pointer}
     .back-top.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
     .back-top:hover,.back-top:focus-visible{background:var(--g-1);color:var(--ink);outline:none}
 
-
-
-    /* Scroll motion */
     .scroll-progress{position:fixed;left:0;top:0;height:3px;width:0;background:linear-gradient(90deg,var(--g-5),var(--g-3));z-index:100;pointer-events:none}
     .js .reveal{opacity:0;transform:translateY(30px) scale(.992);transition:opacity 720ms cubic-bezier(.2,.75,.2,1),transform 720ms cubic-bezier(.2,.75,.2,1);transition-delay:var(--reveal-delay,0ms)}
     .js .reveal.reveal-left{transform:translateX(-34px) scale(.992)}
@@ -531,12 +516,9 @@
               <a class="plink primary" href="https://oodnotes.substack.com/" target="_blank" rel="noreferrer">Visit Substack ↗</a>
             </div>
           </div>
-          <a class="writing-visual" href="https://oodnotes.substack.com/" target="_blank" rel="noreferrer" aria-label="Open Out of Distribution on Substack">
-            <div class="ood-card">
-              <div class="ood-small">Notes from Pedro Paiva</div>
-              <div class="ood-title">Out of<br>Distribution</div>
-              <div class="ood-note">Prediction and understanding aren’t quite the same thing.</div>
-            </div>
+          <a class="writing-visual latest-post-visual" href="https://oodnotes.substack.com/p/i-keep-ending-up-out-of-distribution" target="_blank" rel="noreferrer" aria-label="Read I Keep Ending Up Out of Distribution">
+            <img src="assets/substack-latest.jpg" alt="Seoul skyline with Namsan Tower" loading="lazy">
+            <span class="writing-visual-overlay">Latest from Out of Distribution ↗</span>
           </a>
         </article>
       </section>
@@ -588,7 +570,6 @@
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Reveal sections and cards as they enter the viewport.
     const revealTargets = [
       ...document.querySelectorAll(".section-head"),
       ...document.querySelectorAll(".project-card"),
@@ -625,7 +606,6 @@
       revealTargets.forEach((el) => revealObserver.observe(el));
     }
 
-    // Count the headline metrics up once when they appear.
     const counters = document.querySelectorAll(".count-up");
     const animateCounter = (el) => {
       if (el.dataset.counted === "true") return;
@@ -702,7 +682,6 @@
 
     backTop.addEventListener("click", () => window.scrollTo({ top:0, behavior:reduceMotion ? "auto" : "smooth" }));
 
-    // Highlight the nav item for the section currently in view.
     const navLinks = [...document.querySelectorAll('.nav a[href^="#"]')];
     const sectionMap = navLinks
       .map((link) => ({ link, section:document.querySelector(link.getAttribute("href")) }))
