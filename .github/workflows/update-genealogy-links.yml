@@ -1,0 +1,39 @@
+name: Update decoding genes links
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update-link:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update decoding genes links
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("index.html")
+          text = path.read_text()
+
+          old = '<a class="small-link" href="https://github.com/pedrohgp02/genealogy-dp-project" target="_blank" rel="noreferrer">Code + report ↗</a>'
+          new = '<a class="small-link" href="https://github.com/pedrohgp02/genealogy-dp-project" target="_blank" rel="noreferrer">Code ↗</a>\n              <a class="small-link" href="https://drive.google.com/file/d/1AR2zRdlDCiyIrqfMTat1TmxuqjD3-VDj/view?usp=sharing" target="_blank" rel="noreferrer">Report ↗</a>'
+
+          if old not in text:
+              raise SystemExit("Decoding Genes link block not found")
+
+          path.write_text(text.replace(old, new, 1))
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Add Decoding Genes report link"
+          git push
