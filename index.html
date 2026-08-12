@@ -183,9 +183,79 @@
     .remember-visual,.genealogy-visual,.writing-visual{
       width:100%;height:100%;min-height:220px;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;z-index:0;
     }
-    .flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:center;gap:7px;width:100%;max-width:480px}
-    .flow-step{background:rgba(255,255,255,.76);border:1px solid rgba(31,36,48,.11);border-radius:13px;padding:13px 8px;text-align:center;box-shadow:0 4px 12px rgba(31,36,48,.035)}
-    .flow-step b{display:block;font-size:12px}.flow-step span{display:block;font-size:10px;color:var(--muted);margin-top:3px}.flow-arrow{text-align:center;color:var(--faint);font-weight:900}
+
+    /* RememberMe concept preview: a compact memory assistant instead of a process diagram */
+    .remember-visual{
+      min-height:300px;
+      background:
+        radial-gradient(circle at 18% 18%,rgba(255,255,255,.92),transparent 30%),
+        linear-gradient(145deg,rgba(217,240,228,.96),rgba(239,248,243,.78));
+      overflow:hidden;
+    }
+    .remember-shell{
+      width:min(92%,520px);
+      display:grid;
+      grid-template-columns:.84fr 1.16fr;
+      gap:12px;
+      align-items:stretch;
+      transform:rotate(-.35deg);
+      transition:transform 260ms ease;
+    }
+    .project-card:hover .remember-shell{transform:rotate(0deg) translateY(-2px)}
+    .memory-stack{display:grid;gap:10px;align-content:center}
+    .memory-card{
+      border:1px solid rgba(31,36,48,.10);
+      border-radius:16px;
+      background:rgba(255,255,255,.88);
+      padding:13px;
+      box-shadow:0 8px 22px rgba(31,36,48,.055);
+      display:grid;gap:8px;
+    }
+    .memory-card:nth-child(1){transform:translateX(8px) rotate(-1.2deg)}
+    .memory-card:nth-child(2){transform:translateX(-2px) rotate(.8deg)}
+    .memory-thumb{
+      height:54px;border-radius:11px;overflow:hidden;position:relative;
+      background:linear-gradient(135deg,rgba(169,215,193,.88),rgba(235,246,240,.95));
+    }
+    .memory-thumb:before,.memory-thumb:after{content:"";position:absolute;border-radius:999px;background:rgba(255,255,255,.68)}
+    .memory-thumb:before{width:34px;height:34px;left:14px;top:10px}
+    .memory-thumb:after{width:72px;height:18px;right:-8px;bottom:7px;border-radius:12px}
+    .memory-meta{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .memory-meta strong{font-size:11px;letter-spacing:-.1px}
+    .memory-meta span{font-size:9px;color:var(--faint);font-weight:800}
+
+    .assistant-panel{
+      border:1px solid rgba(31,36,48,.11);
+      border-radius:20px;
+      background:rgba(255,255,255,.93);
+      box-shadow:0 14px 30px rgba(31,36,48,.075);
+      padding:16px;
+      display:grid;gap:11px;align-content:center;
+    }
+    .assistant-top{display:flex;align-items:center;gap:9px}
+    .assistant-icon{
+      width:31px;height:31px;border-radius:10px;display:grid;place-items:center;
+      background:rgba(217,240,228,.86);border:1px solid rgba(169,215,193,.7);font-size:15px;
+    }
+    .assistant-top strong{display:block;font-size:12px}
+    .assistant-top span{display:block;margin-top:1px;font-size:9px;color:var(--faint);font-weight:800}
+    .assistant-question{
+      padding:10px 11px;border-radius:12px 12px 4px 12px;
+      background:rgba(31,36,48,.055);color:rgba(31,36,48,.76);font-size:10px;line-height:1.45;
+      margin-left:24px;
+    }
+    .assistant-answer{
+      padding:11px;border-radius:4px 12px 12px 12px;
+      background:rgba(217,240,228,.58);border:1px solid rgba(169,215,193,.48);
+      font-size:10px;line-height:1.5;color:rgba(31,36,48,.78);
+    }
+    .assistant-answer b{color:var(--ink)}
+    .assistant-source{margin-top:5px;color:var(--faint);font-size:8.5px;font-weight:850;text-transform:uppercase;letter-spacing:.35px}
+    .remember-award{
+      position:absolute;right:18px;bottom:16px;z-index:2;padding:7px 10px;border-radius:999px;
+      background:rgba(255,255,255,.92);border:1px solid rgba(31,36,48,.10);
+      box-shadow:0 7px 18px rgba(31,36,48,.055);font-size:10px;font-weight:950;color:rgba(31,36,48,.7);
+    }
 
     .technical-grid{display:grid;grid-template-columns:1fr;gap:14px}
     .technical-card{
@@ -404,17 +474,31 @@
 
           <article class="project-card">
             <div class="project-media">
-              <span class="media-label">2× Hackathon Winner</span>
-              <div class="remember-visual" aria-label="RememberMe product flow diagram">
-                <div class="flow">
-                  <div class="flow-step"><b>Personal media</b><span>video + audio</span></div>
-                  <div class="flow-arrow">→</div>
-                  <div class="flow-step"><b>Understanding</b><span>TwelveLabs</span></div>
-                  <div class="flow-arrow">→</div>
-                  <div class="flow-step"><b>Retrieval</b><span>Vespa</span></div>
-                  <div class="flow-arrow">→</div>
-                  <div class="flow-step"><b>Recall</b><span>memory support</span></div>
+              <div class="remember-visual" aria-label="Illustrative RememberMe memory assistant preview">
+                <div class="remember-shell">
+                  <div class="memory-stack" aria-hidden="true">
+                    <div class="memory-card">
+                      <div class="memory-thumb"></div>
+                      <div class="memory-meta"><strong>Family video</strong><span>indexed</span></div>
+                    </div>
+                    <div class="memory-card">
+                      <div class="memory-thumb"></div>
+                      <div class="memory-meta"><strong>Personal memory</strong><span>retrievable</span></div>
+                    </div>
+                  </div>
+                  <div class="assistant-panel">
+                    <div class="assistant-top">
+                      <div class="assistant-icon" aria-hidden="true">✦</div>
+                      <div><strong>RememberMe</strong><span>personal memory assistant</span></div>
+                    </div>
+                    <div class="assistant-question">Help me remember this moment.</div>
+                    <div class="assistant-answer">
+                      <b>Related context found.</b><br>Personal media is processed and stored as searchable context for recall.
+                      <div class="assistant-source">TwelveLabs + retrieval</div>
+                    </div>
+                  </div>
                 </div>
+                <div class="remember-award">2× hackathon winner</div>
               </div>
             </div>
             <div class="project-body">
